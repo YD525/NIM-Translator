@@ -106,7 +106,7 @@ namespace NIM.ModParser
         public static extern int C_ReadEsp(IntPtr handle, [MarshalAs(UnmanagedType.LPWStr)] string espPath);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool C_SaveEsp(IntPtr handle, IntPtr utf8Path);
+        public static extern int C_SaveEsp(IntPtr handle, IntPtr utf8Path);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_Clear(IntPtr handle);
@@ -183,11 +183,9 @@ namespace NIM.ModParser
 
         // Modify
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
         public static extern int C_ModifySubRecordByOffset(IntPtr handle, int isCell, int recordOffset, int subOffset, IntPtr newUtf8Data);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
         public static extern int C_ModifySubRecord(IntPtr handle, uint formID, IntPtr recordSig, IntPtr subSig, int occurrenceIndex, int globalIndex, IntPtr newUtf8Data);
 
         // Character tracker
@@ -520,13 +518,17 @@ namespace NIM.ModParser
             try
             {
                 Ptr = StringToUtf8Ptr(OutputPath);
-                return EspNative.C_SaveEsp(Instance, Ptr);
+                if (EspNative.C_SaveEsp(Instance, Ptr) > 0)
+                {
+                    return true;
+                }
             }
             finally
             {
                 if (Ptr != IntPtr.Zero)
                     Marshal.FreeHGlobal(Ptr);
             }
+            return false;
         }
         public static string GetFilterByStr(IntPtr instance)
         {
