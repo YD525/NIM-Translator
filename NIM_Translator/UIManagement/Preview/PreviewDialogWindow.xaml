@@ -39,9 +39,8 @@
             </Border>
             <ScrollViewer x:Name="MessageScrollViewer" Grid.Row="2" Margin="20,14,20,0" MaxHeight="350"
                           VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <TextBlock x:Name="DialogMessage" FontSize="13" LineHeight="19"
-                           Foreground="{StaticResource PreviewBrushTextSecondary}"
-                           TextWrapping="Wrap" />
+                <TextBox AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" x:Name="DialogMessage" FontSize="13" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}"
+                           Foreground="{StaticResource PreviewBrushTextSecondary}"/>
             </ScrollViewer>
             <StackPanel Grid.Row="3" Margin="20,22,20,20" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="CancelButton" MinWidth="96" Margin="0,0,8,0"
