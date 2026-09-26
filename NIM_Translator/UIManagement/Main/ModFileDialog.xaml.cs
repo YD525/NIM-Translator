@@ -135,8 +135,11 @@ namespace NIM
         {
             if (AvailableFilesView.Visibility == Visibility.Visible)
             {
+                SearchBox.Tag = "Search inside mod file data...";
+
                 AvailableFilesView.Visibility = Visibility.Collapsed;
                 CModView.Visibility = Visibility.Visible;
+                AvailableFiles = null;
                 return;
             }
 
@@ -209,12 +212,15 @@ namespace NIM
 
         }
         public SkyrimEntry CurrentEntry = null;
+        public List<string> AvailableFiles = new List<string>();
         public void ShowAvailableFiles(SkyrimEntry Entry, List<string>Files)
         {
             AvailableFilesView.Visibility = Visibility.Visible;
             CModView.Visibility = Visibility.Collapsed;
-
+            AvailableFiles = Files;
             AvailableFileList.Items.Clear();
+
+            SearchBox.Tag = "Search file name or inside mod file data...";
 
             if (Entry != null)
             {
@@ -302,6 +308,46 @@ namespace NIM
         private void Close_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Hide();
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (AvailableFilesView.Visibility == Visibility.Visible)
+            {
+                if (SearchInFo == null)
+                {
+                    List<string> FindFileNames = new List<string>();
+
+                    foreach (var GetFile in AvailableFiles)
+                    {
+                        string SetPath = GetFile.Substring(CurrentEntry.Path.Length);
+
+                        if (SetPath.Contains(SearchBox.Text))
+                        {
+                            FindFileNames.Add(GetFile);
+                        }
+                    }
+
+                    if (SearchBox.Text.Length > 0)
+                    {
+                        AvailableFileList.Items.Clear();
+
+                        foreach (var GetFileName in FindFileNames)
+                        {
+                            AvailableFileList.Items.Add(GetFileName.Substring(CurrentEntry.Path.Length));
+                        }
+                    }
+                    else
+                    {
+                        AvailableFileList.Items.Clear();
+
+                        foreach (var GetFileName in AvailableFiles)
+                        {
+                            AvailableFileList.Items.Add(GetFileName.Substring(CurrentEntry.Path.Length));
+                        }
+                    }
+                }
+            }
         }
     }
 }

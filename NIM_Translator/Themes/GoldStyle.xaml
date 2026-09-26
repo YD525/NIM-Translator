@@ -517,7 +517,6 @@
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="FontWeight" Value="DemiBold"/>
     </Style>
     <Style x:Key="LineTranslatedBorder" TargetType="Border">
         <Setter Property="Background" Value="#FF1D1D1D"/>
