@@ -456,9 +456,15 @@
     <Resource Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ThirdParty\FluentSystemIcons\LICENSE.txt" />
-    <None Include="ThirdParty\FluentSystemIcons\NOTICE.txt" />
-    <None Include="ThirdParty\FluentSystemIcons\SOURCE.json" />
+    <None Include="ThirdParty\FluentSystemIcons\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ThirdParty\FluentSystemIcons\NOTICE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ThirdParty\FluentSystemIcons\SOURCE.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Interface\Translations\Lex_English.txt" />
@@ -476,6 +482,18 @@
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="ThirdParty\AvalonEdit\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ThirdParty\miniz\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ThirdParty\Newtonsoft.Json\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ThirdParty\System.Data.SQLite\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Target Name="EnsureReleaseDependencies" BeforeTargets="PrepareForBuild">
     <Error Condition="!Exists('$(DependencyRoot)\EspReader.dll')" Text="EspReader.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
