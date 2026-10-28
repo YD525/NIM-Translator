@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using PexInterface;
 using NIMEngine.Memory;
 using static PexInterface.PexHeuristicAnalysis;
-using System;
 using NIM.ApplicationLayer;
-using System.Windows;
 
 namespace NIM.ModParser
 {
