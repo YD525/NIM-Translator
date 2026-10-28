@@ -3,6 +3,9 @@ using System.Linq;
 using PexInterface;
 using NIMEngine.Memory;
 using static PexInterface.PexHeuristicAnalysis;
+using System;
+using NIM.ApplicationLayer;
+using System.Windows;
 
 namespace NIM.ModParser
 {
@@ -20,7 +23,7 @@ namespace NIM.ModParser
         public bool IsVar;
         public int VarOffset;
     }
-    public class PexReader: IScriptReader<Dictionary<string, PexStrings>>
+    public class PexReader : IScriptReader<Dictionary<string, PexStrings>>
     {
         //This section primarily records information to facilitate quick navigation to specific locations within the decompiled Pex documents, as identical strings may appear in the Pex code.
         public Dictionary<string, int> PexLinks = new Dictionary<string, int>();
@@ -50,32 +53,41 @@ namespace NIM.ModParser
         /// <param name="Style">Decide on the style for displaying the decompiled scripting language.</param>
         /// <param name="ShowAssembly">Decide whether to append assembly language comments after the decompiled code for cross-reference purposes.</param>
         /// <param name="Path"></param>
-        public Dictionary<string, PexStrings> Load(CodeGenStyle Style,bool ShowAssembly, string Path)
+        public Dictionary<string, PexStrings> Load(CodeGenStyle Style, bool ShowAssembly, string Path)
         {
             Close();
 
             CurrentPath = Path;
 
-            Dictionary<string, PexStrings> Data = null;
+            Dictionary<string, PexStrings> Data = new Dictionary<string, PexStrings>();
 
-            _Document.Core.LoadPex(Path).ReadStrings().GetPsc(out this.Code,ShowAssembly,Style).AnalysisStrings();
+            _Document.Core.LoadPex(Path).ReadStrings().GetPsc(out this.Code, ShowAssembly, Style).AnalysisStrings();
 
             _Document.Core.GetStrings(out List<PexStringItem> Strings);
 
-            Data = Strings.ToDictionary(
-              x => x.UniqueKey,
-              x => new PexStrings()
-              {
-                  FunctionRef = x.FunctionRef,
-                  PexStringItemRef = x.PexStringItemRef,
-                  StringTableID = x.StringTableID,
-                  Score = x.Score,
-                  Source = x.Original,
-                  Translated = x.Translated,
-                  IsVar = x.IsVar,
-                  VarOffset = x.VarOffset
-              }
-              );
+            //I previously fixed a reading issue in PexReader, but I overlooked the problem of duplicate keys. Since my goal is to generate stable keys, some duplication is inevitable—I simply failed to account for this at the time. That’s on me for not testing thoroughly; I’ve now patched this bug.
+
+            foreach (var GetItem in Strings)
+            {
+                if (!Data.ContainsKey(GetItem.UniqueKey))
+                {
+                    Data.Add(GetItem.UniqueKey, new PexStrings()
+                    {
+                        FunctionRef = GetItem.FunctionRef,
+                        PexStringItemRef = GetItem.PexStringItemRef,
+                        StringTableID = GetItem.StringTableID,
+                        Score = GetItem.Score,
+                        Source = GetItem.Original,
+                        Translated = GetItem.Translated,
+                        IsVar = GetItem.IsVar,
+                        VarOffset = GetItem.VarOffset
+                    });
+                }
+                else
+                {
+                    MessageBoxExtend.Show(NIMApp.WorkWin,"Error", string.Format("Duplicate key found:{0}", GetItem.UniqueKey), PreviewDialogSeverity.Warning);
+                }
+            }
 
             return Data;
         }
@@ -102,11 +114,11 @@ namespace NIM.ModParser
 
             if (TranslateCount > 0)
             {
-                try 
+                try
                 {
                     _Document.Core.SavePex(this.CurrentPath, out int SaveState).Close();
                 }
-                catch 
+                catch
                 {
                     return false;
                 }
@@ -120,7 +132,7 @@ namespace NIM.ModParser
             return _Document;
         }
 
-     
+
         public void Close()
         {
             _Document.Core.Close();
