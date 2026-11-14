@@ -441,7 +441,7 @@ namespace NIM.UIManagement
                 // Update Translation Data And History Cache
                 if (Target != null)
                 {
-                    NIMApp.WorkWin.ActiveTab.Mod.P_Translator.AutoSetLink(Key, Target.Source,new P_String(OriginalText,1));
+                    NIMApp.WorkWin.ActiveTab.Mod.P_Translator.SyncLink(Key, Target.Source,new P_String(OriginalText,1));
 
                     bool IsCloud = false;
                     Target.SyncData(NIMApp.WorkWin.ActiveTab.Mod, ref IsCloud);

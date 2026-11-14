@@ -1538,12 +1538,12 @@ namespace NIM.UIManagement
                     if (!IsNext)
                     {
                         NewText = GetHistoryItem.CurrentText;
-                        this.Mod.P_Translator.AutoSetLink(GetHistoryItem.Key, Row.Source, new P_String(GetHistoryItem.CurrentText, 0, GetHistoryItem.RangeID));
+                        this.Mod.P_Translator.SyncLink(GetHistoryItem.Key, Row.Source, new P_String(GetHistoryItem.CurrentText, 0, GetHistoryItem.RangeID));
                     }
                     else
                     {
                         NewText = GetHistoryItem.CurrentText;
-                        this.Mod.P_Translator.AutoSetLink(GetHistoryItem.Key, Row.Source, new P_String(GetHistoryItem.CurrentText, 0, GetHistoryItem.RangeID));
+                        this.Mod.P_Translator.SyncLink(GetHistoryItem.Key, Row.Source, new P_String(GetHistoryItem.CurrentText, 0, GetHistoryItem.RangeID));
                     }
 
                     Row.Translated = NewText;
@@ -1611,13 +1611,13 @@ namespace NIM.UIManagement
 
                                 var Link = Mod.P_Translator.GetLink();
 
-                                Link[GetGrid.Key] =new P_String(GetGrid.Translated,1);
+                                Link[GetGrid.Key] = new P_String(GetGrid.Translated,1);
 
 
                             }
                             else
                             {
-                                Mod.P_Translator.AutoSetLink(GetGrid.Key, GetGrid.Source,new P_String(GetGrid.Translated,1));
+                                Mod.P_Translator.SyncLink(GetGrid.Key, GetGrid.Source,new P_String(GetGrid.Translated,1));
                             }
                         }
                         catch { }

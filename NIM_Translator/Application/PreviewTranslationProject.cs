@@ -206,7 +206,7 @@ namespace NIM.ApplicationLayer
                 _modFile.OriginalDictionaryReader.UPDateTransText(entry.Key, entry.SourceText);
                 if (entry.IsModified)
                 {
-                    _modFile.P_Translator.AutoSetLink(
+                    _modFile.P_Translator.SyncLink(
                         entry.Key,
                         entry.SourceText,
                         new P_String(entry.TargetText, 1));
@@ -379,7 +379,7 @@ namespace NIM.ApplicationLayer
 
             cancellationToken.ThrowIfCancellationRequested();
             HistoryDBCache.SelectID(fileKey, rowId);
-            _modFile.P_Translator.AutoSetLink(
+            _modFile.P_Translator.SyncLink(
                 item.Key,
                 entry.SourceText,
                 new P_String(item.CurrentText, 0, item.RangeID));

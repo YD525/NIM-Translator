@@ -72,7 +72,7 @@ namespace NIM
 
                                     GetRow.Translated = GetNewTrans;
 
-                                    _Owner.Mod.P_Translator.AutoSetLink(GetRow.Key, GetRow.Source, new P_String(GetRow.Translated,1,GenRangeID));
+                                    _Owner.Mod.P_Translator.SyncLink(GetRow.Key, GetRow.Source, new P_String(GetRow.Translated,1,GenRangeID));
 
                                     GetRow.SyncUI(_Owner.TransListView);
                                 }
@@ -106,7 +106,7 @@ namespace NIM
 
                                     GetRow.Translated = GetNewTrans;
 
-                                    _Owner.Mod.P_Translator.AutoSetLink(GetRow.Key, GetRow.Source, new P_String(GetRow.Translated,1,GenRangeID));
+                                    _Owner.Mod.P_Translator.SyncLink(GetRow.Key, GetRow.Source, new P_String(GetRow.Translated,1,GenRangeID));
 
                                     GetRow.SyncUI(_Owner.TransListView);
                                 }
