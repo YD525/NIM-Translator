@@ -995,7 +995,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                                         <Ellipse Width="7" Height="7" Fill="{StaticResource SettingAccentBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                                        <TextBlock Text="Translation Bucket" Style="{StaticResource SettingSectionTitle}"/>
+                                                        <TextBlock Text="Aggregated Translation" Style="{StaticResource SettingSectionTitle}"/>
                                                     </StackPanel>
 
                                                     <StackPanel Orientation="Horizontal">
@@ -1034,7 +1034,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                                     </StackPanel>
 
                                                     <StackPanel Margin="0 5 0 0">
-                                                        <TextBox Style="{StaticResource SettingHintR}" Margin="0" Text="Whether to enforce absolute purity of 'Link Buckets' (Type == 1 — buckets holding units that have a real, established link relationship in the ESP file). Enabled (true): once built, Link Buckets can never have additional content appended or merged into them (orphan-unit backfill, similarity-bucket merging, etc. all skip Link Buckets). Every unit inside a Link Bucket is guaranteed to come from the same genuine ESP link chain — nothing unrelated gets mixed in. This matters because these buckets are sent together as shared context; letting unrelated content leak in can confuse the AI about which entries are actually related, leading to wrong context inference or inconsistent translations. Disabled (false, default): Link Buckets may still receive extra content appended to them whenever there's remaining capacity, which improves packing efficiency and reduces the total bucket count, at the cost of allowing unrelated entries into an otherwise link-only bucket."/>
+                                                        <TextBox Style="{StaticResource SettingHintR}" Margin="0" Text="When enabled, unrelated content will not be appended to existing Link Buckets, ensuring that each bucket contains only genuinely linked entries. This improves contextual relevance, helping the AI generate translations that better fit the current bucket's context, but increases token consumption. When disabled (default), additional content may be appended whenever capacity remains, improving bucket packing efficiency, reducing unused capacity and the total number of buckets, which can improve translation speed while reducing token consumption."/>
                                                     </StackPanel>
 
                                                 </StackPanel>

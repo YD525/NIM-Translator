@@ -374,7 +374,7 @@ namespace NIM
                     }
 
                     string NewText = HistoryItem.CurrentText;
-                    NIMApp.WorkWin.ActiveTab.Mod.P_Translator.AutoSetLink(HistoryItem.Key, Row.Source, new P_String(HistoryItem.CurrentText, 0, HistoryItem.RangeID));
+                    NIMApp.WorkWin.ActiveTab.Mod.P_Translator.SyncLink(HistoryItem.Key, Row.Source, new P_String(HistoryItem.CurrentText, 0, HistoryItem.RangeID));
 
                     Row.Translated = NewText;
 
