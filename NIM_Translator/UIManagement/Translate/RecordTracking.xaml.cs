@@ -280,7 +280,7 @@ namespace NIM
             {
                 foreach (var GetRecord in Records)
                 {
-                    var Card = BuildRelatedTextCard(CurrentKey, GetRecord);
+                    var Card = BuildRelatedTextCard(CurrentKey, GetRecord, "Linked");
                     DialogueListPanel.Children.Add(Card);
 
                     if (GetRecord.UniqueKey == CurrentKey)
@@ -382,7 +382,7 @@ namespace NIM
             return CardBorder;
         }
 
-        private Border BuildRelatedTextCard(string CurrentKey, RecordItem Item)
+        private Border BuildRelatedTextCard(string CurrentKey, RecordItem Item,string Tag = "Matched")
         {
             string Source = "";
 
@@ -433,7 +433,7 @@ namespace NIM
             }
             else
             {
-                TextLine.Text = Source + " -> " + GetFakeGrid.Translated;
+                TextLine.Text = GetFakeGrid.Translated;
             }
 
             ContentPanel.Children.Add(TextLine);
@@ -443,14 +443,14 @@ namespace NIM
             InfoLine.Margin = new Thickness(0, 4, 0, 0);
 
             TextBlock InFoText = new TextBlock();
-            InFoText.Text = "Matched";
+            InFoText.Text = Tag;
             InFoText.Foreground = HighlightTextBrush;  
             InFoText.FontSize = 12;
             InFoText.FontWeight = FontWeights.DemiBold;
             InfoLine.Children.Add(InFoText);
 
             TextBlock ResponseIdText = new TextBlock();
-            ResponseIdText.Text = "  #" + Item.ParentSig + " " + Item.ChildSig;
+            ResponseIdText.Text = "  #" + Item.ParentSig + " " + Item.ChildSig + " #" + Item.UniqueKey;
             ResponseIdText.Foreground = GrayTextBrush;  
             ResponseIdText.FontSize = 12;
             InfoLine.Children.Add(ResponseIdText);
@@ -511,13 +511,28 @@ namespace NIM
                     TextLine.Foreground = HighlightTextBrush;  
                 }
 
-                if (GetFakeGrid.Translated.Length == 0)
+                string Emotion = "";
+
+                if (Item.EmotionType != 999)
                 {
-                    TextLine.Text = Source;
+                    Emotion = EmotionTypeHelper.FromRaw(Item.EmotionType).ToString();
                 }
                 else
                 {
-                    TextLine.Text = Source + " -> " + GetFakeGrid.Translated;
+                    if (Item.SubOffset == 0)
+                    {
+                        Emotion = "Tittle";
+                    }
+                }
+
+
+                if (GetFakeGrid.Translated.Length == 0)
+                {
+                    TextLine.Text = Emotion + " > " + Source;
+                }
+                else
+                {
+                    TextLine.Text = Emotion + " > " + GetFakeGrid.Translated;
                 }
 
                 ContentPanel.Children.Add(TextLine);
@@ -526,26 +541,15 @@ namespace NIM
                 InfoLine.Orientation = Orientation.Horizontal;
                 InfoLine.Margin = new Thickness(0, 4, 0, 0);
 
-                TextBlock EmotionText = new TextBlock();
-                if (Item.EmotionType != 999)
-                {
-                    EmotionText.Text = EmotionTypeHelper.FromRaw(Item.EmotionType).ToString();
-                }
-                else
-                {
-                    if (Item.SubOffset == 0)
-                    {
-                        EmotionText.Text = "Tittle";
-                    }
-                }
-
-                EmotionText.Foreground = HighlightTextBrush;  
-                EmotionText.FontSize = 12;
-                EmotionText.FontWeight = FontWeights.DemiBold;
-                InfoLine.Children.Add(EmotionText);
+                TextBlock InFoText = new TextBlock();
+                InFoText.Text = "Linked";
+                InFoText.Foreground = HighlightTextBrush;
+                InFoText.FontSize = 12;
+                InFoText.FontWeight = FontWeights.DemiBold;
+                InfoLine.Children.Add(InFoText);
 
                 TextBlock ResponseIdText = new TextBlock();
-                ResponseIdText.Text = "  #" + GetRecord.ParentSig + " " + GetRecord.ChildSig;
+                ResponseIdText.Text = "  #" + GetRecord.ParentSig + " " + GetRecord.ChildSig + " #" + GetRecord.UniqueKey; ;
                 ResponseIdText.Foreground = GrayTextBrush;  
                 ResponseIdText.FontSize = 12;
                 InfoLine.Children.Add(ResponseIdText);
