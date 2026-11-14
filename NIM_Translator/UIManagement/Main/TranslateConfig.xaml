@@ -143,18 +143,23 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
                         <Label FontWeight="Bold" FontSize="15" Grid.Row="0" >
-                            Tab:
+                            Selected Tab:
                         </Label>
 
-                        <Label Grid.Row="0" Name="FileName" VerticalAlignment="Center">
+                        <Label Grid.Row="0" FontWeight="Bold" FontSize="15" Name="FileName" VerticalAlignment="Center">
+                            Null
                         </Label>
-                        
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+
                         <Label Grid.Column="0" VerticalAlignment="Center">
                             Translate from:
                         </Label>
@@ -166,17 +171,15 @@
                                 Detect
                             </Label>
                         </Border>
-                        
+
                         <Label Grid.Column="2" VerticalAlignment="Center">
                             to
                         </Label>
                         <ComboBox Name="STo" Grid.Column="3" VerticalContentAlignment="Center" Margin="5" Width="130" SelectionChanged="STo_SelectionChanged">
                         </ComboBox>
-
-                       
                     </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+                    
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="2">
                         <Label FontWeight="Bold" FontSize="15" Grid.Row="0">
                             Keywords List
                         </Label>
@@ -202,7 +205,7 @@
 
                     </StackPanel>
                   
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="3">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="35"/>
@@ -238,13 +241,13 @@
                         </Grid>
                     </Grid>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="3">
+                    <StackPanel Orientation="Horizontal" Grid.Row="4">
                         <Label FontWeight="Bold" FontSize="15" >
                             Add New Keyword
                         </Label>
                     </StackPanel>
                     
-                    <StackPanel Orientation="Vertical" Grid.Row="4">
+                    <StackPanel Orientation="Vertical" Grid.Row="5">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="70"/>

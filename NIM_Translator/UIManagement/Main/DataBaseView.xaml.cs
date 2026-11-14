@@ -376,6 +376,12 @@ namespace NIM
                         case "Rowid":
                             ColWidth = new DataGridLength(60);
                             break;
+                        case "FileUniqueKey":
+                            ColWidth = new DataGridLength(120);
+                            break;
+                        case "Key":
+                            ColWidth = new DataGridLength(80);
+                            break;
                         case "To":
                             ColWidth = new DataGridLength(50);
                             break;
