@@ -469,6 +469,8 @@ namespace NIM
 
                             NCustomLocalAIApi.Model = Model;
 
+                            string CurrentModel = "";
+
                             NCustomLocalAIApi.QuickTrans(
                                 new List<ReplaceTag>(),
                                 UnitGroup,
@@ -477,6 +479,7 @@ namespace NIM
                                 false,
                                 0,
                                 string.Empty,
+                                ref CurrentModel,
                                 ref GenAICall
                                 );
 
@@ -494,6 +497,8 @@ namespace NIM
 
                             NCustomAIApi.Model = Model;
 
+                            string CurrentModel = "";
+
                             NCustomAIApi.QuickTrans(
                                 ApiKey,
                                 new List<ReplaceTag>(),
@@ -503,6 +508,7 @@ namespace NIM
                                 false,
                                 0,
                                 string.Empty,
+                                ref CurrentModel,
                                 ref GenAICall
                                 );
 
