@@ -118,6 +118,16 @@ namespace NIM
             TranslateConfigView.Init();
             TranslateConfigView.Show();
 
+            TranslateConfigView.Left = this.Left + (this.ActualWidth - TranslateConfigView.Width) / 2;
+            TranslateConfigView.Top = this.Top + (this.ActualHeight - TranslateConfigView.Height) / 2;
+
+            if (TranslateConfigView.WindowState == WindowState.Minimized)
+            {
+                TranslateConfigView.WindowState = WindowState.Normal;
+            }
+
+            TranslateConfigView.Activate();
+
             if (ActiveTab != null)
             {
                 if (ActiveTab.TransListView.RealLines.Count > 0)
