@@ -27,7 +27,7 @@ namespace NIM.UIManagement
             this._Owner = Owner;
         }
 
-        public Border GenCloudAIConfig(int Key,string PlatformName, string Document, bool IsSystemNode, List<string> Keys, string Model, CustomPlatformType CustomType, List<string> Models)
+        public Border GenCloudAIConfig(string PlatformName, string Document, bool IsSystemNode, List<string> Keys, string Model,int Type, List<string> Models)
         {
             Border GetPlatformBorder = UIHelper.CloneElement(CloudAIConfig);
             GetPlatformBorder.Tag = Key;
@@ -119,7 +119,7 @@ namespace NIM.UIManagement
             }
         }
 
-        public Border GenLocalAIConfig(int Key,string PlatformName, string Document, bool IsSystemNode,int LocalPort,string Model, CustomPlatformType CustomType)
+        public Border GenLocalAIConfig(string PlatformName, string Document, bool IsSystemNode,int LocalPort,string Model, int Type)
         {
             Border GetPlatformBorder = UIHelper.CloneElement(LocalAIConfig);
             GetPlatformBorder.Tag = Key;
@@ -169,7 +169,7 @@ namespace NIM.UIManagement
             return GetPlatformBorder;
         }
 
-        public Border GenTraditionalConfig(int Key,string PlatformName, string Document, bool IsSystemNode, List<string> Keys,CustomPlatformType CustomType)
+        public Border GenTraditionalConfig(string PlatformName, string Document, bool IsSystemNode, List<string> Keys, int Type)
         {
             Border GetPlatformBorder = UIHelper.CloneElement(TraditionalConfig);
             GetPlatformBorder.Tag = Key;

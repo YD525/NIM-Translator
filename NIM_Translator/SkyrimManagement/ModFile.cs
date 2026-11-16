@@ -13,7 +13,6 @@ using NIMEngine.Engine;
 using NIMEngine.Engine.ADO;
 using NIMEngine.Events;
 using NIMEngine.Memory;
-using NIMEngine.Request;
 using NIMEngine.Translate;
 using NIMEngine.Unit;
 using NIM.ApplicationLayer;

@@ -10,6 +10,7 @@ using NIMEngine;
 using NIMEngine.ADO;
 using NIMEngine.Platform;
 using NIMEngine.Translate;
+using NIMEngine.Platform.Nodes;
 
 namespace NIM.ApplicationLayer
 {
@@ -216,17 +217,17 @@ namespace NIM.ApplicationLayer
 
         private static string GetGroup(PlatformConfig config)
         {
-            if (config.Type == NIM_Engine.CloudAI)
+            if (config.Type == Node.CloudAI)
             {
                 return "Cloud AI";
             }
             else
-            if (config.Type == NIM_Engine.LocalAI)
+            if (config.Type == Node.LocalAI)
             {
                 return "Local AI";
             }
             else
-            if (config.Type == NIM_Engine.Traditional)
+            if (config.Type == Node.Traditional)
             {
                 return "Traditional";
             }
@@ -237,9 +238,9 @@ namespace NIM.ApplicationLayer
         }
         private static int ParseGroup(string group)
         {
-            if (string.Equals(group, "Local AI", StringComparison.Ordinal)) return NIM_Engine.LocalAI;
-            if (string.Equals(group, "Cloud AI", StringComparison.Ordinal)) return NIM_Engine.CloudAI;
-            if (string.Equals(group, "Traditional", StringComparison.Ordinal)) return NIM_Engine.Traditional;
+            if (string.Equals(group, "Local AI", StringComparison.Ordinal)) return Node.LocalAI;
+            if (string.Equals(group, "Cloud AI", StringComparison.Ordinal)) return Node.CloudAI;
+            if (string.Equals(group, "Traditional", StringComparison.Ordinal)) return Node.Traditional;
 
             return -1;
         }
