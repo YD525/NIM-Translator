@@ -59,7 +59,7 @@ namespace NIM.TranslateManage
                     {
                         PreTranslateCall GetCall = (PreTranslateCall)Any;
 
-                        UIHelper.NodeCallCallback(0, GetCall.Platform);
+                        UIHelper.NodeCallCallback(GetCall.Name,GetCall);
                     }
                 }
             }));
@@ -85,29 +85,29 @@ namespace NIM.TranslateManage
                     {
                         AICall GetCall = (AICall)Any;
 
-                        UIHelper.NodeCallCallback(GetCall.CustomID, GetCall.Platform);
+                        UIHelper.NodeCallCallback(GetCall.Name, GetCall);
 
                         if (GetCall.SendString != null)
                         {
                             Length = GetCall.SendString.Length;
                         }
 
-                        LogHelper.SetInputLog(GetCall.Platform.ToString() + "->\n" + GetCall.SendString);
-                        LogHelper.SetOutputLog(GetCall.Platform.ToString() + "->\n" + GetCall.ReceiveString);
+                        LogHelper.SetInputLog(GetCall.Name + "->\n" + GetCall.SendString);
+                        LogHelper.SetOutputLog(GetCall.Name + "->\n" + GetCall.ReceiveString);
                     }
                     if (Any is PlatformCall)
                     {
                         PlatformCall GetCall = (PlatformCall)Any;
 
-                        UIHelper.NodeCallCallback(GetCall.CustomID, GetCall.Platform);
+                        UIHelper.NodeCallCallback(GetCall.Name, GetCall);
 
                         if (GetCall.SendString != null)
                         {
                             Length = GetCall.SendString.Length;
                         }
 
-                        LogHelper.SetInputLog(GetCall.Platform.ToString() + "->\n" + GetCall.SendString);
-                        LogHelper.SetOutputLog(GetCall.Platform.ToString() + "->\n" + GetCall.ReceiveString);
+                        LogHelper.SetInputLog(GetCall.Name + "->\n" + GetCall.SendString);
+                        LogHelper.SetOutputLog(GetCall.Name + "->\n" + GetCall.ReceiveString);
                     }
 
                     if (NIMApp.ChartDataRef != null)

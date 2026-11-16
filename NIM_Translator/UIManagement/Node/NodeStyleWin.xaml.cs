@@ -7,6 +7,7 @@ using NIM.UIManage;
 using NIMEngine;
 using NIMEngine.Common;
 using NIMEngine.Platform;
+using NIMEngine.Platform.Nodes;
 using NIMEngine.Translate;
 
 namespace NIM.UIManagement
@@ -55,17 +56,17 @@ namespace NIM.UIManagement
 
         public Color GetNodeColor(int Type)
         {
-            if (Type == NIMEngine.Platform.Nodes.Node.CloudAI)
+            if (Type == P_Node.CloudAI)
             {
                 return Color.FromRgb(239, 234, 190);
             }
             else
-            if (Type == NIMEngine.Platform.Nodes.Node.LocalAI)
+            if (Type == P_Node.LocalAI)
             {
                 return Color.FromRgb(250, 227, 6);
             }
             else
-            if (Type == NIMEngine.Platform.Nodes.Node.Traditional)
+            if (Type == P_Node.Traditional)
             {
                 return Color.FromRgb(255, 255, 255);
             }
@@ -178,7 +179,7 @@ namespace NIM.UIManagement
                                     {
                                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == NIMEngine.Platform.Nodes.Node.CloudAI)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == P_Node.CloudAI)
                                         {
                                             TotalCount++;
                                             if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
@@ -199,7 +200,7 @@ namespace NIM.UIManagement
                                     {
                                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == NIMEngine.Platform.Nodes.Node.LocalAI)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == P_Node.LocalAI)
                                         {
                                             TotalCount++;
                                             if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
@@ -219,7 +220,7 @@ namespace NIM.UIManagement
                                     {
                                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == NIMEngine.Platform.Nodes.Node.Traditional)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == P_Node.Traditional)
                                         {
                                             TotalCount++;
                                             if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
@@ -240,13 +241,14 @@ namespace NIM.UIManagement
                                     {
                                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == NIMEngine.Platform.Nodes.Node.Traditional)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == P_Node.Interactive)
                                         {
-                                            TotalCount++;
                                             if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                             {
                                                 EnableCount++;
                                             }
+
+                                            TotalCount++;
                                         }
                                     }
 
@@ -266,31 +268,17 @@ namespace NIM.UIManagement
 
             Grid GetMask = GetNodeGrid.Children[0] as Grid;
 
-            if (GetInFo.MainType == PlatformType.Null && GetInFo.Type == CustomPlatformType.Null && GetInFo.CustomID == 0)
-            {
-                NIMApp.EngineSetting.PreTranslateEnable = false;
-            }
-            else
-            {
-                for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
-                {
-                    var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+            //PreTranslateEnable Following multiple version updates, PreTranslate has become a core feature; it is enabled by default and cannot be controlled or disabled by the user.
+            //NIMApp.EngineSetting.PreTranslateEnable = false;
 
-                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null
-                        &&
-                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == GetInFo.MainType)
-                    {
-                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = false;
-                        break;
-                    }
-                    else
-                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null
-                        &&
-                        NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID == GetInFo.CustomID)
-                    {
-                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = false;
-                        break;
-                    }
+            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
+            {
+                var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+
+                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Name == "Test")
+                {
+                    NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = false;
+                    break;
                 }
             }
 
@@ -307,31 +295,14 @@ namespace NIM.UIManagement
 
             Grid GetMask = GetNodeGrid.Children[0] as Grid;
 
-            if (GetInFo.MainType == PlatformType.Null && GetInFo.Type == CustomPlatformType.Null && GetInFo.CustomID == 0)
+            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
             {
-                NIMApp.EngineSetting.PreTranslateEnable = true;
-            }
-            else
-            {
-                for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
-                {
-                    var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null
-                        &&
-                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == GetInFo.MainType)
-                    {
-                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = true;
-                        break;
-                    }
-                    else
-                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null
-                        &&
-                        NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID == GetInFo.CustomID)
-                    {
-                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = true;
-                        break;
-                    }
+                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Name == "Test")
+                {
+                    NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = true;
+                    break;
                 }
             }
 
@@ -341,7 +312,7 @@ namespace NIM.UIManagement
             SyncCount((GetNodeGrid.Tag as HeaderInFo).Parent);
         }
 
-        public Grid GenEmptyNode(CustomPlatformType Type)
+        public Grid GenEmptyNode(int Type)
         {
             Grid EmptyNodeGrid = UIHelper.CloneElement(EmptyNode);
 
@@ -355,16 +326,18 @@ namespace NIM.UIManagement
 
         private void GetAddBtn_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (sender is Border)
-            { 
-               Border GetBtnHandle = (Border)sender;
-               CustomPlatformType GetType = (CustomPlatformType)GetBtnHandle.Tag;
+            //Adding custom platforms is no longer supported.
 
-                CustomWizard NCustomWizard = new CustomWizard(NIMApp.WorkWin);
-                NCustomWizard.Owner = NIMApp.WorkWin;
-                NCustomWizard.Show();
-                NCustomWizard.SelectPlatformType(GetType);
-            }
+            //if (sender is Border)
+            //{ 
+            //   Border GetBtnHandle = (Border)sender;
+            //   CustomPlatformType GetType = (CustomPlatformType)GetBtnHandle.Tag;
+
+            //    CustomWizard NCustomWizard = new CustomWizard(NIMApp.WorkWin);
+            //    NCustomWizard.Owner = NIMApp.WorkWin;
+            //    NCustomWizard.Show();
+            //    NCustomWizard.SelectPlatformType(GetType);
+            //}
         }
     }
 }

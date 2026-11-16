@@ -540,7 +540,7 @@ namespace NIM.UIManage
             }
         }
 
-        public static void NodeCallCallback(int CustomID, PlatformType Sign)
+        public static void NodeCallCallback(string Name,object Call)
         {
             try
             {
