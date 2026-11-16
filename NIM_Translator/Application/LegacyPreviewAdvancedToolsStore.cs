@@ -238,7 +238,7 @@ namespace NIM.ApplicationLayer
         }
         private static int ParseGroup(string group)
         {
-            if (string.Equals(group, "Local AI", StringComparison.Ordinal)) return Node.LocalAI;
+            if (string.Equals(group, "Local AI", StringComparison.Ordinal)) return P_Node.LocalAI;
             if (string.Equals(group, "Cloud AI", StringComparison.Ordinal)) return Node.CloudAI;
             if (string.Equals(group, "Traditional", StringComparison.Ordinal)) return Node.Traditional;
 
