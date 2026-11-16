@@ -53,16 +53,21 @@ namespace NIM.UIManagement
             return NewHeaderTag;
         }
 
-        public Color GetNodeColor(CustomPlatformType Type)
+        public Color GetNodeColor(int Type)
         {
-            switch (Type)
+            if (Type == NIMEngine.Platform.Nodes.Node.CloudAI)
             {
-                case CustomPlatformType.CloudAI:
-                    return Color.FromRgb(239, 234, 190);
-                case CustomPlatformType.LocalAI:
-                    return Color.FromRgb(250, 227, 6);
-                case CustomPlatformType.Traditional:
-                    return Color.FromRgb(255, 255, 255);
+                return Color.FromRgb(239, 234, 190);
+            }
+            else
+            if (Type == NIMEngine.Platform.Nodes.Node.LocalAI)
+            {
+                return Color.FromRgb(250, 227, 6);
+            }
+            else
+            if (Type == NIMEngine.Platform.Nodes.Node.Traditional)
+            {
+                return Color.FromRgb(255, 255, 255);
             }
 
             return Color.FromRgb(250, 227, 6);
@@ -92,56 +97,53 @@ namespace NIM.UIManagement
         public class HeaderInFo
         {
             public StackPanel Parent;
-            public PlatformType MainType;
-            public CustomPlatformType Type;
-            public int CustomID;
-       
-
-            public HeaderInFo(StackPanel Parent, PlatformType mainType, CustomPlatformType type, int customID)
+            public string Type;
+            private int _Type;
+            public HeaderInFo(StackPanel Parent,int Type, int CustomID)
             {
                 this.Parent = Parent;
-                MainType = mainType;
-                Type = type;
-                CustomID = customID;
+                this._Type = Type;
             }
         }
 
-        public Grid GenNode(StackPanel MainStack,string PlatformName, PlatformType MainType,CustomPlatformType Type,int CustomID, bool Enable)
+        public Grid GenNode(StackPanel MainStack,string PlatformName,int Type, bool Enable)
         {
-            Grid NodeGrid = UIHelper.CloneElement(Node);
-            NodeGrid.Tag = new HeaderInFo(MainStack,MainType, Type,CustomID);
+            //Grid NodeGrid = UIHelper.CloneElement(Node);
+            //NodeGrid.Tag = new HeaderInFo(MainStack,MainType, Type,CustomID);
 
-            Grid GetMask = NodeGrid.Children[0] as Grid;
+            //Grid GetMask = NodeGrid.Children[0] as Grid;
 
-            Border GetEnableBtn = (GetMask.Children[1] as Grid).Children[0] as Border;
-            GetEnableBtn.Tag = NodeGrid;
-            GetEnableBtn.PreviewMouseDown += GetEnableBtn_PreviewMouseDown;
+            //Border GetEnableBtn = (GetMask.Children[1] as Grid).Children[0] as Border;
+            //GetEnableBtn.Tag = NodeGrid;
+            //GetEnableBtn.PreviewMouseDown += GetEnableBtn_PreviewMouseDown;
 
-            if (Enable)
-            {
-                GetMask.Visibility = Visibility.Collapsed;
-            }
+            //if (Enable)
+            //{
+            //    GetMask.Visibility = Visibility.Collapsed;
+            //}
 
-            Grid NodeBody = NodeGrid.Children[1] as Grid;
+            //Grid NodeBody = NodeGrid.Children[1] as Grid;
 
-            StackPanel GetStackPanel = NodeBody.Children[0] as StackPanel;
-            Grid GetColorGrid = GetStackPanel.Children[0] as Grid;
+            //StackPanel GetStackPanel = NodeBody.Children[0] as StackPanel;
+            //Grid GetColorGrid = GetStackPanel.Children[0] as Grid;
 
-            GetColorGrid.Background = new SolidColorBrush(GetNodeColor(Type));
+            //GetColorGrid.Background = new SolidColorBrush(GetNodeColor(Type));
 
-            Label GetTittle = GetStackPanel.Children[1] as Label;
-            GetTittle.Content = PlatformName;
+            //Label GetTittle = GetStackPanel.Children[1] as Label;
+            //GetTittle.Content = PlatformName;
 
-            TextBlock DisableBtn = GetStackPanel.Children[2] as TextBlock;
-            DisableBtn.Tag = NodeGrid;
-            DisableBtn.PreviewMouseDown += DisableBtn_PreviewMouseDown;
+            //TextBlock DisableBtn = GetStackPanel.Children[2] as TextBlock;
+            //DisableBtn.Tag = NodeGrid;
+            //DisableBtn.PreviewMouseDown += DisableBtn_PreviewMouseDown;
 
-            if (PlatformName.Equals("PreTranslate Node"))
-            {
-                DisableBtn.Visibility = Visibility.Hidden;
-            }
+            //if (PlatformName.Equals("PreTranslate Node"))
+            //{
+            //    DisableBtn.Visibility = Visibility.Hidden;
+            //}
 
-            return NodeGrid;
+            //return NodeGrid;
+
+            return null;
         }
 
         public void SyncCount(StackPanel Nodes)
@@ -176,21 +178,7 @@ namespace NIM.UIManagement
                                     {
                                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
-                                        {
-                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.Gemini ||
-                                                NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.ChatGpt ||
-                                                NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepSeek)
-                                            {
-                                                TotalCount++;
-                                                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
-                                                {
-                                                    EnableCount++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.CloudAI)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == NIMEngine.Platform.Nodes.Node.CloudAI)
                                         {
                                             TotalCount++;
                                             if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
@@ -198,6 +186,7 @@ namespace NIM.UIManagement
                                                 EnableCount++;
                                             }
                                         }
+
                                     }
                                     SetHeaderTagEnableInFo(SetGrid, string.Format("{0} / {1} Enabled", EnableCount,TotalCount));
                                 }
@@ -210,19 +199,7 @@ namespace NIM.UIManagement
                                     {
                                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
-                                        {
-                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.LMLocalAI)
-                                            {
-                                                TotalCount++;
-                                                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
-                                                {
-                                                    EnableCount++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.LocalAI)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == NIMEngine.Platform.Nodes.Node.LocalAI)
                                         {
                                             TotalCount++;
                                             if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
@@ -242,19 +219,7 @@ namespace NIM.UIManagement
                                     {
                                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
-                                        {
-                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepL)
-                                            {
-                                                TotalCount++;
-                                                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
-                                                {
-                                                    EnableCount++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.Traditional)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == NIMEngine.Platform.Nodes.Node.Traditional)
                                         {
                                             TotalCount++;
                                             if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
@@ -275,14 +240,13 @@ namespace NIM.UIManagement
                                     {
                                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.HumanTranslation)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Type == NIMEngine.Platform.Nodes.Node.Traditional)
                                         {
+                                            TotalCount++;
                                             if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                             {
                                                 EnableCount++;
                                             }
-
-                                            TotalCount++;
                                         }
                                     }
 

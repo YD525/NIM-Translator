@@ -29,79 +29,81 @@ namespace NIM.UIManagement
 
         public Border GenCloudAIConfig(string PlatformName, string Document, bool IsSystemNode, List<string> Keys, string Model,int Type, List<string> Models)
         {
-            Border GetPlatformBorder = UIHelper.CloneElement(CloudAIConfig);
-            GetPlatformBorder.Tag = Key;
+            //Border GetPlatformBorder = UIHelper.CloneElement(CloudAIConfig);
+            //GetPlatformBorder.Tag = Key;
 
-            Grid GetChildGrid = GetPlatformBorder.Child as Grid;
-            Grid Header = GetChildGrid.Children[0] as Grid;
-            Grid Body = GetChildGrid.Children[1] as Grid;
-            StackPanel GetTittlePanel = (Header.Children[0] as Border).Child as StackPanel;
-            StackPanel ControlPanel = (Header.Children[1] as Grid).Children[0] as StackPanel;
+            //Grid GetChildGrid = GetPlatformBorder.Child as Grid;
+            //Grid Header = GetChildGrid.Children[0] as Grid;
+            //Grid Body = GetChildGrid.Children[1] as Grid;
+            //StackPanel GetTittlePanel = (Header.Children[0] as Border).Child as StackPanel;
+            //StackPanel ControlPanel = (Header.Children[1] as Grid).Children[0] as StackPanel;
 
-            Label TittleLab = GetTittlePanel.Children[0] as Label;
-            TittleLab.Content = PlatformName;
+            //Label TittleLab = GetTittlePanel.Children[0] as Label;
+            //TittleLab.Content = PlatformName;
 
-            Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
-            GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
+            //Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
+            //GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
 
-            if (Document.Length == 0)
-            {
-                (ControlPanel.Children[0] as Label).Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                (ControlPanel.Children[0] as Label).Content = Document;
-                (ControlPanel.Children[0] as Label).PreviewMouseDown += OpenUrl;
-            }
+            //if (Document.Length == 0)
+            //{
+            //    (ControlPanel.Children[0] as Label).Visibility = Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    (ControlPanel.Children[0] as Label).Content = Document;
+            //    (ControlPanel.Children[0] as Label).PreviewMouseDown += OpenUrl;
+            //}
 
-            if (IsSystemNode)
-            {
-                (ControlPanel.Children[1] as Border).Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                (ControlPanel.Children[1] as Border).Visibility = Visibility.Visible;
-                (ControlPanel.Children[1] as Border).Tag = GetPlatformBorder;
-                (ControlPanel.Children[1] as Border).PreviewMouseDown += PlatformConfigStyleWin_PreviewMouseDown;
-            }
+            //if (IsSystemNode)
+            //{
+            //    (ControlPanel.Children[1] as Border).Visibility = Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    (ControlPanel.Children[1] as Border).Visibility = Visibility.Visible;
+            //    (ControlPanel.Children[1] as Border).Tag = GetPlatformBorder;
+            //    (ControlPanel.Children[1] as Border).PreviewMouseDown += PlatformConfigStyleWin_PreviewMouseDown;
+            //}
 
-            TextBox GetModelTextBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[5] as Border).Child as TextBox;
-            ComboBox GetModels = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[6] as ComboBox;
-            GetModels.Items.Clear();
+            //TextBox GetModelTextBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[5] as Border).Child as TextBox;
+            //ComboBox GetModels = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[6] as ComboBox;
+            //GetModels.Items.Clear();
 
-            foreach (var GetModel in Models)
-            {
-                GetModels.Items.Add(GetModel);
-            }
+            //foreach (var GetModel in Models)
+            //{
+            //    GetModels.Items.Add(GetModel);
+            //}
 
-            GetModelTextBox.Text = Model;
+            //GetModelTextBox.Text = Model;
 
-            ListBox GetKeys = ((Body.Children[0] as Grid).Children[1] as ScrollViewer).Content as ListBox;
-            GetKeys.Items.Clear();
+            //ListBox GetKeys = ((Body.Children[0] as Grid).Children[1] as ScrollViewer).Content as ListBox;
+            //GetKeys.Items.Clear();
 
-            for (int i = 0; i < Keys.Count; i++)
-            {
-                GetKeys.Items.Add(Keys[i]);
-            }
+            //for (int i = 0; i < Keys.Count; i++)
+            //{
+            //    GetKeys.Items.Add(Keys[i]);
+            //}
 
-            ((Body.Children[0] as Grid).Children[1] as ScrollViewer).PreviewMouseWheel += PlatformConfigStyleWin_PreviewMouseWheel;
+            //((Body.Children[0] as Grid).Children[1] as ScrollViewer).PreviewMouseWheel += PlatformConfigStyleWin_PreviewMouseWheel;
 
-            Border GetAddBtn = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[2] as Border;
-            GetAddBtn.Tag = GetPlatformBorder;
-            GetAddBtn.PreviewMouseDown += GetAddBtn_PreviewMouseDown;
+            //Border GetAddBtn = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[2] as Border;
+            //GetAddBtn.Tag = GetPlatformBorder;
+            //GetAddBtn.PreviewMouseDown += GetAddBtn_PreviewMouseDown;
 
-            Border RemoveBtn = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[3] as Border;
-            RemoveBtn.Tag = GetPlatformBorder;
-            RemoveBtn.PreviewMouseDown += RemoveBtn_PreviewMouseDown;
+            //Border RemoveBtn = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[3] as Border;
+            //RemoveBtn.Tag = GetPlatformBorder;
+            //RemoveBtn.PreviewMouseDown += RemoveBtn_PreviewMouseDown;
 
-            TextBox ModelBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[5] as Border).Child as TextBox;
-            ModelBox.Tag = GetPlatformBorder;
-            ModelBox.TextChanged += ModelBox_TextChanged;
+            //TextBox ModelBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[5] as Border).Child as TextBox;
+            //ModelBox.Tag = GetPlatformBorder;
+            //ModelBox.TextChanged += ModelBox_TextChanged;
 
-            ComboBox GetModelComboBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[6] as ComboBox);
-            GetModelComboBox.Tag = ModelBox;
-            GetModelComboBox.SelectionChanged += GetModelComboBox_SelectionChanged;
-            return GetPlatformBorder;
+            //ComboBox GetModelComboBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[6] as ComboBox);
+            //GetModelComboBox.Tag = ModelBox;
+            //GetModelComboBox.SelectionChanged += GetModelComboBox_SelectionChanged;
+            //return GetPlatformBorder;
+
+            return null;
         }
 
         private void OpenUrl(object sender, MouseButtonEventArgs e)
@@ -121,142 +123,148 @@ namespace NIM.UIManagement
 
         public Border GenLocalAIConfig(string PlatformName, string Document, bool IsSystemNode,int LocalPort,string Model, int Type)
         {
-            Border GetPlatformBorder = UIHelper.CloneElement(LocalAIConfig);
-            GetPlatformBorder.Tag = Key;
+            //Border GetPlatformBorder = UIHelper.CloneElement(LocalAIConfig);
+            //GetPlatformBorder.Tag = Key;
 
-            Grid GetChildGrid = GetPlatformBorder.Child as Grid;
-            Grid Header = GetChildGrid.Children[0] as Grid;
-            Grid Body = GetChildGrid.Children[1] as Grid;
-            StackPanel GetTittlePanel = (Header.Children[0] as Border).Child as StackPanel;
-            StackPanel ControlPanel = (Header.Children[1] as Grid).Children[0] as StackPanel;
+            //Grid GetChildGrid = GetPlatformBorder.Child as Grid;
+            //Grid Header = GetChildGrid.Children[0] as Grid;
+            //Grid Body = GetChildGrid.Children[1] as Grid;
+            //StackPanel GetTittlePanel = (Header.Children[0] as Border).Child as StackPanel;
+            //StackPanel ControlPanel = (Header.Children[1] as Grid).Children[0] as StackPanel;
 
-            Label TittleLab = GetTittlePanel.Children[0] as Label;
-            TittleLab.Content = PlatformName;
+            //Label TittleLab = GetTittlePanel.Children[0] as Label;
+            //TittleLab.Content = PlatformName;
 
-            Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
-            GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
+            //Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
+            //GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
 
-            if (Document.Length == 0)
-            {
-                (ControlPanel.Children[0] as Label).Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                (ControlPanel.Children[0] as Label).Content = Document;
-                (ControlPanel.Children[0] as Label).PreviewMouseDown += OpenUrl;
-            }
+            //if (Document.Length == 0)
+            //{
+            //    (ControlPanel.Children[0] as Label).Visibility = Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    (ControlPanel.Children[0] as Label).Content = Document;
+            //    (ControlPanel.Children[0] as Label).PreviewMouseDown += OpenUrl;
+            //}
 
-            if (IsSystemNode)
-            {
-                (ControlPanel.Children[1] as Border).Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                (ControlPanel.Children[1] as Border).Visibility = Visibility.Visible;
-                (ControlPanel.Children[1] as Border).Tag = GetPlatformBorder;
-                (ControlPanel.Children[1] as Border).PreviewMouseDown += PlatformConfigStyleWin_PreviewMouseDown;
-            }
+            //if (IsSystemNode)
+            //{
+            //    (ControlPanel.Children[1] as Border).Visibility = Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    (ControlPanel.Children[1] as Border).Visibility = Visibility.Visible;
+            //    (ControlPanel.Children[1] as Border).Tag = GetPlatformBorder;
+            //    (ControlPanel.Children[1] as Border).PreviewMouseDown += PlatformConfigStyleWin_PreviewMouseDown;
+            //}
 
-            Label GetModelLab = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[3] as Label;
+            //Label GetModelLab = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[3] as Label;
 
-            GetModelLab.Content = Model;
+            //GetModelLab.Content = Model;
 
-            TextBox GetPortTextBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[1] as Border).Child as TextBox;
-            GetPortTextBox.Text = LocalPort.ToString();
-            GetPortTextBox.Tag = GetPlatformBorder;
-            GetPortTextBox.TextChanged += GetPortTextBox_TextChanged;
+            //TextBox GetPortTextBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[1] as Border).Child as TextBox;
+            //GetPortTextBox.Text = LocalPort.ToString();
+            //GetPortTextBox.Tag = GetPlatformBorder;
+            //GetPortTextBox.TextChanged += GetPortTextBox_TextChanged;
 
-            return GetPlatformBorder;
+            //return GetPlatformBorder;
+
+            return null;
         }
 
         public Border GenTraditionalConfig(string PlatformName, string Document, bool IsSystemNode, List<string> Keys, int Type)
         {
-            Border GetPlatformBorder = UIHelper.CloneElement(TraditionalConfig);
-            GetPlatformBorder.Tag = Key;
+            //Border GetPlatformBorder = UIHelper.CloneElement(TraditionalConfig);
+            //GetPlatformBorder.Tag = Key;
 
-            Grid GetChildGrid = GetPlatformBorder.Child as Grid;
-            Grid Header = GetChildGrid.Children[0] as Grid;
-            Grid Body = GetChildGrid.Children[1] as Grid;
-            StackPanel GetTittlePanel = (Header.Children[0] as Border).Child as StackPanel;
-            StackPanel ControlPanel = (Header.Children[1] as Grid).Children[0] as StackPanel;
+            //Grid GetChildGrid = GetPlatformBorder.Child as Grid;
+            //Grid Header = GetChildGrid.Children[0] as Grid;
+            //Grid Body = GetChildGrid.Children[1] as Grid;
+            //StackPanel GetTittlePanel = (Header.Children[0] as Border).Child as StackPanel;
+            //StackPanel ControlPanel = (Header.Children[1] as Grid).Children[0] as StackPanel;
 
-            Label TittleLab = GetTittlePanel.Children[0] as Label;
-            TittleLab.Content = PlatformName;
+            //Label TittleLab = GetTittlePanel.Children[0] as Label;
+            //TittleLab.Content = PlatformName;
 
-            Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
-            GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
+            //Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
+            //GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
 
-            if (Document.Length == 0)
-            {
-                (ControlPanel.Children[0] as Label).Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                (ControlPanel.Children[0] as Label).Content = Document;
-                (ControlPanel.Children[0] as Label).PreviewMouseDown += OpenUrl;
-            }
+            //if (Document.Length == 0)
+            //{
+            //    (ControlPanel.Children[0] as Label).Visibility = Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    (ControlPanel.Children[0] as Label).Content = Document;
+            //    (ControlPanel.Children[0] as Label).PreviewMouseDown += OpenUrl;
+            //}
 
-            if (IsSystemNode)
-            {
-                (ControlPanel.Children[1] as Border).Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                (ControlPanel.Children[1] as Border).Visibility = Visibility.Visible;
-                (ControlPanel.Children[1] as Border).Tag = GetPlatformBorder;
-                (ControlPanel.Children[1] as Border).PreviewMouseDown += PlatformConfigStyleWin_PreviewMouseDown;
-            }
+            //if (IsSystemNode)
+            //{
+            //    (ControlPanel.Children[1] as Border).Visibility = Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    (ControlPanel.Children[1] as Border).Visibility = Visibility.Visible;
+            //    (ControlPanel.Children[1] as Border).Tag = GetPlatformBorder;
+            //    (ControlPanel.Children[1] as Border).PreviewMouseDown += PlatformConfigStyleWin_PreviewMouseDown;
+            //}
 
-            ListBox GetKeys = ((Body.Children[0] as Grid).Children[1] as ScrollViewer).Content as ListBox;
-            GetKeys.Items.Clear();
+            //ListBox GetKeys = ((Body.Children[0] as Grid).Children[1] as ScrollViewer).Content as ListBox;
+            //GetKeys.Items.Clear();
 
-            for (int i = 0; i < Keys.Count; i++)
-            {
-                GetKeys.Items.Add(Keys[i]);
-            }
+            //for (int i = 0; i < Keys.Count; i++)
+            //{
+            //    GetKeys.Items.Add(Keys[i]);
+            //}
 
-            ((Body.Children[0] as Grid).Children[1] as ScrollViewer).PreviewMouseWheel += PlatformConfigStyleWin_PreviewMouseWheel;
+            //((Body.Children[0] as Grid).Children[1] as ScrollViewer).PreviewMouseWheel += PlatformConfigStyleWin_PreviewMouseWheel;
 
-            Border GetAddBtn = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[2] as Border;
-            GetAddBtn.Tag = GetPlatformBorder;
-            GetAddBtn.PreviewMouseDown += GetAddBtn_PreviewMouseDown;
+            //Border GetAddBtn = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[2] as Border;
+            //GetAddBtn.Tag = GetPlatformBorder;
+            //GetAddBtn.PreviewMouseDown += GetAddBtn_PreviewMouseDown;
 
-            Border RemoveBtn = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[3] as Border;
-            RemoveBtn.Tag = GetPlatformBorder;
-            RemoveBtn.PreviewMouseDown += RemoveBtn_PreviewMouseDown;
+            //Border RemoveBtn = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[3] as Border;
+            //RemoveBtn.Tag = GetPlatformBorder;
+            //RemoveBtn.PreviewMouseDown += RemoveBtn_PreviewMouseDown;
 
-            //DeepL requires special handling.
-            if (CustomType == CustomPlatformType.Traditional && PlatformName.ToLower().Equals("deepl"))
-            {
-                var SetIndex = 3 + 1;
-                CheckBox IsFreeCheck = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[SetIndex] as CheckBox;
-                IsFreeCheck.Click += IsFreeCheck_Click;
-                if (NIMApp.EngineSetting.GetPlatformData(PlatformType.DeepL).IsFree)
-                {
-                    IsFreeCheck.IsChecked = true;
-                }
+            ////DeepL requires special handling.
+            //if (CustomType == CustomPlatformType.Traditional && PlatformName.ToLower().Equals("deepl"))
+            //{
+            //    var SetIndex = 3 + 1;
+            //    CheckBox IsFreeCheck = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[SetIndex] as CheckBox;
+            //    IsFreeCheck.Click += IsFreeCheck_Click;
+            //    if (NIMApp.EngineSetting.GetPlatformData(PlatformType.DeepL).IsFree)
+            //    {
+            //        IsFreeCheck.IsChecked = true;
+            //    }
 
-                IsFreeCheck.Visibility = Visibility.Visible;
-            }
+            //    IsFreeCheck.Visibility = Visibility.Visible;
+            //}
 
-            return GetPlatformBorder;
+            //return GetPlatformBorder;
+
+            return null;
         }
 
-        private void IsFreeCheck_Click(object sender, RoutedEventArgs e)
-        {           
-            CheckBox GetCheck = sender as CheckBox;
-            int Key = (int)PlatformType.DeepL;
-            if (GetCheck.IsChecked == true)
-            {
-                NIMApp.EngineSetting.PlatformConfigs[Key].IsFree = true;
-            }
-            else
-            {
-                NIMApp.EngineSetting.PlatformConfigs[Key].IsFree = false;
-            }
+        //The new feature automatically determines whether the provided key belongs to a free DeepL service and selects the appropriate HTTP interface accordingly, so this [manual configuration] is no longer needed.
 
-            NIM_Engine.SaveConfig();
-        }
+        //private void IsFreeCheck_Click(object sender, RoutedEventArgs e)
+        //{           
+        //    CheckBox GetCheck = sender as CheckBox;
+        //    int Key = (int)PlatformType.DeepL;
+        //    if (GetCheck.IsChecked == true)
+        //    {
+        //        NIMApp.EngineSetting.PlatformConfigs[Key].IsFree = true;
+        //    }
+        //    else
+        //    {
+        //        NIMApp.EngineSetting.PlatformConfigs[Key].IsFree = false;
+        //    }
+
+        //    NIM_Engine.SaveConfig();
+        //}
 
         private void GetModelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -284,6 +292,7 @@ namespace NIM.UIManagement
             string GetPlatformName = P_Convert.ObjToStr(TittleLab.Content);
             TextBox ModelBox = (((Body.Children[0] as Grid).Children[0] as StackPanel).Children[5] as Border).Child as TextBox;
             string GetModel = ModelBox.Text;
+
             if (GetModel.Length > 0)
             {
                 if (GetCustomID <= 0)
@@ -292,31 +301,32 @@ namespace NIM.UIManagement
                     {
                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
                         var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
-                        if (GetPlatformName == "ChatGpt" && Config.Platform == PlatformType.ChatGpt && Config.CustomInFo == null)
+
+                        if (GetPlatformName == "ChatGpt")
                         {
                             Config.Model = GetModel;
                             break;
                         }
                         else
-                        if (GetPlatformName == "Gemini" && Config.Platform == PlatformType.Gemini && Config.CustomInFo == null)
+                        if (GetPlatformName == "Gemini")
                         {
                             Config.Model = GetModel;
                             break;
                         }
                         else
-                        if (GetPlatformName == "DeepSeek" && Config.Platform == PlatformType.DeepSeek && Config.CustomInFo == null)
+                        if (GetPlatformName == "DeepSeek")
                         {
                             Config.Model = GetModel;
                             break;
                         }
                         else
-                        if (GetPlatformName == "LM Studio" && Config.Platform == PlatformType.LMLocalAI && Config.CustomInFo == null)
+                        if (GetPlatformName == "LM Studio")
                         {
                             Config.Model = GetModel;
                             break;
                         }
                         else
-                        if (GetPlatformName == "DeepL" && Config.Platform == PlatformType.DeepL && Config.CustomInFo == null)
+                        if (GetPlatformName == "DeepL")
                         {
                             Config.Model = GetModel;
                             break;
@@ -329,7 +339,7 @@ namespace NIM.UIManagement
                     {
                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
                         var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
-                        if (Config.CustomInFo != null && Config.CustomInFo.CustomID.Equals(GetCustomID))
+                        if (Config.Name == "Test")
                         {
                             Config.Model = GetModel;
                             break;
@@ -369,7 +379,7 @@ namespace NIM.UIManagement
                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
                         var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
 
-                        if (GetPlatformName == "LM Studio" && Config.Platform == PlatformType.LMLocalAI && Config.CustomInFo == null)
+                        if (GetPlatformName == "LM Studio")
                         {
                             NIMApp.EngineSetting.PlatformConfigs[GetKey].LocalPort = GetPort;
                             break;
@@ -382,7 +392,7 @@ namespace NIM.UIManagement
                     {
                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
                         var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
-                        if (Config.CustomInFo != null && Config.CustomInFo.CustomID.Equals(GetCustomID))
+                        if (Config.Name == "Test")
                         {
                             NIMApp.EngineSetting.PlatformConfigs[GetKey].LocalPort = GetPort;
                             break;
@@ -421,7 +431,7 @@ namespace NIM.UIManagement
                     {
                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
                         var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
-                        if (GetPlatformName == "ChatGpt" && Config.Platform == PlatformType.ChatGpt && Config.CustomInFo == null)
+                        if (GetPlatformName == "ChatGpt")
                         {
                             if (!Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -431,7 +441,7 @@ namespace NIM.UIManagement
                             }
                         }
                         else
-                        if (GetPlatformName == "Gemini" && Config.Platform == PlatformType.Gemini && Config.CustomInFo == null)
+                        if (GetPlatformName == "Gemini")
                         {
                             if (!Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -441,7 +451,7 @@ namespace NIM.UIManagement
                             }
                         }
                         else
-                        if (GetPlatformName == "DeepSeek" && Config.Platform == PlatformType.DeepSeek && Config.CustomInFo == null)
+                        if (GetPlatformName == "DeepSeek")
                         {
                             if (!Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -451,7 +461,7 @@ namespace NIM.UIManagement
                             }
                         }
                         else
-                        if (GetPlatformName == "LM Studio" && Config.Platform == PlatformType.LMLocalAI && Config.CustomInFo == null)
+                        if (GetPlatformName == "LM Studio")
                         {
                             if (!Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -461,7 +471,7 @@ namespace NIM.UIManagement
                             }
                         }
                         else
-                        if (GetPlatformName == "DeepL" && Config.Platform == PlatformType.DeepL && Config.CustomInFo == null)
+                        if (GetPlatformName == "DeepL")
                         {
                             if (!Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -480,7 +490,7 @@ namespace NIM.UIManagement
                     {
                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
                         var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
-                        if (Config.CustomInFo != null && Config.CustomInFo.CustomID.Equals(GetCustomID))
+                        if (Config.Name == "Test")
                         {
                             if (!Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -524,7 +534,7 @@ namespace NIM.UIManagement
                     {
                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
                         var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
-                        if (GetPlatformName == "ChatGpt" && Config.Platform == PlatformType.ChatGpt && Config.CustomInFo == null)
+                        if (GetPlatformName == "ChatGpt")
                         {
                             if (Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -534,7 +544,7 @@ namespace NIM.UIManagement
                             }
                         }
                         else
-                        if (GetPlatformName == "Gemini" && Config.Platform == PlatformType.Gemini && Config.CustomInFo == null)
+                        if (GetPlatformName == "Gemini")
                         {
                             if (Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -544,7 +554,7 @@ namespace NIM.UIManagement
                             }
                         }
                         else
-                        if (GetPlatformName == "DeepSeek" && Config.Platform == PlatformType.DeepSeek && Config.CustomInFo == null)
+                        if (GetPlatformName == "DeepSeek")
                         {
                             if (Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -554,7 +564,7 @@ namespace NIM.UIManagement
                             }
                         }
                         else
-                        if (GetPlatformName == "LM Studio" && Config.Platform == PlatformType.LMLocalAI && Config.CustomInFo == null)
+                        if (GetPlatformName == "LM Studio")
                         {
                             if (Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -564,7 +574,7 @@ namespace NIM.UIManagement
                             }
                         }
                         else
-                        if (GetPlatformName == "DeepL" && Config.Platform == PlatformType.DeepL && Config.CustomInFo == null)
+                        if (GetPlatformName == "DeepL")
                         {
                             if (Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -583,7 +593,7 @@ namespace NIM.UIManagement
                     {
                         var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
                         var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
-                        if (Config.CustomInFo != null && Config.CustomInFo.CustomID.Equals(GetCustomID))
+                        if (Config.Name == "Test")
                         {
                             if (Config.ApiKeys.Contains(GetApiKey))
                             {
@@ -609,16 +619,14 @@ namespace NIM.UIManagement
                 for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                 {
                     var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null)
+
+                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Name.Equals("Test"))
                     {
-                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID.Equals(GetID))
-                        {
-                            NIMApp.EngineSetting.PlatformConfigs.Remove(GetKey);
-                            NIM_Engine.SaveConfig();
-                            NIMApp.WorkWin.SyncPlatformConfig();
-                            UIHelper.SyncNodes(_Owner.Nodes);
-                            break;
-                        }
+                        NIMApp.EngineSetting.PlatformConfigs.Remove(GetKey);
+                        NIM_Engine.SaveConfig();
+                        NIMApp.WorkWin.SyncPlatformConfig();
+                        UIHelper.SyncNodes(_Owner.Nodes);
+                        break;
                     }
                 }
             }
