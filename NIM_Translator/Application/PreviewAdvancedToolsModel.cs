@@ -52,7 +52,7 @@ namespace NIM.ApplicationLayer
     {
         private bool _isEnabled;
 
-        internal PreviewPipelineEntry(int key, string name, string group, bool isEnabled, bool isCustom)
+        internal PreviewPipelineEntry(string key, string name, string group, bool isEnabled, bool isCustom)
         {
             Key = key;
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -64,7 +64,7 @@ namespace NIM.ApplicationLayer
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>Gets the stable engine configuration key.</summary>
-        public int Key { get; private set; }
+        public string Key { get; private set; }
 
         /// <summary>Gets the safe provider display name.</summary>
         public string Name { get; private set; }

@@ -28,23 +28,23 @@ namespace NIM.ApplicationLayer
 
             return NIMApp.EngineSetting.PlatformConfigs.Select(pair => new PreviewPipelineEntry(
                 pair.Key,
-                GetName(pair.Key, pair.Value),
+                pair.Key,
                 GetGroup(pair.Value),
                 pair.Value.Enable,
-                pair.Value.CustomInFo != null)).ToList();
+                !string.IsNullOrEmpty(pair.Value.Name))).ToList();
         }
 
         /// <inheritdoc />
         public void SavePipeline(IReadOnlyList<PreviewPipelineEntry> entries)
         {
             if (entries == null) throw new ArgumentNullException(nameof(entries));
-            Dictionary<int, PlatformConfig> current = NIMApp.EngineSetting.PlatformConfigs;
+            Dictionary<string, PlatformConfig> current = NIMApp.EngineSetting.PlatformConfigs;
             if (current == null || entries.Count != current.Count || entries.Any(entry => !current.ContainsKey(entry.Key)))
             {
                 throw new InvalidOperationException("The provider pipeline changed while edits were staged.");
             }
 
-            var ordered = new Dictionary<int, PlatformConfig>();
+            var ordered = new Dictionary<string, PlatformConfig>();
             foreach (PreviewPipelineEntry entry in entries)
             {
                 PlatformConfig config = current[entry.Key];
@@ -83,36 +83,39 @@ namespace NIM.ApplicationLayer
             }
         }
 
+        
         /// <inheritdoc />
         public void SaveCustomProvider(PreviewCustomProviderDraft draft)
         {
-            if (draft == null) throw new ArgumentNullException(nameof(draft));
-            int key = NIMApp.EngineSetting.PlatformConfigs.Count == 0 ? 1 : NIMApp.EngineSetting.PlatformConfigs.Keys.Max() + 1;
-            while (NIMApp.EngineSetting.PlatformConfigs.ContainsKey(key)) key++;
-            var custom = new CustomPlatformInFo
-            {
-                CustomID = key,
-                Name = draft.Name.Trim(),
-                Url = draft.Endpoint.Trim(),
-                IsPost = draft.UsePost,
-                Type = ParseGroup(draft.Group),
-                QueryRule = new ReqQueryRuleItem { ByJson = true, FieldName = draft.ResponseField.Trim() }
-            };
-            var request = new CustomReqCore();
-            request.SetUrl(custom.Url);
-            request.SetHeader(draft.Headers ?? string.Empty);
-            request.SetPayLoad(draft.Payload ?? string.Empty);
-            custom.Header = draft.Headers ?? string.Empty;
-            custom.PayLoad = draft.Payload ?? string.Empty;
-            custom.Url_Tags = CreateTags(request.GetUrlKeyValues());
-            custom.Header_Tags = CreateTags(request.GetHeaderKeyValues());
-            custom.PayLoad_Tags = CreateTags(request.GetPayLoadKeyValues());
-            NIMApp.EngineSetting.PlatformConfigs.Add(key, new PlatformConfig(PlatformType.CustomPlatform)
-            {
-                Enable = false,
-                Model = draft.Model?.Trim() ?? string.Empty,
-                CustomInFo = custom
-            });
+            //The software no longer supports the addition of custom platforms; users who wish to add a platform must now create their own plugin.
+
+            //if (draft == null) throw new ArgumentNullException(nameof(draft));
+            //int key = NIMApp.EngineSetting.PlatformConfigs.Count == 0 ? 1 : NIMApp.EngineSetting.PlatformConfigs.Keys.Max() + 1;
+            //while (NIMApp.EngineSetting.PlatformConfigs.ContainsKey(key)) key++;
+            //var custom = new CustomPlatformInFo
+            //{
+            //    CustomID = key,
+            //    Name = draft.Name.Trim(),
+            //    Url = draft.Endpoint.Trim(),
+            //    IsPost = draft.UsePost,
+            //    Type = ParseGroup(draft.Group),
+            //    QueryRule = new ReqQueryRuleItem { ByJson = true, FieldName = draft.ResponseField.Trim() }
+            //};
+            //var request = new CustomReqCore();
+            //request.SetUrl(custom.Url);
+            //request.SetHeader(draft.Headers ?? string.Empty);
+            //request.SetPayLoad(draft.Payload ?? string.Empty);
+            //custom.Header = draft.Headers ?? string.Empty;
+            //custom.PayLoad = draft.Payload ?? string.Empty;
+            //custom.Url_Tags = CreateTags(request.GetUrlKeyValues());
+            //custom.Header_Tags = CreateTags(request.GetHeaderKeyValues());
+            //custom.PayLoad_Tags = CreateTags(request.GetPayLoadKeyValues());
+            //NIMApp.EngineSetting.PlatformConfigs.Add(key, new PlatformConfig(PlatformType.CustomPlatform)
+            //{
+            //    Enable = false,
+            //    Model = draft.Model?.Trim() ?? string.Empty,
+            //    CustomInFo = custom
+            //});
             NIM_Engine.SaveConfig();
         }
 
@@ -211,47 +214,34 @@ namespace NIM.ApplicationLayer
             return new KeyValuePair<string, long>(name, Math.Max(0, value));
         }
 
-        private static List<ReqReplaceTag> CreateTags(IEnumerable<ReqCustomKeyValue> values)
-        {
-            return values.Select(value => new ReqReplaceTag(value.Key, value.Value)).ToList();
-        }
-
-        private static string GetName(int key, PlatformConfig config)
-        {
-            if (!string.IsNullOrWhiteSpace(config.CustomInFo?.Name)) return config.CustomInFo.Name;
-            return config.Platform == PlatformType.LMLocalAI ? "LM Studio" : config.Platform.ToString();
-        }
-
         private static string GetGroup(PlatformConfig config)
         {
-            if (config.CustomInFo != null) return FormatGroup(config.CustomInFo.Type);
-            switch (config.Platform)
+            if (config.Type == NIM_Engine.CloudAI)
             {
-                case PlatformType.ChatGpt:
-                case PlatformType.Gemini:
-                case PlatformType.DeepSeek: return "Cloud AI";
-                case PlatformType.LMLocalAI: return "Local AI";
-                case PlatformType.HumanTranslation: return "Interactive";
-                default: return "Traditional";
+                return "Cloud AI";
+            }
+            else
+            if (config.Type == NIM_Engine.LocalAI)
+            {
+                return "Local AI";
+            }
+            else
+            if (config.Type == NIM_Engine.Traditional)
+            {
+                return "Traditional";
+            }
+            else
+            {
+                return "Interactive";
             }
         }
-
-        private static string FormatGroup(CustomPlatformType type)
+        private static int ParseGroup(string group)
         {
-            switch (type)
-            {
-                case CustomPlatformType.CloudAI: return "Cloud AI";
-                case CustomPlatformType.LocalAI: return "Local AI";
-                case CustomPlatformType.Traditional: return "Traditional";
-                default: return "Interactive";
-            }
-        }
+            if (string.Equals(group, "Local AI", StringComparison.Ordinal)) return NIM_Engine.LocalAI;
+            if (string.Equals(group, "Cloud AI", StringComparison.Ordinal)) return NIM_Engine.CloudAI;
+            if (string.Equals(group, "Traditional", StringComparison.Ordinal)) return NIM_Engine.Traditional;
 
-        private static CustomPlatformType ParseGroup(string group)
-        {
-            if (string.Equals(group, "Local AI", StringComparison.Ordinal)) return CustomPlatformType.LocalAI;
-            if (string.Equals(group, "Traditional", StringComparison.Ordinal)) return CustomPlatformType.Traditional;
-            return CustomPlatformType.CloudAI;
+            return -1;
         }
     }
 }
