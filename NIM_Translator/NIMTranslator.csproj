@@ -165,9 +165,6 @@
     <Compile Include="UIManagement\Translate\CodeView.xaml.cs">
       <DependentUpon>CodeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIManagement\Node\CustomWizard.xaml.cs">
-      <DependentUpon>CustomWizard.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UIManagement\Main\DataBaseView.xaml.cs">
       <DependentUpon>DataBaseView.xaml</DependentUpon>
     </Compile>
@@ -283,10 +280,6 @@
     <Page Include="UIManagement\Translate\CodeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UIManagement\Node\CustomWizard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIManagement\Main\DataBaseView.xaml">
       <SubType>Designer</SubType>
