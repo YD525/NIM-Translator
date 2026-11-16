@@ -873,8 +873,6 @@ namespace NIM.SkyrimManagement
                     NIMApp.EngineSetting.ProtectedPatterns.Add(GetStr);
                 }
             }
-
-            ProxyCenter.UsingProxy();
         }
 
         public void SyncTransState(Action EndAction, bool IsKeep = false)
