@@ -560,27 +560,27 @@ namespace NIM.UIManage
                                 Grid SetGrid = NIMApp.WorkWin.Nodes.Children[i] as Grid;
                                 if (SetGrid.Children[0] is Grid)
                                 {
-                                    HeaderInFo GetHeader = SetGrid.Tag as HeaderInFo;
-                                    if (GetHeader.CustomID <= 0 && GetHeader.MainType == PlatformType.Null)
-                                    {
-                                        if (Sign == PlatformType.NIMEngine)
-                                        {
-                                            ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
-                                            NodeLightController.Blink(SetGrid, GetLight, 1000);
-                                        }
-                                    }
-                                    else
-                                    if (GetHeader.CustomID <= 0 && GetHeader.MainType == Sign)
-                                    {
-                                        ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
-                                        NodeLightController.Blink(SetGrid, GetLight, 1000);
-                                    }
-                                    else
-                                    if (GetHeader.CustomID > 0 && GetHeader.CustomID == CustomID)
-                                    {
-                                        ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
-                                        NodeLightController.Blink(SetGrid, GetLight, 1000);
-                                    }
+                                    //HeaderInFo GetHeader = SetGrid.Tag as HeaderInFo;
+                                    //if (GetHeader.CustomID <= 0 && GetHeader.MainType == PlatformType.Null)
+                                    //{
+                                    //    if (Sign == PlatformType.NIMEngine)
+                                    //    {
+                                    //        ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
+                                    //        NodeLightController.Blink(SetGrid, GetLight, 1000);
+                                    //    }
+                                    //}
+                                    //else
+                                    //if (GetHeader.CustomID <= 0 && GetHeader.MainType == Sign)
+                                    //{
+                                    //    ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
+                                    //    NodeLightController.Blink(SetGrid, GetLight, 1000);
+                                    //}
+                                    //else
+                                    //if (GetHeader.CustomID > 0 && GetHeader.CustomID == CustomID)
+                                    //{
+                                    //    ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
+                                    //    NodeLightController.Blink(SetGrid, GetLight, 1000);
+                                    //}
                                 }
 
                             }
@@ -670,108 +670,108 @@ namespace NIM.UIManage
 
             for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
             {
-                var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.CustomPlatform)
-                {
-                    CustomPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
-                }
-                else
-                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.LMLocalAI)
-                {
-                    LocalAIPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
-                }
-                else
-                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.ChatGpt
-                    || NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.Gemini
-                    || NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepSeek)
-                {
-                    CloudAIPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
-                }
-                else
-                {
-                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform != PlatformType.HumanTranslation)
-                    {
-                        TraditionalPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
-                    }
-                    else
-                    {
-                        InteractivePlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
-                    }
-                }
+                //var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                //if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.CustomPlatform)
+                //{
+                //    CustomPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
+                //}
+                //else
+                //if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.LMLocalAI)
+                //{
+                //    LocalAIPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
+                //}
+                //else
+                //if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.ChatGpt
+                //    || NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.Gemini
+                //    || NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepSeek)
+                //{
+                //    CloudAIPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
+                //}
+                //else
+                //{
+                //    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform != PlatformType.HumanTranslation)
+                //    {
+                //        TraditionalPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
+                //    }
+                //    else
+                //    {
+                //        InteractivePlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
+                //    }
+                //}
             }
 
-            Nodes.Children.Clear();
+            //Nodes.Children.Clear();
 
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenMainNodeTree("Engine Nodes"));
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,"PreTranslate Node", PlatformType.Null, CustomPlatformType.Null, 0, NIMApp.EngineSetting.PreTranslateEnable));
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenMainNodeTree("Engine Nodes"));
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,"PreTranslate Node", PlatformType.Null, CustomPlatformType.Null, 0, NIMApp.EngineSetting.PreTranslateEnable));
 
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Cloud AI Nodes"));
-            foreach (var Get in CloudAIPlatforms)
-            {
-                Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.CloudAI, 0, Get.Enable));
-            }
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Cloud AI Nodes"));
+            //foreach (var Get in CloudAIPlatforms)
+            //{
+            //    Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.CloudAI, 0, Get.Enable));
+            //}
 
-            foreach (var Get in CustomPlatforms)
-            {
-                if (Get.CustomInFo != null)
-                {
-                    if (Get.CustomInFo.Type == CustomPlatformType.CloudAI)
-                    {
-                        Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
-                    }
-                }
-            }
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.CloudAI));
+            //foreach (var Get in CustomPlatforms)
+            //{
+            //    if (Get.CustomInFo != null)
+            //    {
+            //        if (Get.CustomInFo.Type == CustomPlatformType.CloudAI)
+            //        {
+            //            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
+            //        }
+            //    }
+            //}
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.CloudAI));
 
 
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Local AI Nodes"));
-            foreach (var Get in LocalAIPlatforms)
-            {
-                string AutoName = Get.Platform.ToString();
-                if (AutoName == "LMLocalAI")
-                {
-                    AutoName = "LM Studio";
-                }
-                Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,AutoName, Get.Platform, CustomPlatformType.LocalAI, 0, Get.Enable));
-            }
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Local AI Nodes"));
+            //foreach (var Get in LocalAIPlatforms)
+            //{
+            //    string AutoName = Get.Platform.ToString();
+            //    if (AutoName == "LMLocalAI")
+            //    {
+            //        AutoName = "LM Studio";
+            //    }
+            //    Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,AutoName, Get.Platform, CustomPlatformType.LocalAI, 0, Get.Enable));
+            //}
 
-            foreach (var Get in CustomPlatforms)
-            {
-                if (Get.CustomInFo != null)
-                {
-                    if (Get.CustomInFo.Type == CustomPlatformType.LocalAI)
-                    {
-                        Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
-                    }
-                }
-            }
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.LocalAI));
+            //foreach (var Get in CustomPlatforms)
+            //{
+            //    if (Get.CustomInFo != null)
+            //    {
+            //        if (Get.CustomInFo.Type == CustomPlatformType.LocalAI)
+            //        {
+            //            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
+            //        }
+            //    }
+            //}
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.LocalAI));
 
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Traditional Nodes"));
-            foreach (var Get in TraditionalPlatforms)
-            {
-                Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.Traditional, 0, Get.Enable));
-            }
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Traditional Nodes"));
+            //foreach (var Get in TraditionalPlatforms)
+            //{
+            //    Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.Traditional, 0, Get.Enable));
+            //}
 
-            foreach (var Get in CustomPlatforms)
-            {
-                if (Get.CustomInFo != null)
-                {
-                    if (Get.CustomInFo.Type == CustomPlatformType.Traditional)
-                    {
-                        Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
-                    }
-                }
-            }
+            //foreach (var Get in CustomPlatforms)
+            //{
+            //    if (Get.CustomInFo != null)
+            //    {
+            //        if (Get.CustomInFo.Type == CustomPlatformType.Traditional)
+            //        {
+            //            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
+            //        }
+            //    }
+            //}
 
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.Traditional));
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.Traditional));
 
-            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Interactive Nodes"));
+            //Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Interactive Nodes"));
 
-            foreach (var Get in InteractivePlatforms)
-            {
-                Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.Interactive, 0, Get.Enable));
-            }
+            //foreach (var Get in InteractivePlatforms)
+            //{
+            //    Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.Interactive, 0, Get.Enable));
+            //}
 
             NIMApp.NodeStyleWin.SyncCount(Nodes);
         }

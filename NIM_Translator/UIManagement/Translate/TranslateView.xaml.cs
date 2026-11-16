@@ -23,12 +23,12 @@ using NIM.SkyrimModManager;
 using Newtonsoft.Json;
 using System.Text;
 using System.IO;
-using NIMEngine.Platform.LocalAI;
 using NIMEngine;
 using NIMEngine.Memory;
 using NIMEngine.Engine.ADO;
 using NIM.ApplicationLayer;
 using NIM.ModParser;
+using System.Linq;
 
 namespace NIM.UIManagement
 {
@@ -816,9 +816,13 @@ namespace NIM.UIManagement
                                             return;
                                         }
 
-                                        if (NIMApp.EngineSetting.GetPlatformData(LMStudio.Type).Enable)
+                                        for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                                         {
-                                            LMStudio.CurrentModel = string.Empty;
+                                            var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                                            if (NIMApp.EngineSetting.PlatformConfigs[Key].Enable)
+                                            {
+                                                NIMApp.EngineSetting.PlatformConfigs[Key].Model = string.Empty;
+                                            }
                                         }
 
                                         TRun.Visibility = Visibility.Collapsed;

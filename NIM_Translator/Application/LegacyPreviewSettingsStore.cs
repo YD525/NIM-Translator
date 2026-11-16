@@ -12,6 +12,7 @@ using NIMEngine.Language;
 using NIMEngine.Platform;
 using NIMEngine.Translate;
 using NIM.UIManage;
+using NIMEngine.Platform.Nodes;
 
 namespace NIM.ApplicationLayer
 {
@@ -29,14 +30,14 @@ namespace NIM.ApplicationLayer
             }
 
             return NIMApp.EngineSetting.PlatformConfigs
-                .OrderBy(pair => GetProviderName(pair.Key, pair.Value), StringComparer.CurrentCultureIgnoreCase)
+                .OrderBy(pair => pair.Key, StringComparer.CurrentCultureIgnoreCase)
                 .Select(pair => new PreviewProviderOption(
                     pair.Key,
-                    GetProviderName(pair.Key, pair.Value),
-                    pair.Value.Platform == PlatformType.LMLocalAI ||
-                    pair.Value.CustomInFo?.Type == CustomPlatformType.LocalAI,
-                    pair.Value.ApiKeys?.Any(key => !string.IsNullOrWhiteSpace(key)) == true,
-                    pair.Value.CustomInFo == null && pair.Value.Platform != PlatformType.HumanTranslation,
+                    pair.Key,
+                    pair.Value.Name == "LocalAI",
+                    pair.Value.Type == P_Node.CloudAI,
+                    pair.Value.Type == P_Node.Interactive
+                    ,
                     GetModels(pair.Value)))
                 .ToList();
         }
@@ -58,7 +59,7 @@ namespace NIM.ApplicationLayer
             }
 
             List<PreviewProviderOption> providers = GetProviders().ToList();
-            int providerKey = SelectProviderKey(providers);
+            string providerKey = SelectProviderKey(providers);
             PlatformConfig provider = GetProvider(providerKey);
             return new PreviewSettingsSnapshot
             {
@@ -176,8 +177,8 @@ namespace NIM.ApplicationLayer
             }
 
             PlatformConfig provider = GetProvider(settings.ProviderKey);
-            if (provider == null || provider.CustomInFo != null ||
-                provider.Platform == PlatformType.HumanTranslation)
+            if (provider == null ||
+                provider.Name == "HumanTranslation")
             {
                 return new PreviewProviderTestResult(PreviewProviderTestStatus.Unsupported);
             }
@@ -185,7 +186,7 @@ namespace NIM.ApplicationLayer
             string credential = string.IsNullOrWhiteSpace(providerCredential)
                 ? provider.ApiKeys?.FirstOrDefault(key => !string.IsNullOrWhiteSpace(key)) ?? string.Empty
                 : providerCredential;
-            if (provider.Platform != PlatformType.LMLocalAI && string.IsNullOrWhiteSpace(credential))
+            if (provider.Name != "LocalAI" && string.IsNullOrWhiteSpace(credential))
             {
                 return new PreviewProviderTestResult(PreviewProviderTestStatus.AuthenticationFailed);
             }
@@ -210,7 +211,7 @@ namespace NIM.ApplicationLayer
                 try
                 {
                     using (HttpClientHandler handler = CreateHttpHandler(
-                        provider.Platform == PlatformType.LMLocalAI,
+                        provider.Name == "LocalAI",
                         settings,
                         proxyPassword))
                     using (var client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(10) })
@@ -258,31 +259,28 @@ namespace NIM.ApplicationLayer
             string credential)
         {
             HttpRequestMessage request;
-            switch (provider.Platform)
+            switch (provider.Name)
             {
-                case PlatformType.ChatGpt:
+                case "ChatGpt":
                     request = new HttpRequestMessage(HttpMethod.Get, "https://api.openai.com/v1/models");
                     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", credential);
                     break;
-                case PlatformType.DeepSeek:
+                case "DeepSeek":
                     request = new HttpRequestMessage(HttpMethod.Get, "https://api.deepseek.com/models");
                     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", credential);
                     break;
-                case PlatformType.Gemini:
+                case "Gemini":
                     request = new HttpRequestMessage(
                         HttpMethod.Get,
                         "https://generativelanguage.googleapis.com/v1beta/models");
                     request.Headers.Add("x-goog-api-key", credential);
                     break;
-                case PlatformType.DeepL:
+                case "DeepL":
                     request = new HttpRequestMessage(
-                        HttpMethod.Get,
-                        provider.IsFree
-                            ? "https://api-free.deepl.com/v2/usage"
-                            : "https://api.deepl.com/v2/usage");
+                        HttpMethod.Get,"https://api-free.deepl.com/v2/usage" + "," + "https://api.deepl.com/v2/usage");
                     request.Headers.Authorization = new AuthenticationHeaderValue("DeepL-Auth-Key", credential);
                     break;
-                case PlatformType.LMLocalAI:
+                case "LocalAI":
                     int port;
                     if (!int.TryParse(settings.LocalPortText, NumberStyles.None, CultureInfo.InvariantCulture, out port) ||
                         port < 1 || port > 65535)
@@ -333,20 +331,31 @@ namespace NIM.ApplicationLayer
             return handler;
         }
 
-        private static int SelectProviderKey(IReadOnlyList<PreviewProviderOption> providers)
+        private static string SelectProviderKey(IReadOnlyList<PreviewProviderOption> providers)
         {
             if (providers.Count == 0)
             {
-                return 0;
+                return string.Empty;
             }
 
             PreviewProviderOption enabled = providers.FirstOrDefault(option => GetProvider(option.Key)?.Enable == true);
             PreviewProviderOption chatGpt = providers.FirstOrDefault(option =>
-                GetProvider(option.Key)?.Platform == PlatformType.ChatGpt);
-            return (enabled ?? chatGpt ?? providers[0]).Key;
+                option.Name == "ChatGpt");
+
+            if (enabled != null)
+            {
+                return enabled.Key;
+            }
+
+            if (chatGpt != null)
+            {
+                return chatGpt.Key;
+            }
+
+            return providers[0].Key;
         }
 
-        private static PlatformConfig GetProvider(int key)
+        private static PlatformConfig GetProvider(string key)
         {
             if (NIMApp.EngineSetting?.PlatformConfigs == null)
             {
@@ -357,32 +366,7 @@ namespace NIM.ApplicationLayer
             return NIMApp.EngineSetting.PlatformConfigs.TryGetValue(key, out provider) ? provider : null;
         }
 
-        private static string GetProviderName(int key, PlatformConfig provider)
-        {
-            if (!string.IsNullOrWhiteSpace(provider?.CustomInFo?.Name))
-            {
-                return provider.CustomInFo.Name;
-            }
-
-            switch (provider?.Platform)
-            {
-                case PlatformType.ChatGpt:
-                    return "ChatGPT";
-                case PlatformType.DeepSeek:
-                    return "DeepSeek";
-                case PlatformType.Gemini:
-                    return "Gemini";
-                case PlatformType.DeepL:
-                    return "DeepL";
-                case PlatformType.LMLocalAI:
-                    return "LM Studio";
-                case PlatformType.HumanTranslation:
-                    return "Interactive translation";
-                default:
-                    return string.Format(CultureInfo.InvariantCulture, "Provider {0}", key);
-            }
-        }
-
+      
         private static IReadOnlyList<string> GetModels(PlatformConfig provider)
         {
             var models = new List<string>();
@@ -391,20 +375,15 @@ namespace NIM.ApplicationLayer
                 models.Add(provider.Model);
             }
 
-            if (provider?.CustomInFo != null)
+            switch (provider?.Name)
             {
-                return models;
-            }
-
-            switch (provider?.Platform)
-            {
-                case PlatformType.ChatGpt:
+                case "ChatGpt":
                     AddDistinct(models, "gpt-5-nano", "gpt-5-mini", "gpt-4.1-nano", "gpt-4.1-mini", "gpt-4o-mini");
                     break;
-                case PlatformType.Gemini:
+                case "Gemini":
                     AddDistinct(models, "gemini-2.5-flash", "gemini-2.0-flash");
                     break;
-                case PlatformType.DeepSeek:
+                case "DeepSeek":
                     AddDistinct(models, "deepseek-v4-pro");
                     break;
             }

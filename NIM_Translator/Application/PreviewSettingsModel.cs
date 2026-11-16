@@ -63,7 +63,7 @@ namespace NIM.ApplicationLayer
     internal sealed class PreviewProviderOption
     {
         internal PreviewProviderOption(
-            int key,
+            string key,
             string name,
             bool isLocal,
             bool hasStoredCredential,
@@ -79,7 +79,7 @@ namespace NIM.ApplicationLayer
         }
 
         /// <summary>Gets the engine configuration key.</summary>
-        public int Key { get; private set; }
+        public string Key { get; private set; }
 
         /// <summary>Gets the safe provider display name.</summary>
         public string Name { get; private set; }
@@ -135,7 +135,7 @@ namespace NIM.ApplicationLayer
     /// </summary>
     internal sealed class PreviewSettingsSnapshot : INotifyPropertyChanged
     {
-        private int _providerKey;
+        private string _providerKey;
         private string _providerModel = string.Empty;
         private bool _providerEnabled;
         private bool _hasStoredCredential;
@@ -166,7 +166,7 @@ namespace NIM.ApplicationLayer
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>Gets or sets the selected engine provider key.</summary>
-        public int ProviderKey { get => _providerKey; set => Set(ref _providerKey, value); }
+        public string ProviderKey { get => _providerKey; set => Set(ref _providerKey, value); }
 
         /// <summary>Gets or sets the selected provider model.</summary>
         public string ProviderModel { get => _providerModel; set => Set(ref _providerModel, value ?? string.Empty); }

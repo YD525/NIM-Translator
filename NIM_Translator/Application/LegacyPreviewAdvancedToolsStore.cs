@@ -217,17 +217,17 @@ namespace NIM.ApplicationLayer
 
         private static string GetGroup(PlatformConfig config)
         {
-            if (config.Type == Node.CloudAI)
+            if (config.Type == P_Node.CloudAI)
             {
                 return "Cloud AI";
             }
             else
-            if (config.Type == Node.LocalAI)
+            if (config.Type == P_Node.LocalAI)
             {
                 return "Local AI";
             }
             else
-            if (config.Type == Node.Traditional)
+            if (config.Type == P_Node.Traditional)
             {
                 return "Traditional";
             }
@@ -239,8 +239,8 @@ namespace NIM.ApplicationLayer
         private static int ParseGroup(string group)
         {
             if (string.Equals(group, "Local AI", StringComparison.Ordinal)) return P_Node.LocalAI;
-            if (string.Equals(group, "Cloud AI", StringComparison.Ordinal)) return Node.CloudAI;
-            if (string.Equals(group, "Traditional", StringComparison.Ordinal)) return Node.Traditional;
+            if (string.Equals(group, "Cloud AI", StringComparison.Ordinal)) return P_Node.CloudAI;
+            if (string.Equals(group, "Traditional", StringComparison.Ordinal)) return P_Node.Traditional;
 
             return -1;
         }
