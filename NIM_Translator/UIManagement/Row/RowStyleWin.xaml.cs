@@ -47,121 +47,65 @@ namespace NIM.UIManagement
 
             Grid GetChildGrid = (Grid)MainBorder.Child;
 
-            Grid GetTypeGrid = (Grid)GetChildGrid.Children[1];
-            StackPanel GetStackPanel = (StackPanel)GetTypeGrid.Children[0];
+            Grid GetTypeGrid = (Grid)GetChildGrid.Children[0];
+            StackPanel GetStackPanel = (StackPanel)GetTypeGrid.Children[1];
 
             TextBox GetType = (TextBox)GetStackPanel.Children[0];
             GetType.Foreground = new SolidColorBrush(FontColor); 
 
-            StackPanel GetKeyPanel = (StackPanel)((Grid)GetChildGrid.Children[0]).Children[0];
-            TextBox GetKey = (TextBox)GetKeyPanel.Children[1];
-            GetKey.Foreground = new SolidColorBrush(FontColor); 
-
-            Grid GetOriginalGrid = (Grid)GetChildGrid.Children[2];
+            Grid GetOriginalGrid = (Grid)GetChildGrid.Children[1];
             TextBox GetOriginal = (TextBox)GetOriginalGrid.Children[0];
             GetOriginal.Foreground = new SolidColorBrush(FontColor); 
 
-            Grid GetTranslatedGrid = (Grid)GetChildGrid.Children[3];
+            Grid GetTranslatedGrid = (Grid)GetChildGrid.Children[2];
             Border GetTranslatedBorder = (Border)GetTranslatedGrid.Children[0];
 
             TextEditor GetTranslated = (TextEditor)(GetTranslatedBorder.Child);
             GetTranslated.Foreground = new SolidColorBrush(FontColor); 
         }
 
-        public static string GetType(Grid Grid)
-        {
-            Grid GetDataGrid = ((Grid)((Border)Grid.Children[0]).Child);
-
-            Grid GetTypeGrid = (Grid)GetDataGrid.Children[1];
-            StackPanel GetTypePanel = (StackPanel)GetTypeGrid.Children[0];
-
-            TextBox GetType = GetTypePanel.Children[0] as TextBox;
-
-            return GetType.Text;
-        }
-
         public static string GetKey(Grid Grid)
         {
             Grid GetDataGrid = ((Grid)((Border)Grid.Children[0]).Child);
-            StackPanel GetStackPanel = (StackPanel)((Grid)GetDataGrid.Children[0]).Children[0];
-            TextBox GetKey = (TextBox)GetStackPanel.Children[1];
 
-            return GetKey.Text;
+            Grid State = (Grid)((Grid)GetDataGrid.Children[0]).Children[0];
+
+            return P_Convert.ObjToStr(State.Tag);
         }
 
         public static void MarkLeader(Grid Grid, bool Visible = true)
         {
             Grid GetDataGrid = ((Grid)((Border)Grid.Children[0]).Child);
 
-            Grid GetKeyGrid = (Grid)GetDataGrid.Children[1];
-            StackPanel GetTypePanel = (StackPanel)GetKeyGrid.Children[0];
+            Grid GetOriginalGrid = (Grid)GetDataGrid.Children[1];
 
-            Grid GetLeader = (Grid)(GetTypePanel).Children[1];
-            if (Visible)
-            {
-                GetLeader.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                GetLeader.Visibility = Visibility.Hidden;
-            }
+            Polygon GetMark = (Polygon)GetOriginalGrid.Children[0];
+
+            GetMark.Visibility = Visibility.Visible;
         }
 
         public static void SetOriginal(Grid Grid, string Text)
         {
             Grid GetDataGrid = ((Grid)((Border)Grid.Children[0]).Child);
 
-            Grid GetOriginalGrid = (Grid)GetDataGrid.Children[2];
+            Grid GetOriginalGrid = (Grid)GetDataGrid.Children[1];
 
-            TextBox GetOriginal = (TextBox)GetOriginalGrid.Children[0];
+            TextBox GetOriginal = (TextBox)GetOriginalGrid.Children[1];
 
             GetOriginal.Text = Text;
-        }
-
-        public static string GetOriginal(Grid Grid)
-        {
-            Grid GetDataGrid = ((Grid)((Border)Grid.Children[0]).Child);
-
-            Grid GetOriginalGrid = (Grid)GetDataGrid.Children[2];
-
-            TextBox GetOriginal = (TextBox)GetOriginalGrid.Children[0];
-
-            return GetOriginal.Text;
-        }
-
-        public static string GetTranslated(Grid Grid)
-        {
-            Grid GetDataGrid = ((Grid)((Border)Grid.Children[0]).Child);
-
-            Grid GetTranslatedGrid = (Grid)GetDataGrid.Children[3];
-
-            Border GetTranslatedBorder = (Border)GetTranslatedGrid.Children[0];
-
-            TextEditor GetTranslated = (TextEditor)(GetTranslatedBorder.Child);
-
-            return GetTranslated.Text;
         }
 
         public static void SetTranslated(Grid Grid, string Translated)
         {
             Grid SetDataGrid = ((Grid)((Border)Grid.Children[0]).Child);
 
-            Grid SetTranslatedGrid = (Grid)SetDataGrid.Children[3];
+            Grid SetTranslatedGrid = (Grid)SetDataGrid.Children[2];
 
             Border SetTranslatedBorder = (Border)SetTranslatedGrid.Children[0];
 
             TextEditor SetTranslated = (TextEditor)(SetTranslatedBorder.Child);
 
             SetTranslated.Text = Translated;
-        }
-
-        public ColumnDefinition GetColorCol(Grid Grid)
-        {
-            Grid SetDataGrid = ((Grid)((Border)Grid.Children[0]).Child);
-
-            Grid SetTranslatedGrid = (Grid)SetDataGrid.Children[3];
-
-            return SetTranslatedGrid.ColumnDefinitions[1];
         }
 
         public static List<string> RecordModifyStates = new List<string>();
@@ -242,29 +186,23 @@ namespace NIM.UIManagement
             GetChildGrid.ColumnDefinitions[0].Width = Mod.Win.TransViewHeader.ColumnDefinitions[0].Width;
             GetChildGrid.ColumnDefinitions[1].Width = Mod.Win.TransViewHeader.ColumnDefinitions[1].Width;
             GetChildGrid.ColumnDefinitions[2].Width = Mod.Win.TransViewHeader.ColumnDefinitions[2].Width;
-            GetChildGrid.ColumnDefinitions[3].Width = Mod.Win.TransViewHeader.ColumnDefinitions[3].Width;
 
-            StackPanel GetStackPanel = (StackPanel)((Grid)GetChildGrid.Children[0]).Children[0];
+            Grid State = (Grid)((Grid)GetChildGrid.Children[0]).Children[0];
 
-            Ellipse State = (Ellipse)GetStackPanel.Children[0];
+            State.Tag = Item.Key;
 
             if (IsModify || RecordModifyStates.Contains(Item.Key))
             {
-                State.Fill = ModifiedStateBrush;
+                State.Background = ModifiedStateBrush;
             }
-
-            TextBox GetKey = (TextBox)GetStackPanel.Children[1];
-
-            GetKey.Text = Item.Key;
 
             if (FontColor == Colors.White)
             {
                 FontColor = (Color)Application.Current.Resources["DefFontColor"];
             }
-            GetKey.Foreground = new SolidColorBrush(FontColor);
 
-            Grid GetTypeGrid = (Grid)GetChildGrid.Children[1];
-            StackPanel GetTypePanel = (StackPanel)GetTypeGrid.Children[0];
+            Grid GetTypeGrid = (Grid)GetChildGrid.Children[0];
+            StackPanel GetTypePanel = (StackPanel)GetTypeGrid.Children[1];
             TextBox GetType = GetTypePanel.Children[0] as TextBox;
 
             if (EspInstance != null)
@@ -286,10 +224,6 @@ namespace NIM.UIManagement
 
             GetType.Foreground = new SolidColorBrush(FontColor);
 
-            GetKey.Foreground = new SolidColorBrush(FontColor);
-
-            GetKey.PreviewMouseWheel += OnePreviewMouseWheel;
-
 
             if (Mod.P_Translator != null)
             {
@@ -308,8 +242,8 @@ namespace NIM.UIManagement
 
             }
 
-            Grid GetOriginalGrid = (Grid)GetChildGrid.Children[2];
-            TextBox GetOriginal = (TextBox)GetOriginalGrid.Children[0];
+            Grid GetOriginalGrid = (Grid)GetChildGrid.Children[1];
+            TextBox GetOriginal = (TextBox)GetOriginalGrid.Children[1];
             GetOriginal.Text = Item.Original;
 
             if (FontColor == Colors.White)
@@ -320,7 +254,7 @@ namespace NIM.UIManagement
 
             GetOriginal.PreviewMouseWheel += OnePreviewMouseWheel;
 
-            Grid GetTranslatedGrid = (Grid)GetChildGrid.Children[3];
+            Grid GetTranslatedGrid = (Grid)GetChildGrid.Children[2];
             Border GetTranslatedBorder = (Border)GetTranslatedGrid.Children[0];
 
             Grid GetColorGrid = (Grid)GetTranslatedGrid.Children[1];
@@ -358,7 +292,6 @@ namespace NIM.UIManagement
             if (NIMApp.SelfSetting.ViewMode == "Normal")
             {
                 MainGrid.Cursor = Cursors.Hand;
-                GetKey.Cursor = Cursors.Hand;
                 GetOriginal.Cursor = Cursors.Hand;
                 GetTranslated.Cursor = Cursors.Hand;
                 GetTranslatedBorder.Background = null;
@@ -377,7 +310,6 @@ namespace NIM.UIManagement
             else
             {
                 MainGrid.Cursor = Cursors.Hand;
-                GetKey.Cursor = Cursors.Hand;
                 GetOriginal.Cursor = Cursors.Hand;
                 GetTranslated.Cursor = Cursors.IBeam;
                 GetTranslated.IsReadOnly = false;
@@ -388,7 +320,6 @@ namespace NIM.UIManagement
 
             if (Item.Score < 0)
             {
-                GetKey.Foreground = Brushes.Red;
                 GetOriginal.Foreground = Brushes.Red;
                 GetTranslated.Foreground = Brushes.Red;
                 GetType.Foreground = Brushes.Red;

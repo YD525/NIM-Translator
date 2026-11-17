@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:NIM.YDControls"
              mc:Ignorable="d"
              d:DesignHeight="850" d:DesignWidth="800"
-             Background="#FF282828">
+             Background="{x:Null}">
 
     <UserControl.Resources>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
@@ -71,7 +71,7 @@
                 MinValue="0" MaxValue="0"
                 MaxPoints="80"
                 LineColor="#5B8EFF"
-                BackgroundColor="#FF282828"
+                BackgroundColor="#FF202020"
                 GridColor="#FF484747"
                 LabelColor="#FFA5A5A5"
                 LineThickness="2"
@@ -100,7 +100,7 @@
         MinValue="0" MaxValue="0"
         MaxPoints="80"
         LineColor="#FFD58811"
-        BackgroundColor="#FF282828"
+        BackgroundColor="#FF202020"
         GridColor="#FF484747"
         LabelColor="#FFA5A5A5"
         LineThickness="2"

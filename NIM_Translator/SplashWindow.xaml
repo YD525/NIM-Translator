@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border Margin="5" CornerRadius="8" Background="#FF282828" PreviewMouseLeftButtonDown="WinHead_MouseLeftButtonDown">
+    <Border Margin="5" CornerRadius="8" Background="#FF202020" PreviewMouseLeftButtonDown="WinHead_MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
