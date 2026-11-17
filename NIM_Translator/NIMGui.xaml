@@ -742,7 +742,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                                 </StackPanel>
                                             </Border>
 
-                                            <YD:NodeConfigView x:Name="ConfigView"  HorizontalAlignment="Center"></YD:NodeConfigView>
+                                            <YD:NodeConfigView x:Name="NodeConfigView"  HorizontalAlignment="Center"></YD:NodeConfigView>
 
                                         </StackPanel>
                                     </ScrollViewer>
