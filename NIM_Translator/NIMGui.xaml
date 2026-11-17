@@ -46,7 +46,7 @@
             </Grid.ColumnDefinitions>
 
             <!--Nav-->
-            <Border Grid.Column="0" Background="#FF3D3D3D" CornerRadius="9 0 0 9">
+            <Border Grid.Column="0" Background="#FF1E1E1E" CornerRadius="9 0 0 9">
                 <Grid Name="MainNav">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -72,7 +72,7 @@
                                     <Grid Visibility="Hidden" Panel.ZIndex="1" Width="2" Height="20" Background="White" VerticalAlignment="Center" HorizontalAlignment="Right">
                                     </Grid>
 
-                                    <Grid  Visibility="Hidden" Panel.ZIndex="0" Background="Black" Opacity="0.2">
+                                    <Grid  Visibility="Hidden"  Panel.ZIndex="0" Background="#FF676767" Opacity="0.2">
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -88,7 +88,7 @@
                                     <Grid Visibility="Hidden" Panel.ZIndex="1" Width="2" Height="20" Background="White" VerticalAlignment="Center" HorizontalAlignment="Right">
                                     </Grid>
 
-                                    <Grid  Visibility="Hidden" Panel.ZIndex="0" Background="Black" Opacity="0.2">
+                                    <Grid  Visibility="Hidden" Panel.ZIndex="0" Background="#FF676767" Opacity="0.2">
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -104,7 +104,7 @@
                                     <Grid Visibility="Hidden" Panel.ZIndex="1" Width="2" Height="20" Background="White" VerticalAlignment="Center" HorizontalAlignment="Right">
                                     </Grid>
 
-                                    <Grid  Visibility="Hidden" Panel.ZIndex="0" Background="Black" Opacity="0.2">
+                                    <Grid  Visibility="Hidden" Panel.ZIndex="0" Background="#FF676767" Opacity="0.2">
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -118,7 +118,7 @@
                                     </Viewbox>
                                     <Grid Visibility="Hidden" Panel.ZIndex="1" Width="2" Height="20" Background="White" VerticalAlignment="Center" HorizontalAlignment="Right">
                                     </Grid>
-                                    <Grid Visibility="Hidden" Panel.ZIndex="0" Background="Black" Opacity="0.2">
+                                    <Grid Visibility="Hidden" Panel.ZIndex="0" Background="#FF676767" Opacity="0.2">
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -168,7 +168,7 @@
                 </Grid>
             </Grid>
 
-            <Border Grid.Column="1" CornerRadius="0 9 9 0"  Panel.ZIndex="8" Background="#FF282828" MouseDown="WinHead_MouseLeftButtonDown">
+            <Border Grid.Column="1" CornerRadius="0 9 9 0"  Panel.ZIndex="8" Background="#FF202020" MouseDown="WinHead_MouseLeftButtonDown">
 
                 <Border.Triggers>
                     <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -220,16 +220,14 @@
 
                 <Grid>
                     <!--LeftMenu-->
-                    <Border Style="{DynamicResource NodeMenu}" Name="NodeMenu" Height="0" Margin="0 40 0 0">
-                        <Border BorderBrush="Black" BorderThickness="1">
-                            <StackPanel Name="Nodes">
-
-                            </StackPanel>
+                    <Border Style="{DynamicResource NodeMenu}" Name="NodeMenu" Height="0"  Margin="0 40 0 0">
+                        <Border BorderBrush="{x:Null}" BorderThickness="1">
+                            <YD:NodeView x:Name="NodeViewCtrl" Width="310" Height="Auto"/>
                         </Border>
                     </Border>
 
                     <!--LogView-->
-                    <Grid Name="LogView" Visibility="Collapsed" VerticalAlignment="Bottom" Margin="5 0 5 10" Height="200" Panel.ZIndex="999">
+                    <Grid Name="LogView" Visibility="Collapsed" VerticalAlignment="Bottom" Margin="5 0 330 10" Height="200" Panel.ZIndex="999">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="1*"/>
@@ -713,7 +711,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                 <!-- Page: Request & ApiKey -->
                                 <Border Tag="Request And ApiKey Configs" Visibility="Collapsed" Background="Transparent">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{DynamicResource for_scrollviewer}">
-                                        <StackPanel Margin="20,14,20,20" MaxWidth="700" HorizontalAlignment="Stretch">
+                                        <StackPanel Margin="0,14,0,20" MaxWidth="700" HorizontalAlignment="Stretch">
 
                                             <Border Style="{StaticResource SettingCard}">
                                                 <StackPanel>
@@ -744,15 +742,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                                 </StackPanel>
                                             </Border>
 
-                                            <Border Style="{StaticResource SettingCard}" Margin="0">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                                                        <Ellipse Width="7" Height="7" Fill="{StaticResource SettingAccentBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                                        <TextBlock Text="APIKey Configs" Style="{StaticResource SettingSectionTitle}"/>
-                                                    </StackPanel>
-                                                    <StackPanel Name="KeyConfigBlocks"/>
-                                                </StackPanel>
-                                            </Border>
+                                            <YD:NodeConfigView x:Name="ConfigView"  HorizontalAlignment="Center"></YD:NodeConfigView>
 
                                         </StackPanel>
                                     </ScrollViewer>

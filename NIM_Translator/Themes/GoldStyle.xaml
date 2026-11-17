@@ -340,7 +340,7 @@
     </Style>
 
     <Style x:Key="NodeMenu" TargetType="Border">
-        <Setter Property="Background" Value="#FF383838"/>
+        <Setter Property="Background" Value="{x:Null}"/>
         <Setter Property="Width" Value="310"/>
         <Setter Property="Height"  Value="450"/>
         <Setter Property="VerticalAlignment"  Value="Top"/>
@@ -462,7 +462,7 @@
 
     <Style x:Key="LineStyle" TargetType="Grid">
         <Setter Property="Height" Value="40"/>
-        <Setter Property="Background" Value="#FF2A2A2A"/>
+        <Setter Property="Background" Value="#FF1E1E1E"/>
     </Style>
 
     <Style x:Key="LineBorderStyle" TargetType="Border">
@@ -470,10 +470,8 @@
         <Setter Property="BorderBrush" Value="Black"/>
     </Style>
 
-    <Style x:Key="NormalState" TargetType="Ellipse">
-        <Setter Property="Width" Value="10"/>
-        <Setter Property="Height" Value="10"/>
-        <Setter Property="Fill" Value="#FFE1E1E1"/>
+    <Style x:Key="NormalState" TargetType="Grid">
+        <Setter Property="Background" Value="#FF606060"/>
     </Style>
 
     <Style x:Key="LineTypeFont" TargetType="Label">
@@ -1120,7 +1118,7 @@
 
     <!--ListView Selected-->
     <Color x:Key="LineANormal">Black</Color>
-    <Color x:Key="LineASelected">#FFF7F1BA</Color>
+    <Color x:Key="LineASelected">#FF606060</Color>
     <Color x:Key="DefFontColor">White</Color>
 
     <Style x:Key="SplitterStyle" TargetType="{x:Type GridSplitter}">

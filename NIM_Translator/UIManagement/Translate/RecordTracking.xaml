@@ -11,7 +11,7 @@
         WindowStartupLocation="Manual" Closed="Window_Closed" ResizeMode="NoResize">
 
     <Border Background="Transparent" CornerRadius="9">
-        <Border Background="#FF282828" CornerRadius="9">
+        <Border Background="#FF202020" CornerRadius="9">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -32,7 +32,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border Grid.Column="0" Width="4" Height="14" Background="#FFF7F1BA" CornerRadius="2" VerticalAlignment="Center"/>
+                        <Border Grid.Column="0" Width="4" Height="14" Background="White" CornerRadius="2" VerticalAlignment="Center"/>
                         <Label Grid.Column="1" Content="Related NPCs" Foreground="White" FontWeight="Bold" FontSize="13" Margin="6 0 0 0" VerticalAlignment="Center"/>
 
                         <Path Grid.Column="3" Name="NpcChevron" Width="12" Height="7" Stretch="Uniform" Margin="0 0 4 0"
@@ -63,7 +63,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border Grid.Column="0" Width="4" Height="14" Background="#FFF7F1BA" CornerRadius="2" VerticalAlignment="Center"/>
+                        <Border Grid.Column="0" Width="4" Height="14" Background="White" CornerRadius="2" VerticalAlignment="Center"/>
                         <Label Grid.Column="1" Content="Related Text Entries" Foreground="White" FontWeight="Bold" FontSize="13" Margin="6 0 0 0" VerticalAlignment="Center"/>
 
                         <Path Grid.Column="3" Name="RelatedTextChevron" Width="12" Height="7" Stretch="Uniform" Margin="0 0 4 0"
@@ -94,7 +94,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border Grid.Column="0" Width="4" Height="14" Background="#FFF7F1BA" CornerRadius="2" VerticalAlignment="Center"/>
+                        <Border Grid.Column="0" Width="4" Height="14" Background="White" CornerRadius="2" VerticalAlignment="Center"/>
                         <Label Name="AutoLabName" Grid.Column="1" Content="Related Dialogue Scenes" Foreground="White" FontWeight="Bold" FontSize="13" Margin="6 0 0 0" VerticalAlignment="Center"/>
 
                         <Path Grid.Column="3" Name="DialogueChevron" Width="12" Height="7" Stretch="Uniform" Margin="0 0 4 0"

@@ -195,17 +195,12 @@
 
             <Grid Style="{DynamicResource ListViewHeader}" Grid.Row="3" PreviewMouseUp="SyncColumnWidth" Name="TransViewHeader">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55"/>
-                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="175"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Style="{DynamicResource CaptionTextA}" Name="UIKey">
-                    Status
-                </Label>
-
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label  Style="{DynamicResource CaptionTextA}" Name="UIType">
                         Type
                     </Label>
@@ -214,7 +209,7 @@
                 </StackPanel>
 
 
-                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label Style="{DynamicResource CaptionTextA}" Name="UIOriginal">
                         Original
                     </Label>
@@ -227,7 +222,7 @@
                         <preview:PreviewIcon Icon="Refresh" FontSize="15" Foreground="White" Padding="5"/>
                     </Border>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Center">
                     <Label Style="{DynamicResource CaptionTextA}" Name="UITranslated">
                         Translated
                     </Label>
@@ -247,7 +242,6 @@
 
                 <GridSplitter Style="{StaticResource ColSplitterStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="0"/>
                 <GridSplitter Style="{StaticResource ColSplitterStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="1"/>
-                <GridSplitter Style="{StaticResource ColSplitterStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="2"/>
             </Grid>
             <Grid Name="TransView" Style="{DynamicResource FrameStyle}" Grid.Row="4" Panel.ZIndex="990" Margin="10 0 10 0" Visibility="Visible">
 

@@ -71,8 +71,6 @@ namespace NIM
         public static RowStyleWin RowStyleWin = new RowStyleWin();
         public static NodeStyleWin NodeStyleWin = new NodeStyleWin();
 
-        public static PlatformConfigStyleWin PlatformConfigStyleWin = null;
-
         public static DataBaseView DataBaseView = null;
 
         public static NIMGui WorkWin = null;
@@ -179,8 +177,6 @@ namespace NIM
             if (Win != null)
             {
                 NIMApp.WorkWin = Win;
-
-                PlatformConfigStyleWin = new PlatformConfigStyleWin(NIMApp.WorkWin);
 
                 ChartDataRef = new ChartData();
 

@@ -146,6 +146,7 @@
     <Compile Include="ChooseLayout.xaml.cs">
       <DependentUpon>ChooseLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileManagement\SHA256_Validator.cs" />
     <Compile Include="FileManagement\ZipHelper.cs" />
     <Compile Include="SkyrimManagement\BackupManager.cs" />
     <Compile Include="ModParser\EspReader.cs" />
@@ -216,9 +217,6 @@
       <DependentUpon>NodeStyleWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIManagement\PageSwitcher.cs" />
-    <Compile Include="UIManagement\Setting\PlatformConfigStyleWin.xaml.cs">
-      <DependentUpon>PlatformConfigStyleWin.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UIManagement\Row\RowStyleWin.xaml.cs">
       <DependentUpon>RowStyleWin.xaml</DependentUpon>
     </Compile>
@@ -261,8 +259,17 @@
     <Compile Include="UIManagement\Setting\LexTranslatorRadarChart.xaml.cs">
       <DependentUpon>LexTranslatorRadarChart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="YDControls\MainChart.xaml.cs">
       <DependentUpon>MainChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="YDControls\NodeConfigView.xaml.cs">
+      <DependentUpon>NodeConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="YDControls\NodeView.xaml.cs">
+      <DependentUpon>NodeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="YDControls\RealtimeLineChart.cs" />
     <Page Include="ChooseLayout.xaml">
@@ -352,10 +359,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIManagement\Setting\PlatformConfigStyleWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UIManagement\Row\RowStyleWin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -408,7 +411,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="YDControls\MainChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="YDControls\NodeConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="YDControls\NodeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

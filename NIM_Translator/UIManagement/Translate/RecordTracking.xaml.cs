@@ -38,13 +38,13 @@ namespace NIM
 
         static RecordTracking()
         {
-            CardBackgroundBrush = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33));
+            CardBackgroundBrush = new SolidColorBrush(Color.FromRgb(40, 40, 40));
             CardBackgroundBrush.Freeze();
 
-            NameTextBrush = new SolidColorBrush(Color.FromRgb(0xFA, 0xE3, 0x06));
+            NameTextBrush = new SolidColorBrush(Color.FromRgb(250, 227, 6));
             NameTextBrush.Freeze();
 
-            GrayTextBrush = new SolidColorBrush(Color.FromRgb(0xBF, 0xBF, 0xBF));
+            GrayTextBrush = new SolidColorBrush(Color.FromRgb(191, 191, 191));
             GrayTextBrush.Freeze();
 
             HighlightTextBrush = new SolidColorBrush(Color.FromRgb(247, 241, 186));

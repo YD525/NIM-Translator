@@ -54,6 +54,8 @@ namespace NIM
         {
             try
             {
+                new Window1().Show();
+
                 NIMApp.Init(this);
 
                 TranslatorInterface.Init();
@@ -63,7 +65,7 @@ namespace NIM
 
                 ShowView("TransHub");
 
-                UIHelper.SyncNodes(Nodes);
+                UIHelper.SyncNodes();
 
                 //If you like anime, you can place a CG.png in the program's installation directory, making sure the dimensions are correct. It will display an anime character at the top of the software.
                 string CheckCGPath = NIMApp.GetFullPath(@"\CG.png");
@@ -996,23 +998,12 @@ namespace NIM
             }
         }
 
-
-
-        private double CalcLeftMenuHeight()
-        {
-            double AutoHeight = 0;
-            foreach (FrameworkElement GetRow in Nodes.Children)
-            {
-                AutoHeight += GetRow.ActualHeight + 1;
-            }
-            return AutoHeight;
-        }
-
+        
         //Control the speed to a fixed 2000 px/s
         private const double ExpandAnimationSpeed = 2000;
         public void SyncAnimation()
         {
-            double AutoHeight = CalcLeftMenuHeight();
+            double AutoHeight = this.ActualHeight - 50;
 
             var ExpandMenu = (Storyboard)FindResource("ExpandMenu");
             var ExpandAnimation = (DoubleAnimation)ExpandMenu.Children[0];
@@ -1120,110 +1111,8 @@ namespace NIM
 
         public void SyncPlatformConfig()
         {
-            KeyConfigBlocks.Children.Clear();
-
-            List<PlatformConfig> CloudAIs = new List<PlatformConfig>();
-            List<PlatformConfig> LocalAIs = new List<PlatformConfig>();
-            List<PlatformConfig> TraditionalPlatforms = new List<PlatformConfig>();
-
-            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
-            {
-                var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-
-                if (NIMApp.EngineSetting.PlatformConfigs[Key].Type == P_Node.CloudAI)
-                {
-                    CloudAIs.Add(NIMApp.EngineSetting.PlatformConfigs[Key]);
-                }
-                else
-                    if (NIMApp.EngineSetting.PlatformConfigs[Key].Type == P_Node.LocalAI)
-                {
-                    LocalAIs.Add(NIMApp.EngineSetting.PlatformConfigs[Key]);
-                }
-                else
-                    if (NIMApp.EngineSetting.PlatformConfigs[Key].Type == P_Node.Traditional)
-                {
-                    TraditionalPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[Key]);
-                }
-            }
-
-            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
-            {
-                var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                var GetPlatform = NIMApp.EngineSetting.PlatformConfigs[Key];
-
-                if (GetPlatform.Name == "ChatGpt" || GetPlatform.Name == "Gemini" || GetPlatform.Name == "DeepSeek")
-                {
-                    switch (GetPlatform.Name)
-                    {
-                        case "ChatGpt":
-                            {
-                                List<string> Models = new List<string>();
-                                Models.Add("gpt-5-nano");
-                                Models.Add("gpt-5-mini");
-                                Models.Add("gpt-4.1-nano");
-                                Models.Add("gpt-4.1-mini");
-                                Models.Add("gpt-4o-mini");
-
-                                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenCloudAIConfig("ChatGpt", "https://platform.openai.com/api-keys", true, GetPlatform.ApiKeys, GetPlatform.Model, P_Node.CloudAI, Models));
-                            }
-                            break;
-                        case "Gemini":
-                            {
-                                List<string> Models = new List<string>();
-                                Models.Add("gemini-2.5-flash");
-                                Models.Add("gemini-2.0-flash");
-
-                                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenCloudAIConfig("Gemini", "https://aistudio.google.com/apikey", true, GetPlatform.ApiKeys, GetPlatform.Model, P_Node.CloudAI, Models));
-                            }
-                            break;
-                        case "DeepSeek":
-                            {
-                                List<string> Models = new List<string>();
-                                Models.Add("deepseek-v4-pro");
-
-                                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenCloudAIConfig("DeepSeek", "https://platform.deepseek.com/api_keys", true, GetPlatform.ApiKeys, GetPlatform.Model, P_Node.CloudAI, Models));
-                            }
-                            break;
-                    }
-                }
-            }
-
-            foreach (var CustomPlatform in CloudAIs)
-            {
-                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenCloudAIConfig(CustomPlatform.Name, string.Empty, false, CustomPlatform.ApiKeys, CustomPlatform.Model, P_Node.CloudAI, new List<string>() { CustomPlatform.Model }));
-            }
-
-            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
-            {
-                var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                var GetPlatform = NIMApp.EngineSetting.PlatformConfigs[Key];
-
-                if (GetPlatform.Type == P_Node.LocalAI)
-                {
-                    KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenLocalAIConfig("LocalAI", "", true, GetPlatform.LocalPort, GetPlatform.Model, P_Node.LocalAI));
-                }
-            }
-
-            foreach (var CustomPlatform in LocalAIs)
-            {
-                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenLocalAIConfig(CustomPlatform.Name, string.Empty, false, CustomPlatform.LocalPort, CustomPlatform.Model, P_Node.LocalAI));
-            }
-
-            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
-            {
-                var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                var GetPlatform = NIMApp.EngineSetting.PlatformConfigs[Key];
-
-                if (GetPlatform.Name == "DeepL")
-                {
-                    KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenTraditionalConfig("DeepL", "https://www.deepl.com/your-account/keys", true, GetPlatform.ApiKeys, P_Node.Traditional));
-                }
-            }
-
-            foreach (var CustomPlatform in TraditionalPlatforms)
-            {
-                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenTraditionalConfig(CustomPlatform.Name, string.Empty, false, CustomPlatform.ApiKeys, P_Node.Traditional));
-            }
+            //KeyConfigBlocks.Children.Clear();
+            ConfigView.SetConfigs(NIM_Engine.Config.PlatformConfigs.Values.ToList());
         }
 
         #region Setting
