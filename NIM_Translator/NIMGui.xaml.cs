@@ -54,8 +54,6 @@ namespace NIM
         {
             try
             {
-                new Window1().Show();
-
                 NIMApp.Init(this);
 
                 TranslatorInterface.Init();
@@ -1112,7 +1110,7 @@ namespace NIM
         public void SyncPlatformConfig()
         {
             //KeyConfigBlocks.Children.Clear();
-            ConfigView.SetConfigs(NIM_Engine.Config.PlatformConfigs.Values.ToList());
+            NodeConfigView.SetConfigs(NIM_Engine.Config.PlatformConfigs.Values.ToList());
         }
 
         #region Setting

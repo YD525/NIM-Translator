@@ -259,9 +259,6 @@
     <Compile Include="UIManagement\Setting\LexTranslatorRadarChart.xaml.cs">
       <DependentUpon>LexTranslatorRadarChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="YDControls\MainChart.xaml.cs">
       <DependentUpon>MainChart.xaml</DependentUpon>
     </Compile>
@@ -408,10 +405,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIManagement\Setting\LexTranslatorRadarChart.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
