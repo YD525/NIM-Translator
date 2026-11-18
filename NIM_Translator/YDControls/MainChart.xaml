@@ -10,9 +10,9 @@
 
     <UserControl.Resources>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#FF373100"/>
-            <Setter Property="Foreground" Value="#FFFAE306"/>
-            <Setter Property="BorderBrush" Value="#FFFAE306"/>
+            <Setter Property="Background" Value="#FF17475D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF4FC3F7"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -32,7 +32,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFFAE306"/>
+                                <Setter TargetName="border" Property="Background" Value="#FF0C2A38"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -55,7 +55,7 @@
         <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,20">
             <TextBlock Text="Current"
-                       Foreground="#FFFAE306" FontSize="22" FontWeight="Bold"/>
+                       Foreground="#FF4FC3F7" FontSize="22" FontWeight="Bold"/>
             <TextBlock Text="Real-time Token Usage"
                        Foreground="#FF979494" FontSize="12" 
                        Margin="0,4,0,0"/>
@@ -84,7 +84,7 @@
 
         <StackPanel Grid.Row="2" Margin="0,0,0,20">
             <TextBlock Text="Total"
-                 Foreground="#FFFAE306" FontSize="22" FontWeight="Bold"/>
+                 Foreground="#FF4FC3F7" FontSize="22" FontWeight="Bold"/>
             <TextBlock Text="Total Token Usage"
                  Foreground="#FF979494" FontSize="12"
                  Margin="0,4,0,0"/>
@@ -125,7 +125,7 @@
 
         <!-- Controls -->
         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,8,0,0">
-            <Button x:Name="BtnPause" Content="⏸  PAUSE"  Style="{StaticResource CustomButtonStyle}"
+            <Button x:Name="BtnPause" Content="⏸  PAUSE" Style="{StaticResource CustomButtonStyle}"
                     Click="BtnPause_Click"
                     Width="110" Height="34"
                     BorderThickness="1"
@@ -137,7 +137,7 @@
                     BorderThickness="1"
                     FontSize="12" 
                     Cursor="Hand"/>
-            <Grid Width="25" Height="25" Background="#FFD58811" Visibility="Hidden">
+            <Grid Width="25" Height="25" Background="#FF4FC3F7" Visibility="Hidden">
             </Grid>
         </StackPanel>
     </Grid>

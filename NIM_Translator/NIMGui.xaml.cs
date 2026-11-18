@@ -90,6 +90,10 @@ namespace NIM
                   NIMApp.ChartDataRef
                  );
 
+                PluginViewCtrl.PluginProvider = NIM_Engine.GetAllPlugins;
+                PluginViewCtrl.EnableHandler = NIM_Engine.EnablePlugin;
+                PluginViewCtrl.DisableHandler = NIM_Engine.DisablePlugin;
+
                 EngineEvents.SetBookTranslateCallback += BookTransCallBack;
 
                 SelectFristSettingNav();

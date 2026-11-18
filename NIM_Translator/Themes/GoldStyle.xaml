@@ -1730,7 +1730,7 @@
 
 
     <!-- ===================== Settings Page Styles ===================== -->
-    <SolidColorBrush x:Key="SettingAccentBrush" Color="#FFFAE306"/>
+    <SolidColorBrush x:Key="SettingAccentBrush" Color="#FF4FC3F7"/>
     <SolidColorBrush x:Key="SettingMutedBrush" Color="#FF909090"/>
 
     <Style x:Key="SettingNavItem" TargetType="Border">
@@ -1848,8 +1848,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="Track" Property="Background" Value="#FFFAE306"/>
-                            <Setter TargetName="Track" Property="BorderBrush" Value="#FFFAE306"/>
+                            <Setter TargetName="Track" Property="Background" Value="#FF4FC3F7"/>
+                            <Setter TargetName="Track" Property="BorderBrush" Value="#FF4FC3F7"/>
                             <Setter TargetName="Thumb" Property="Fill" Value="#FF1A1A1A"/>
                             <Setter TargetName="Thumb" Property="HorizontalAlignment" Value="Right"/>
                             <Setter TargetName="Thumb" Property="Margin" Value="0,0,3,0"/>
