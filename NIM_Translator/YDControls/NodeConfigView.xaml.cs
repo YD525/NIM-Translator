@@ -340,7 +340,17 @@ namespace NIM.YDControls
         /// <summary>Show all node configs. Cards are built from this list; edits are written straight into these objects.</summary>
         public void SetConfigs(IEnumerable<PlatformConfig> configs)
         {
-            _source = configs != null ? configs.Where(c => c != null).ToList() : new List<PlatformConfig>();
+            List<PlatformConfig> ActiveNodes = new List<PlatformConfig>();
+
+            foreach (var GetNode in configs)
+            {
+                if (PlatformHub.IsNodeActive(GetNode.Name))
+                {
+                    ActiveNodes.Add(GetNode);
+                }
+            }
+
+            _source = ActiveNodes;
             Rebuild();
         }
 

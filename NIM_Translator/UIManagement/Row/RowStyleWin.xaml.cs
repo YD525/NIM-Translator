@@ -287,12 +287,11 @@ namespace NIM.UIManagement
 
             GetTranslated.Tag = Item.Key;
 
-            GetTranslated.TextArea.Caret.CaretBrush = Brushes.Orange;
+            MainGrid.Cursor = Cursors.Hand;
+            GetOriginal.Cursor = Cursors.Hand;
 
             if (NIMApp.SelfSetting.ViewMode == "Normal")
             {
-                MainGrid.Cursor = Cursors.Hand;
-                GetOriginal.Cursor = Cursors.Hand;
                 GetTranslated.Cursor = Cursors.Hand;
                 GetTranslatedBorder.Background = null;
                 GetTranslatedBorder.Cursor = null;
@@ -309,8 +308,8 @@ namespace NIM.UIManagement
             }
             else
             {
-                MainGrid.Cursor = Cursors.Hand;
-                GetOriginal.Cursor = Cursors.Hand;
+                GetTranslated.TextArea.Caret.CaretBrush = Brushes.White;
+
                 GetTranslated.Cursor = Cursors.IBeam;
                 GetTranslated.IsReadOnly = false;
                 GetTranslated.VerticalContentAlignment = VerticalAlignment.Center;
