@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:NIM.YDControls"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="360"
-             Background="Transparent"
-             FontFamily="Segoe UI">
+             Background="Transparent">
 
     <UserControl.Resources>
 

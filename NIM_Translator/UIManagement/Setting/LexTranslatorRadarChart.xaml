@@ -4,13 +4,13 @@
              Width="600" Height="480">
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="RadarStrokeBrush" Color="#FFF7F1BA" />
-        <SolidColorBrush x:Key="RadarFillBrush" Color="#33F7F1BA" />
+        <SolidColorBrush x:Key="RadarStrokeBrush" Color="#FF4FC3F7" />
+        <SolidColorBrush x:Key="RadarFillBrush" Color="#334FC3F7" />
         <SolidColorBrush x:Key="GridLineBrush" Color="#FF3A3A3A" />
         <SolidColorBrush x:Key="TextMainBrush" Color="White" />
         <SolidColorBrush x:Key="TextSubBrush" Color="#FFA0A0A0" />
-        <SolidColorBrush x:Key="AccentBarBrush" Color="#FFF7F1BA" />
-        <DropShadowEffect x:Key="AccentGlow" Color="#FFF7F1BA" BlurRadius="20" ShadowDepth="0" Opacity="0.5" />
+        <SolidColorBrush x:Key="AccentBarBrush" Color="#FF4FC3F7" />
+        <DropShadowEffect x:Key="AccentGlow" Color="#FF4FC3F7" BlurRadius="20" ShadowDepth="0" Opacity="0.5" />
     </UserControl.Resources>
 
     <Border Background="Transparent" CornerRadius="9">

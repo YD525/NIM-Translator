@@ -85,6 +85,7 @@ namespace NIM
             _diagnostics.Record(PreviewDiagnosticSeverity.Information, "startup.initialization.started");
             try
             {
+                MessageBox.Show("Test");
                 //var Get = SHA256_Validator.ComputeFileSHA256(@"C:\Users\52508\source\repos\NIM-Plugin\NIM-NodePack\bin\x64\Release\NIM-NodePack.dll");
                 string applicationPath = NIMApp.GetFullPath(@"\");
                 await Task.Run(() =>

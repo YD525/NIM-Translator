@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:NIM.YDControls"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="520"
-             Background="Transparent"
-             FontFamily="Segoe UI">
+             Background="Transparent">
 
     <UserControl.Resources>
 
@@ -296,7 +295,6 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="0" Background="{Binding AccentBrush}" CornerRadius="{Binding BarCorner}"/>
@@ -307,18 +305,23 @@
                                          Stroke="#99000000" StrokeThickness="1"/>
                             </Grid>
 
-                            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="4,0,8,0">
-                                <TextBlock Text="{Binding ChevronText}" FontSize="11" Foreground="{Binding AccentBrush}"
+                            <!-- DockPanel (not a horizontal StackPanel): the name takes the leftover
+                                 width and trims, so the header shrinks with the control -->
+                            <DockPanel Grid.Column="2" LastChildFill="True" VerticalAlignment="Center" Margin="4,0,8,0">
+                                <TextBlock DockPanel.Dock="Left" Text="{Binding ChevronText}" FontSize="11"
+                                           Foreground="{Binding AccentBrush}"
                                            VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                <TextBlock Text="{Binding Name}" FontSize="15" FontWeight="Bold" Foreground="#FFF2F2F2"
-                                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
-                                <Border Margin="10,0,0,0" Height="18" CornerRadius="9" Background="#FF141414"
-                                        BorderBrush="#33FFFFFF" BorderThickness="1" VerticalAlignment="Center">
+                                <Border DockPanel.Dock="Right" Margin="10,0,0,0" Height="18" CornerRadius="9"
+                                        Background="#FF141414" BorderBrush="#33FFFFFF" BorderThickness="1"
+                                        VerticalAlignment="Center">
                                     <TextBlock Text="{Binding TypeLabel}" FontSize="10" FontWeight="SemiBold"
                                                Foreground="{Binding AccentBrush}" Margin="9,0"
                                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
-                            </StackPanel>
+                                <TextBlock Text="{Binding Name}" ToolTip="{Binding Name}" FontSize="15" FontWeight="Bold"
+                                           Foreground="#FFF2F2F2" VerticalAlignment="Center"
+                                           TextTrimming="CharacterEllipsis"/>
+                            </DockPanel>
 
                             <TextBlock Grid.Column="3" Text="Document ↗" FontSize="11" Foreground="#FF9AD7FF"
                                        TextDecorations="Underline" Cursor="Hand" VerticalAlignment="Center"
@@ -361,7 +364,8 @@
                                      PreviewMouseWheel="Inner_PreviewMouseWheel">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Masked}" FontFamily="Consolas" FontSize="12"/>
+                                        <TextBlock Text="{Binding Masked}" FontFamily="Consolas" FontSize="12"
+                                                   TextTrimming="CharacterEllipsis"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -440,7 +444,8 @@
 
                         <!-- nothing to configure -->
                         <TextBlock Text="This node needs no configuration." FontSize="12" Foreground="#FF6A6A6A"
-                                   Margin="0,0,0,16" Visibility="{Binding EmptyVisibility}"/>
+                                   Margin="0,0,0,16" Visibility="{Binding EmptyVisibility}"
+                                   TextWrapping="Wrap"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -492,7 +497,8 @@
 
                             <Grid Grid.Column="1">
                                 <TextBlock x:Name="PlaceholderText" Text="Search nodes…" FontSize="12"
-                                           Foreground="#FF5A5A5A" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                                           Foreground="#FF5A5A5A" VerticalAlignment="Center" IsHitTestVisible="False"
+                                           TextTrimming="CharacterEllipsis"/>
                                 <TextBox x:Name="SearchBox" Style="{StaticResource BareBox}"
                                          TextChanged="SearchBox_TextChanged"/>
                             </Grid>
@@ -559,7 +565,8 @@
         <Grid Grid.Row="1">
             <ScrollViewer x:Name="MainScroller" VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled" CanContentScroll="False">
-                <ItemsControl x:Name="CardList" ItemTemplate="{StaticResource CardTemplate}"/>
+                <ItemsControl x:Name="CardList" ItemTemplate="{StaticResource CardTemplate}"
+                              HorizontalContentAlignment="Stretch"/>
             </ScrollViewer>
 
             <TextBlock x:Name="NoResult" Text="No nodes match" FontSize="12" Foreground="#FF6A6A6A"

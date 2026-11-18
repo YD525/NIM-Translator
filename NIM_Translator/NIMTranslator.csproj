@@ -268,6 +268,9 @@
     <Compile Include="YDControls\NodeView.xaml.cs">
       <DependentUpon>NodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="YDControls\PluginView.xaml.cs">
+      <DependentUpon>PluginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="YDControls\RealtimeLineChart.cs" />
     <Page Include="ChooseLayout.xaml">
       <SubType>Designer</SubType>
@@ -417,6 +420,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="YDControls\NodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="YDControls\PluginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

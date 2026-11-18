@@ -555,7 +555,7 @@ Chinese character processed by —
 
                         <Grid Visibility="Visible" Tag="Main">
 
-                            <Grid Visibility="Visible" Panel.ZIndex="2" Name="EmptyTabView" Background="Transparent"     
+                            <Grid Visibility="Hidden" Panel.ZIndex="2" Name="EmptyTabView" Background="Transparent"     
                             PreviewDragEnter="Window_DragEnter"
                             PreviewDrop="Window_Drop">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -701,6 +701,17 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                             <Border Grid.Row="1" Background="{StaticResource SettingAccentBrush}" Visibility="Collapsed"/>
                                         </Grid>
                                     </Border>
+
+                                    <Border Tag="Extensions" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="3"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Text="Extensions" Style="{StaticResource SettingNavText}"/>
+                                            <Border Grid.Row="1" Background="{StaticResource SettingAccentBrush}" Visibility="Collapsed"/>
+                                        </Grid>
+                                    </Border>
                                 </StackPanel>
                                 <Border Height="1" Background="#FF3A3A3A" VerticalAlignment="Bottom"/>
                             </Grid>
@@ -710,9 +721,12 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
 
                                 <!-- Page: Request & ApiKey -->
                                 <Border Tag="Request And ApiKey Configs" Visibility="Collapsed" Background="Transparent">
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{DynamicResource for_scrollviewer}">
-                                        <StackPanel Margin="0,14,0,20" MaxWidth="700" HorizontalAlignment="Stretch">
-
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="120"/>
+                                            <RowDefinition Height="500"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Margin="10,14,10,0"  HorizontalAlignment="Stretch" Grid.Row="0">
                                             <Border Style="{StaticResource SettingCard}">
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
@@ -741,11 +755,12 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Border>
-
-                                            <YD:NodeConfigView x:Name="NodeConfigView"  HorizontalAlignment="Center"></YD:NodeConfigView>
-
                                         </StackPanel>
-                                    </ScrollViewer>
+                                        <YD:NodeConfigView x:Name="NodeConfigView" Grid.Row="1"
+                   Margin="10,0,10,10"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"/>
+                                    </Grid>
                                 </Border>
 
                                 <!-- Page: AI Configs -->
@@ -1126,6 +1141,12 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                     </ScrollViewer>
                                 </Border>
 
+                                <!-- Page: Extensions" -->
+                                <Border Tag="Extensions" Visibility="Collapsed"  Background="Transparent">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{DynamicResource for_scrollviewer}">
+                                        <YD:PluginView x:Name="PluginViewCtrl" Margin="10 0 10 0"/>
+                                    </ScrollViewer>
+                                </Border>
                             </Grid>
                         </Grid>
                     </Grid>
