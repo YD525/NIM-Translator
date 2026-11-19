@@ -555,7 +555,7 @@ Chinese character processed by —
 
                         <Grid Visibility="Visible" Tag="Main">
 
-                            <Grid Visibility="Hidden" Panel.ZIndex="2" Name="EmptyTabView" Background="Transparent"     
+                            <Grid Visibility="Visible" Panel.ZIndex="2" Name="EmptyTabView" Background="Transparent"     
                             PreviewDragEnter="Window_DragEnter"
                             PreviewDrop="Window_Drop">
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -724,7 +724,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="120"/>
-                                            <RowDefinition Height="500"/>
+                                            <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         <StackPanel Margin="10,14,10,0"  HorizontalAlignment="Stretch" Grid.Row="0">
                                             <Border Style="{StaticResource SettingCard}">
@@ -756,10 +756,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                                 </StackPanel>
                                             </Border>
                                         </StackPanel>
-                                        <YD:NodeConfigView x:Name="NodeConfigView" Grid.Row="1"
-                   Margin="10,0,10,10"
-                   HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch"/>
+                                        <YD:NodeConfigView x:Name="NodeConfigView" Grid.Row="1" Margin="10,0,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                     </Grid>
                                 </Border>
 
