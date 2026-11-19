@@ -61,7 +61,7 @@ public class FakeGrid
             {
                 ListViewHandle.Parent.Dispatcher.Invoke(new Action(() =>
                 {
-                    RowStyleWin.SetOriginal(ListViewHandle.VisibleRows[i].View,this.Source);
+                    RowStyleWin.SetOriginal(ListViewHandle.VisibleRows[i].View, this.Source);
                     RowStyleWin.SetTranslated(ListViewHandle.VisibleRows[i].View, this.Translated);
 
                     CanExit = true;
@@ -75,7 +75,7 @@ public class FakeGrid
         }
     }
 
-    public void SyncData(ModFile Mod,ref bool IsCloud)
+    public void SyncData(ModFile Mod, ref bool IsCloud)
     {
         bool FromDictionary = false;
 
@@ -107,7 +107,7 @@ public class FakeGrid
         }
 
         IsCloud = false;
-        var QueryResult = Mod.P_Translator.QueryTransData(this.Key,this.Type,this.Source, false);
+        var QueryResult = Mod.P_Translator.QueryTransData(this.Key, this.Type, this.Source, false);
 
         if (QueryResult != null)
         {
@@ -149,6 +149,9 @@ public class YDListView
     public Thread UpdateTrd = null;
 
     public List<FakeGrid> RealLines = new List<FakeGrid>();
+
+    // NOTE: This list is never mutated in place anymore, it is always replaced
+    // by a fresh list, so other threads enumerating the old one stay safe.
     public List<VisibleGrid> VisibleRows = new List<VisibleGrid>();
 
     public int Rows { get { return GetRows(); } }
@@ -165,6 +168,10 @@ public class YDListView
     private CancellationTokenSource CancelSelectLineThread = null;
     private CancellationToken? CancelToken = null;
 
+    // Row top positions: Tops[i] = sum of heights of rows [0, i), Tops[Count] = total height.
+    private double[] Tops = new double[1];
+    private int TopsCount = 0;
+    private volatile bool Disposed = false;
 
     public delegate void LineSelected(string Key);
     public LineSelected LineSelectedEvent = null;
@@ -188,8 +195,8 @@ public class YDListView
         Grid GetTranslatedGrid = (Grid)GetChildGrid.Children[2];
         TextEditor GetTranslated = (TextEditor)(((Border)GetTranslatedGrid.Children[0]).Child);
 
-        GetTranslatedGrid.ColumnDefinitions[1].Width = new GridLength(15,GridUnitType.Pixel);
-        
+        GetTranslatedGrid.ColumnDefinitions[1].Width = new GridLength(15, GridUnitType.Pixel);
+
         if (UPDate)
         {
             GetTranslated.Focus();
@@ -229,15 +236,65 @@ public class YDListView
         return GridTop >= ViewTop && GridBottom <= ViewBottom;
     }
 
-    public void UP()
+    // ---------------------------------------------------------------
+    //  Position helpers
+    // ---------------------------------------------------------------
+
+    private void RebuildTops()
     {
-        if (RealLines.Count == 0)
-            return;
+        int Count = RealLines.Count;
 
-        SelectLineID--;
-        if (SelectLineID < 0)
-            SelectLineID = RealLines.Count - 1;
+        if (Tops.Length < Count + 1)
+        {
+            Tops = new double[Math.Max(Count + 1, Tops.Length * 2)];
+        }
 
+        double Acc = 0;
+        for (int I = 0; I < Count; I++)
+        {
+            Tops[I] = Acc;
+            Acc += RealLines[I].Height;
+        }
+        Tops[Count] = Acc;
+
+        TopsCount = Count;
+    }
+
+    // Same result as summing the heights of all rows before Index.
+    private double GetOffset(int Index)
+    {
+        RebuildTops();
+
+        if (Index < 0) Index = 0;
+        if (Index > TopsCount) Index = TopsCount;
+
+        return Tops[Index];
+    }
+
+    // Row that contains vertical position Y (binary search). Requires TopsCount > 0.
+    private int FindRowAt(double Y)
+    {
+        int Lo = 0;
+        int Hi = TopsCount - 1;
+
+        while (Lo < Hi)
+        {
+            int Mid = (Lo + Hi + 1) >> 1;
+            if (Tops[Mid] <= Y)
+                Lo = Mid;
+            else
+                Hi = Mid - 1;
+        }
+
+        return Lo;
+    }
+
+    // ---------------------------------------------------------------
+    //  Keyboard navigation
+    // ---------------------------------------------------------------
+
+    private void RevealSelectedLine()
+    {
         var TargetLogicItem = RealLines[SelectLineID];
 
         Grid MatchGrid = null;
@@ -256,13 +313,7 @@ public class YDListView
         }
         else
         {
-            double Offset = 0;
-            for (int i = 0; i < SelectLineID; i++)
-            {
-                Offset += RealLines[i].Height;
-            }
-
-            Scroll.ScrollToVerticalOffset(Offset);
+            Scroll.ScrollToVerticalOffset(GetOffset(SelectLineID));
 
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
             {
@@ -278,6 +329,18 @@ public class YDListView
                 }
             }));
         }
+    }
+
+    public void UP()
+    {
+        if (RealLines.Count == 0)
+            return;
+
+        SelectLineID--;
+        if (SelectLineID < 0)
+            SelectLineID = RealLines.Count - 1;
+
+        RevealSelectedLine();
     }
 
     public void Down()
@@ -291,45 +354,7 @@ public class YDListView
             SelectLineID = 0;
         }
 
-        var TargetLogicItem = RealLines[SelectLineID];
-        Grid MatchGrid = null;
-        foreach (var G in VisibleRows)
-        {
-            if (RowStyleWin.GetKey(G.View).Equals(TargetLogicItem.Key))
-            {
-                MatchGrid = G.View;
-                break;
-            }
-        }
-
-        if (MatchGrid != null && IsGridInViewport(MatchGrid))
-        {
-            SetSelectLine(MatchGrid, true);
-        }
-        else
-        {
-            double Offset = 0;
-            for (int i = 0; i < SelectLineID; i++)
-            {
-                Offset += RealLines[i].Height;
-            }
-
-            Scroll.ScrollToVerticalOffset(Offset);
-
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
-            {
-                UpdateVisibleRows(true);
-
-                foreach (var G in VisibleRows)
-                {
-                    if (RowStyleWin.GetKey(G.View).Equals(TargetLogicItem.Key))
-                    {
-                        SetSelectLine(G.View, true);
-                        break;
-                    }
-                }
-            }));
-        }
+        RevealSelectedLine();
     }
 
     private int GetRows()
@@ -338,7 +363,7 @@ public class YDListView
     }
 
     public ModFile FileRef = null;
-    public YDListView(ModFile File,Grid Parent)
+    public YDListView(ModFile File, Grid Parent)
     {
         this.FileRef = File;
         Style ScrollBarStyle = new Style(typeof(ScrollBar))
@@ -357,7 +382,7 @@ public class YDListView
         OneScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
         OneScroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
         OneScroll.Content = MainCanvas;
-        OneScroll.ScrollChanged += OnScrollChanged; 
+        OneScroll.ScrollChanged += OnScrollChanged;
 
         this.Scroll = OneScroll;
 
@@ -366,30 +391,38 @@ public class YDListView
 
         UpdateTrd = new Thread(() =>
         {
-            while (true)
+            while (!Disposed)
             {
                 Thread.Sleep(100);
 
-                if (CanSet)
+                if (CanSet && CanUpDate)
                 {
-                    if (CanUpDate)
+                    try
                     {
-                        try
+                        // UpdateVisibleRows clears CanUpDate itself before it starts working,
+                        // so a scroll event arriving during the update is not lost.
+                        this.MainCanvas.Dispatcher.Invoke(new Action(() =>
                         {
-                            this.MainCanvas.Dispatcher.Invoke(new Action(() =>
-                            {
-                                UpdateVisibleRows();
-                            }));
-                        }
-                        catch { }
-
+                            UpdateVisibleRows();
+                        }));
+                    }
+                    catch
+                    {
                         CanUpDate = false;
                     }
                 }
             }
 
         });
+        UpdateTrd.IsBackground = true;
         UpdateTrd.Start();
+    }
+
+    // Stops the background polling thread. Optional, the thread is a background
+    // thread and will not keep the process alive anyway.
+    public void Dispose()
+    {
+        Disposed = true;
     }
 
     public Canvas GetMainCanvas()
@@ -402,7 +435,7 @@ public class YDListView
         CanSet = false;
 
         MainCanvas.Children.Clear();
-        VisibleRows.Clear();
+        VisibleRows = new List<VisibleGrid>();
 
         MainCanvas.Dispatcher.BeginInvoke(
             DispatcherPriority.Render,
@@ -418,17 +451,16 @@ public class YDListView
     {
         this.SelectLineID = 0;
         this.CanSet = false;
-        this.VisibleRows.Clear();
+        this.VisibleRows = new List<VisibleGrid>();
         this.RealLines.Clear();
         this.MainCanvas.Children.Clear();
         this.MainCanvas.Height = 0;
         this.Scroll.ScrollToTop();
-        GC.SuppressFinalize(this);
         GC.Collect();
         this.CanSet = true;
     }
 
-    private bool CanUpDate = false;
+    private volatile bool CanUpDate = false;
     private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
     {
         CanUpDate = true;
@@ -447,126 +479,116 @@ public class YDListView
 
         CanUpDate = false;
 
+        RebuildTops();
+        int Count = TopsCount;
+
         double ScrollTop = this.Scroll.VerticalOffset;
         double ScrollHeight = this.Scroll.ExtentHeight;
         double ViewHeight = this.Scroll.ViewportHeight;
 
-        double AccumulatedHeight = 0;
-        int FirstVisibleRow = 0;
+        int FirstIndex = 0;
+        int LastIndex = -1;
 
-        for (int I = 0; I < RealLines.Count; I++)
+        if (Count > 0)
         {
-            if (AccumulatedHeight >= ScrollTop)
+            int FirstVisibleRow = FindRowAt(ScrollTop);
+            int LastVisibleRow = FindRowAt(ScrollTop + ViewHeight);
+
+            FirstIndex = Math.Max(0, FirstVisibleRow - BufferRows);
+            LastIndex = Math.Min(Count - 1, LastVisibleRow + BufferRows);
+
+            bool IsNearBottom = ScrollTop + ViewHeight >= ScrollHeight - 150;
+            if (IsNearBottom)
             {
-                FirstVisibleRow = I;
-                break;
+                LastIndex = Count - 1;
             }
-            AccumulatedHeight += RealLines[I].Height;
-        }
-
-        double VisibleHeight = 0;
-        int LastVisibleRow = FirstVisibleRow;
-
-        for (int I = FirstVisibleRow; I < RealLines.Count; I++)
-        {
-            VisibleHeight += RealLines[I].Height;
-            if (VisibleHeight >= ViewHeight)
-            {
-                LastVisibleRow = I;
-                break;
-            }
-        }
-
-        LastVisibleRow += BufferRows;
-        if (LastVisibleRow >= GetRows())
-            LastVisibleRow = GetRows() - 1;
-
-        int FirstVisibleRowWithBuffer = Math.Max(0, FirstVisibleRow - BufferRows);
-
-        bool IsNearBottom = ScrollTop + ViewHeight >= ScrollHeight - 150;
-
-        HashSet<int> NewVisibleIndices = new HashSet<int>();
-        if (IsNearBottom)
-        {
-            for (int I = FirstVisibleRowWithBuffer; I < RealLines.Count; I++)
-                NewVisibleIndices.Add(I);
-        }
-        else
-        {
-            for (int I = FirstVisibleRowWithBuffer; I <= LastVisibleRow; I++)
-                NewVisibleIndices.Add(I);
         }
 
         for (int I = MainCanvas.Children.Count - 1; I >= 0; I--)
         {
-            UIElement Child = MainCanvas.Children[I];
-            if (Child is FrameworkElement Fe && Fe.Tag is int RowIndex && !NewVisibleIndices.Contains(RowIndex))
+            FrameworkElement Fe = MainCanvas.Children[I] as FrameworkElement;
+            if (Fe != null && Fe.Tag is int)
             {
-                MainCanvas.Children.RemoveAt(I);
+                int RowIndex = (int)Fe.Tag;
+                if (RowIndex < FirstIndex || RowIndex > LastIndex)
+                {
+                    Fe.PreviewMouseLeftButtonDown -= MainGrid_PreviewMouseLeftButtonDown;
+                    MainCanvas.Children.RemoveAt(I);
+                }
             }
         }
 
-        double CurrentTop = 0;
-        for (int I = 0; I < RealLines.Count; I++)
-        {
-            var Row = RealLines[I];
-
-            if (NewVisibleIndices.Contains(I))
-            {
-                bool AlreadyExists = false;
-                foreach (UIElement Child in MainCanvas.Children)
-                {
-                    if (Child is FrameworkElement Fe && Fe.Tag is int TagIndex && TagIndex == I)
-                    {
-                        AlreadyExists = true;
-                        break;
-                    }
-                }
-
-                if (!AlreadyExists)
-                {
-                    Grid Grid = UIHelper.CreateLine(FileRef, Row);
-                    Grid.Tag = I;
-                    try 
-                    { 
-                        Grid.Width = this.Parent.ActualWidth - 15;
-                    }
-                    catch { }
-                    Grid.PreviewMouseLeftButtonDown += MainGrid_PreviewMouseLeftButtonDown;
-                    Canvas.SetTop(Grid, CurrentTop);
-                    Canvas.SetLeft(Grid, 0);
-                    MainCanvas.Children.Add(Grid);
-                    if (I.Equals(SelectLineID))
-                    {
-                        SetSelectLine(Grid, false);
-                    }
-                }
-            }
-
-            CurrentTop += Row.Height;
-        }
-
-        VisibleRows.Clear();
+        Dictionary<int, FrameworkElement> Existing = new Dictionary<int, FrameworkElement>();
         foreach (UIElement Child in MainCanvas.Children)
         {
-            if (Child is Grid G)
-                VisibleRows.Add(new VisibleGrid(this.RealLines[(int)G.Tag],G));
+            FrameworkElement Fe = Child as FrameworkElement;
+            if (Fe != null && Fe.Tag is int)
+            {
+                Existing[(int)Fe.Tag] = Fe;
+            }
         }
+
+        List<VisibleGrid> NewVisible = new List<VisibleGrid>(Math.Max(0, LastIndex - FirstIndex + 1));
+
+        for (int I = FirstIndex; I <= LastIndex; I++)
+        {
+            FakeGrid Row = RealLines[I];
+            Grid RowGrid = null;
+            FrameworkElement Found;
+
+            if (Existing.TryGetValue(I, out Found))
+            {
+                double Top = Tops[I];
+                if (!(Math.Abs(Canvas.GetTop(Found) - Top) < 0.01))
+                {
+                    Canvas.SetTop(Found, Top);
+                }
+
+                RowGrid = Found as Grid;
+            }
+            else
+            {
+                RowGrid = UIHelper.CreateLine(FileRef, Row);
+                RowGrid.Tag = I;
+                try
+                {
+                    RowGrid.Width = this.Parent.ActualWidth - 15;
+                }
+                catch { }
+                RowGrid.PreviewMouseLeftButtonDown += MainGrid_PreviewMouseLeftButtonDown;
+                Canvas.SetTop(RowGrid, Tops[I]);
+                Canvas.SetLeft(RowGrid, 0);
+                MainCanvas.Children.Add(RowGrid);
+                if (I.Equals(SelectLineID))
+                {
+                    SetSelectLine(RowGrid, false);
+                }
+            }
+
+            if (RowGrid != null)
+            {
+                NewVisible.Add(new VisibleGrid(Row, RowGrid));
+            }
+        }
+
+        VisibleRows = NewVisible;
     }
 
 
     public void QuickRefresh(ModFile Mod)
     {
         this.Parent.Dispatcher.BeginInvoke(new Action(() => {
-            for (int i = 0; i < this.VisibleRows.Count; i++)
+            var Snapshot = this.VisibleRows;
+
+            for (int i = 0; i < Snapshot.Count; i++)
             {
                 bool RefCache = false;
-                this.VisibleRows[i].Data.SyncData(Mod,ref RefCache);
+                Snapshot[i].Data.SyncData(Mod, ref RefCache);
 
-                Grid GetGrid = this.VisibleRows[i].View;
+                Grid GetGrid = Snapshot[i].View;
 
-                RowStyleWin.SetOriginal(GetGrid, this.VisibleRows[i].Data.Source);
-                RowStyleWin.SetTranslated(GetGrid, this.VisibleRows[i].Data.Translated);
+                RowStyleWin.SetOriginal(GetGrid, Snapshot[i].Data.Source);
+                RowStyleWin.SetTranslated(GetGrid, Snapshot[i].Data.Translated);
             }
         }));
     }
@@ -596,7 +618,6 @@ public class YDListView
 
             // Record The Row To Be Deleted
             var deletedRow = RealLines[Offset];
-            string key = deletedRow.Key;
             double removedHeight = deletedRow.Height;
 
             // Remove Data Row
@@ -613,13 +634,10 @@ public class YDListView
                 }
             }
 
-            double deletedTop = 0;
             if (deletedElement != null)
             {
-                deletedTop = Canvas.GetTop(deletedElement);
-
                 // Unsubscribe Events And Clear Child Elements
-                try { deletedElement.PreviewMouseDown -= MainGrid_PreviewMouseLeftButtonDown; } catch { }
+                try { deletedElement.PreviewMouseLeftButtonDown -= MainGrid_PreviewMouseLeftButtonDown; } catch { }
                 if (deletedElement is Panel p) p.Children.Clear();
 
                 // Remove The Element From Canvas
@@ -643,21 +661,8 @@ public class YDListView
                 }
             }
 
-            // Update VisibleRows Indexes And Remove The Deleted One
-            for (int i = VisibleRows.Count - 1; i >= 0; i--)
-            {
-                var v = VisibleRows[i];
-                if (v.Data == deletedRow)
-                {
-                    VisibleRows.RemoveAt(i);
-                }
-                else
-                {
-                    int index = RealLines.IndexOf(v.Data);
-                    if (index >= 0)
-                        v.View.Tag = index;
-                }
-            }
+            // Drop The Deleted Row From VisibleRows (tags were already shifted above)
+            VisibleRows = VisibleRows.Where(v => v.Data != deletedRow).ToList();
 
             // Recalculate Canvas Height
             MainCanvas.Height = RealLines.Sum(r => r.Height);
@@ -701,20 +706,7 @@ public class YDListView
 
     public void ScrollTo(int SelectID)
     {
-        double Offset = 0;
-        for (int i = 0; i < SelectID; i++)
-        {
-            if (RealLines.Count > i)
-            {
-                Offset += RealLines[i].Height;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        Scroll.ScrollToVerticalOffset(Offset);
+        Scroll.ScrollToVerticalOffset(GetOffset(SelectID));
 
         UpdateVisibleRows(true);
     }
@@ -818,13 +810,7 @@ public class YDListView
         if (TargetIndex == -1)
             return false;
 
-        double Offset = 0;
-        for (int i = 0; i < TargetIndex; i++)
-        {
-            Offset += RealLines[i].Height;
-        }
-
-        Scroll.ScrollToVerticalOffset(Offset);
+        Scroll.ScrollToVerticalOffset(GetOffset(TargetIndex));
 
         Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
         {
@@ -845,4 +831,3 @@ public class YDListView
         return true;
     }
 }
-
