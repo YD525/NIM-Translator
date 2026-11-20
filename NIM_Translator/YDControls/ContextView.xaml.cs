@@ -725,5 +725,15 @@ namespace NIM.YDControls
                 ? NIM_Engine.Config.BucketAssignmentSimilarityThreshold_WordBoundary
                 : NIM_Engine.Config.BucketAssignmentSimilarityThreshold_NoSpace;
         }
+
+        public void GuidedMode()
+        {
+            ControlCol.Width = new GridLength(0);
+        }
+
+        public void InteractiveMode()
+        {
+            ControlCol.Width = new GridLength(300,GridUnitType.Pixel);
+        }
     }
 }
