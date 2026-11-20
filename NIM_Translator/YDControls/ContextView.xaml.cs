@@ -84,31 +84,17 @@ namespace NIM.YDControls
             },            
             new DemoCase
             {
-                Name = "Thai (per-character)", Lang = Languages.Thai,
-                Head = "เครื่องขับดันกราบขวาขัดข้องอีกแล้ว",
-                Candidates = new[] { "ตรวจพบเครื่องขับดันกราบขวาขัดข้อง", "เครื่องยนต์กราบซ้ายร้อนเกินไป", "อัปเดตภารกิจแล้ว" }
-            },
-            new DemoCase
-            {
                 Name = "Persian (word boundary, RTL)", Lang = Languages.Persian,
                 Head = "موتور سمت راست دوباره خراب شد.",
                 Candidates = new[] { "موتور سمت راست خراب است.", "موتور سمت چپ داغ کرده است.", "گزارش ماموریت به روز شد." }
-            },
-            new DemoCase
-            {
-                Name = "Chinese (per-character)", Lang = Languages.SimplifiedChinese,
-                Head = "右舷推进器又出故障了。",
-                Candidates = new[] { "右舷推进器发生故障。", "左舷引擎过热。", "任务日志已更新。" }
-            },
+            }
         };
 
         public ContextView()
         {
             InitializeComponent();
 
-            LangBox.ItemsSource = Enum.GetValues(typeof(Languages)).Cast<Languages>()
-                .Where(l => l.ToString() != "Russian" && l.ToString() != "Ukrainian")
-                .ToList();
+            LangBox.ItemsSource = Enum.GetValues(typeof(Languages)).Cast<Languages>().ToList();
             LangBox.SelectedItem = Languages.Auto;
 
             CaseBox.ItemsSource = _cases;
