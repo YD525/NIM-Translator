@@ -54,6 +54,8 @@ namespace NIM
         {
             try
             {
+                new Window1().Show();
+
                 NIMApp.Init(this);
 
                 TranslatorInterface.Init();
