@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using NIMEngine;
 using NIMEngine.Engine;
 using NIMEngine.Language;
 
@@ -79,8 +80,8 @@ namespace NIM.YDControls
             new DemoCase
             {
                 Name = "Korean (per-character)", Lang = Languages.Korean,
-                Head = "우현 추진기가 또 오작동합니다.",
-                Candidates = new[] { "우현 추진기 고장이 감지되었습니다.", "좌현 엔진이 과열되었습니다.", "퀘스트가 업데이트되었습니다." }
+                Head = "우현 추진기에서 반복적으로 이상 진동이 감지되고 있습니다.",
+                Candidates = new[] { "우현 추진기의 출력이 불안정해지고 있습니다.", "우현 추진기의 출력 저하가 확인되었습니다.", "좌현 엔진의 냉각 계통에 문제가 발생했습니다." }
             },            
             new DemoCase
             {
@@ -93,6 +94,8 @@ namespace NIM.YDControls
         public ContextView()
         {
             InitializeComponent();
+
+            ThresholdSlider.Value = NIM_Engine.Config.BucketAssignmentSimilarityThreshold;
 
             LangBox.ItemsSource = Enum.GetValues(typeof(Languages)).Cast<Languages>().ToList();
             LangBox.SelectedItem = Languages.Auto;
