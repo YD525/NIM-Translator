@@ -712,6 +712,17 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                             <Border Grid.Row="1" Background="{StaticResource SettingAccentBrush}" Visibility="Collapsed"/>
                                         </Grid>
                                     </Border>
+
+                                    <Border Tag="Tutorial" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="3"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Text="Tutorial" Style="{StaticResource SettingNavText}"/>
+                                            <Border Grid.Row="1" Background="{StaticResource SettingAccentBrush}" Visibility="Collapsed"/>
+                                        </Grid>
+                                    </Border>
                                 </StackPanel>
                                 <Border Height="1" Background="#FF3A3A3A" VerticalAlignment="Bottom"/>
                             </Grid>
