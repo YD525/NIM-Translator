@@ -54,7 +54,7 @@ namespace NIM.UIManagement
             GetType.Foreground = new SolidColorBrush(FontColor); 
 
             Grid GetOriginalGrid = (Grid)GetChildGrid.Children[1];
-            TextBox GetOriginal = (TextBox)GetOriginalGrid.Children[0];
+            TextBox GetOriginal = (TextBox)GetOriginalGrid.Children[1];
             GetOriginal.Foreground = new SolidColorBrush(FontColor); 
 
             Grid GetTranslatedGrid = (Grid)GetChildGrid.Children[2];
