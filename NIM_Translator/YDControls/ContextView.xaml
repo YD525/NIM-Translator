@@ -310,7 +310,7 @@
                     <ComboBox x:Name="CaseBox" SelectionChanged="CaseBox_SelectionChanged"/>
 
                     <TextBlock Text="LANGUAGE (AUTO = ENGINE DETECTION)" Style="{StaticResource FieldLabel}"/>
-                    <ComboBox x:Name="LangBox"/>
+                    <ComboBox x:Name="LangBox" SelectionChanged="LangBox_SelectionChanged"/>
 
                     <TextBlock Text="SOURCE TEXT (HEAD)" Style="{StaticResource FieldLabel}"/>
                     <TextBox x:Name="HeadBox" TextWrapping="Wrap" MinHeight="48" AcceptsReturn="False"/>
@@ -324,7 +324,7 @@
                         <TextBlock Style="{StaticResource FieldValue}" HorizontalAlignment="Right"
                                    Text="{Binding Value, ElementName=ThresholdSlider, StringFormat={}{0:F2}}"/>
                     </Grid>
-                    <Slider x:Name="ThresholdSlider" Minimum="0.05" Maximum="0.8" Value="0.17"
+                    <Slider x:Name="ThresholdSlider" Minimum="0.05" Maximum="0.8" Value="0"
                             TickFrequency="0.05" IsSnapToTickEnabled="True" IsEnabled="False" />
 
                     <Grid>

@@ -95,7 +95,7 @@ namespace NIM.YDControls
         {
             InitializeComponent();
 
-            ThresholdSlider.Value = NIM_Engine.Config.BucketAssignmentSimilarityThreshold;
+            ThresholdSlider.Value = NIM_Engine.Config.BucketAssignmentSimilarityThreshold_WordBoundary;
 
             LangBox.ItemsSource = Enum.GetValues(typeof(Languages)).Cast<Languages>().ToList();
             LangBox.SelectedItem = Languages.Auto;
@@ -705,6 +705,25 @@ namespace NIM.YDControls
             var b = (SolidColorBrush)new BrushConverter().ConvertFromString(hex);
             b.Freeze();
             return b;
+        }
+
+        private void LangBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string Head = (HeadBox.Text ?? "").Trim();
+            if (Head.Length == 0) return;
+
+            Languages Lang = LangBox.SelectedItem is Languages
+                ? (Languages)LangBox.SelectedItem
+                : Languages.Auto;
+
+            if (Lang == Languages.Auto)
+            {
+                Lang = P_Language.DetectLanguageByLine(Head);
+            }
+
+            ThresholdSlider.Value = Lang.IsSpaceDelimitedLanguage()
+                ? NIM_Engine.Config.BucketAssignmentSimilarityThreshold_WordBoundary
+                : NIM_Engine.Config.BucketAssignmentSimilarityThreshold_NoSpace;
         }
     }
 }
