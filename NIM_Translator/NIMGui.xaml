@@ -1155,6 +1155,14 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                         <YD:PluginView x:Name="PluginViewCtrl" Margin="10 0 10 0"/>
                                     </ScrollViewer>
                                 </Border>
+
+                                <!-- Page: Tutorial" -->
+                                <Border Tag="Tutorial" Visibility="Collapsed"  Background="Transparent">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{DynamicResource for_scrollviewer}">
+                                        <StackPanel Name="TutorialContent" Orientation="Vertical">
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </Border>
                             </Grid>
                         </Grid>
                     </Grid>

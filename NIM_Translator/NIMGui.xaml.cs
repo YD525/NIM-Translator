@@ -54,8 +54,6 @@ namespace NIM
         {
             try
             {
-                new Window1().Show();
-
                 NIMApp.Init(this);
 
                 TranslatorInterface.Init();
@@ -1169,9 +1167,9 @@ namespace NIM
                 }
 
                 EspReader TempEspReader = new EspReader();
-                TempEspReader.Create(-5,new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());
+                TempEspReader.Create(-5, new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());
 
-                EspFilterStr.Text = TempEspReader.GetFilterByStr(); 
+                EspFilterStr.Text = TempEspReader.GetFilterByStr();
 
                 TempEspReader.Clear();
             }
@@ -1262,6 +1260,30 @@ namespace NIM
                 {
                     UseFullPunctuationJa.IsChecked = false;
                 }
+            }
+            else
+            if (Name.Equals("Extensions"))
+            { 
+            
+            }
+            else
+            if (Name.Equals("Tutorial"))
+            {
+                // A user once asked me: "Isn't this a translation tool? Why can't it translate its own interface?"
+
+                // Technically, this is entirely possible. NIM's underlying engine is designed to be general-purpose, so there is no technical obstacle to translating its own interface.
+
+                // My concern, however, was never whether it could be implemented. It was about authorization. If the translation relies on a cloud service, do I have the right to use a user's API key without their explicit permission?
+
+                // At the time, the interface had limited functionality, so I simply translated the entire UI into every supported language manually.
+
+                // Now, for the built-in tutorial, self-translation is certainly possible. However, I would need to display a prompt and obtain the user's consent first.
+
+                // But then another problem arises: what if the user cannot understand the prompt in the first place? I have no right to use their API key to translate an authorization prompt without their prior consent, do I? (That would be quite a paradox!)
+
+                // And with so many supported languages, I certainly can't write a separate version of the prompt for every single language.
+
+                // So, now you understand, right? It's not that I don't want to implement this feature. It's that I haven't found a reasonable way to handle the authorization and language barrier.
             }
         }
         public void ShowFrame(string Name)
