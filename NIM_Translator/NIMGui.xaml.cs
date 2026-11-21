@@ -1284,6 +1284,10 @@ namespace NIM
                 // And with so many supported languages, I certainly can't write a separate version of the prompt for every single language.
 
                 // So, now you understand, right? It's not that I don't want to implement this feature. It's that I haven't found a reasonable way to handle the authorization and language barrier.
+
+                // That's why I insist on keeping the tutorial and soft UI in English. Users will have to translate it themselves if necessary.
+
+                // The primary purpose of this software is to translate mods. API keys are intended to be used exclusively for mod translation. Even if translating the tutorial would ultimately benefit the user, doing so without their explicit authorization would still be unauthorized use.
             }
         }
         public void ShowFrame(string Name)
