@@ -278,7 +278,6 @@
         <Style x:Key="FieldValue" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#FFEAEAEA"/>
             <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="Margin" Value="0,12,0,4"/>
         </Style>
 
@@ -354,8 +353,7 @@
             <Border Height="38" Background="#FF262626" BorderBrush="#FF0C0C0C" BorderThickness="0,1,0,0">
                 <StackPanel Orientation="Horizontal" Margin="12,0">
                     <Ellipse Width="8" Height="8" Fill="#FF4FC3F7" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <TextBlock x:Name="StatusText" Text="Pick a case and press Play"
-                               FontFamily="Consolas" FontSize="12" Foreground="#FFEAEAEA"
+                    <TextBlock x:Name="StatusText" Text="Pick a case and press Play" FontSize="12" Foreground="#FFEAEAEA"
                                VerticalAlignment="Center"/>
                 </StackPanel>
             </Border>

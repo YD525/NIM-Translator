@@ -453,8 +453,7 @@
                                      PreviewMouseWheel="Inner_PreviewMouseWheel">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Masked}" FontFamily="Consolas" FontSize="12"
-                                                   TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding Masked}" FontSize="12" TextTrimming="CharacterEllipsis"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>

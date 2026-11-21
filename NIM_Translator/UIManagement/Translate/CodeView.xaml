@@ -360,7 +360,7 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <avalonEdit:TextEditor Margin="5" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsReadOnly="True" Name="TextEditor" FontFamily="Consolas" FontSize="16" ShowLineNumbers="True" Background="#FF282828" Foreground="White" Grid.Row="0" WordWrap="True" TextOptions.TextFormattingMode="Display">
+                <avalonEdit:TextEditor Margin="5" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsReadOnly="True" Name="TextEditor" FontSize="16" ShowLineNumbers="True" Background="#FF282828" Foreground="White" Grid.Row="0" WordWrap="True" TextOptions.TextFormattingMode="Display">
                     
                 </avalonEdit:TextEditor>
             </Grid>

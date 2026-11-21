@@ -132,7 +132,7 @@
                             <TextBlock Foreground="{StaticResource PreviewBrushTextPrimary}" Text="{localization:PreviewMessage Advanced_Database_MutationWarning}" TextWrapping="Wrap" /></Border>
                         <DockPanel Margin="0,0,0,8"><TextBlock DockPanel.Dock="Right" Foreground="{StaticResource PreviewBrushAccentGold}" Text="{Binding DatabaseModeText}" />
                             <TextBlock Foreground="{StaticResource PreviewBrushTextMuted}" Text="{localization:PreviewMessage Advanced_Database_Query_Label}" /></DockPanel>
-                        <TextBox Height="100" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" FontFamily="Consolas"
+                        <TextBox Height="100" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                                  Style="{StaticResource PreviewTextBox}" Text="{Binding DatabaseQuery, UpdateSourceTrigger=PropertyChanged}" />
                         <StackPanel Margin="0,12,0,0" Orientation="Horizontal"><Button Margin="0,0,8,0" Style="{StaticResource PreviewButtonSecondary}" Command="{Binding OpenDatabaseReadOnlyCommand}" Content="{localization:PreviewMessage Advanced_Database_ReadOnly_Action}" />
                             <Button Margin="0,0,8,0" Style="{StaticResource PreviewButtonDanger}" Command="{Binding OpenDatabaseMutationCommand}" Content="{localization:PreviewMessage Advanced_Database_Mutation_Action}" />
@@ -140,7 +140,7 @@
                         <ListBox Margin="0,14,0,0" MinHeight="160" MaxHeight="360" ItemsSource="{Binding DatabaseRows}"
                                  Background="{StaticResource PreviewBrushSurfaceInteractive}" BorderBrush="{StaticResource PreviewBrushBorder}" BorderThickness="1"
                                  ScrollViewer.CanContentScroll="True" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
-                            <ListBox.ItemTemplate><DataTemplate><TextBlock Padding="8,5" FontFamily="Consolas" Foreground="{StaticResource PreviewBrushTextPrimary}" Text="{Binding DisplayText}" TextWrapping="Wrap" /></DataTemplate></ListBox.ItemTemplate>
+                            <ListBox.ItemTemplate><DataTemplate><TextBlock Padding="8,5" Foreground="{StaticResource PreviewBrushTextPrimary}" Text="{Binding DisplayText}" TextWrapping="Wrap" /></DataTemplate></ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel></Border>
                 </StackPanel>

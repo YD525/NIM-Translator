@@ -331,7 +331,6 @@ namespace NIM
                     DisplayFactory.SetBinding(TextBlock.TextProperty, new Binding($"[{Col.ColumnName}]"));
                     DisplayFactory.SetValue(TextBlock.PaddingProperty, new Thickness(10, 0, 10, 0));
                     DisplayFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-                    DisplayFactory.SetValue(TextBlock.FontFamilyProperty, new FontFamily("Consolas"));
                     DisplayFactory.SetValue(TextBlock.ForegroundProperty, new SolidColorBrush(Color.FromRgb(212, 212, 212)));
                     DisplayFactory.SetValue(TextBlock.TextTrimmingProperty, TextTrimming.CharacterEllipsis);
                     DisplayTemplate.VisualTree = DisplayFactory;
@@ -351,7 +350,6 @@ namespace NIM
                     EditFactory.SetValue(TextBox.ForegroundProperty, new SolidColorBrush(Colors.White));
                     EditFactory.SetValue(TextBox.BorderThicknessProperty, new Thickness(0));
                     EditFactory.SetValue(TextBox.CaretBrushProperty, new SolidColorBrush(Color.FromRgb(250, 227, 6)));
-                    EditFactory.SetValue(TextBox.FontFamilyProperty, new FontFamily("Consolas"));
                     EditFactory.SetValue(TextBox.FontSizeProperty, 12d);
                     EditFactory.SetValue(TextBox.PaddingProperty, new Thickness(10, 6, 10, 6));
                     EditFactory.SetValue(TextBox.VerticalContentAlignmentProperty, VerticalAlignment.Top);
@@ -444,7 +442,6 @@ namespace NIM
             Style.Setters.Add(new Setter(TextBlock.ForegroundProperty, Fg));
             Style.Setters.Add(new Setter(TextBlock.PaddingProperty, new Thickness(10, 0, 10, 0)));
             Style.Setters.Add(new Setter(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center));
-            Style.Setters.Add(new Setter(TextBlock.FontFamilyProperty, new FontFamily("Consolas")));
 
             var NullTrigger = new DataTrigger { Binding = new Binding("."), Value = "(null)" };
             NullTrigger.Setters.Add(new Setter(TextBlock.ForegroundProperty,
@@ -466,7 +463,6 @@ namespace NIM
             Style.Setters.Add(new Setter(TextBox.BorderThicknessProperty, new Thickness(0)));
             Style.Setters.Add(new Setter(TextBox.CaretBrushProperty,
                 new SolidColorBrush(Color.FromRgb(250, 227, 6))));
-            Style.Setters.Add(new Setter(TextBox.FontFamilyProperty, new FontFamily("Consolas")));
             Style.Setters.Add(new Setter(TextBox.FontSizeProperty, 12d));
             Style.Setters.Add(new Setter(TextBox.PaddingProperty, new Thickness(10, 0, 10, 0)));
             return Style;

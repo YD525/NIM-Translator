@@ -9,6 +9,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using NIM.ApplicationLayer;
+using NIM.FileManagement;
+using NIMEngine;
 
 namespace NIM.YDControls
 {
@@ -194,14 +197,26 @@ namespace NIM.YDControls
         private void Toggle_Click(object sender, RoutedEventArgs e)
         {
             var T = sender as ToggleButton;
-            var I = T == null ? null : T.DataContext as PluginItem;
-            if (I == null) return;
+            var Mod = T == null ? null : T.DataContext as PluginItem;
+            if (Mod == null) return;
 
             bool Want = T.IsChecked == true;
-            if (!Apply(I, Want))
+
+            if (Want)
+            {
+                if (!NIM_Engine.IsTrustedPlugin(Mod.Hash + "A"))
+                {
+                    if (!MessageBoxExtend.Show(NIMApp.WorkWin, "Prompt", "Do you want to enable this third-party plugin? Before enabling, please check whether the plugin's open-source code is safe. NIM is not responsible for this plugin. According to the plugin rules, all plugins designed for NIM must be open source. If you cannot obtain the source code, enabling it is not recommended.", PreviewDialogSeverity.Information, true))
+                    {
+                        return;
+                    }
+                }
+            }
+
+            if (!Apply(Mod, Want))
             {
                 // SetCurrentValue keeps the OneWay binding alive; a plain assignment would destroy it.
-                T.SetCurrentValue(ToggleButton.IsCheckedProperty, I.IsEnabled);
+                T.SetCurrentValue(ToggleButton.IsCheckedProperty, Mod.IsEnabled);
             }
 
             ApplyFilter();
@@ -222,12 +237,15 @@ namespace NIM.YDControls
             return Ok;
         }
 
-        private void Hash_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void File_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var T = sender as FrameworkElement;
             var I = T == null ? null : T.DataContext as PluginItem;
-            if (I == null || string.IsNullOrEmpty(I.Hash)) return;
-            try { Clipboard.SetText(I.Hash); } catch { }
+
+            if (MessageBoxExtend.Show(NIMApp.WorkWin, "Prompt", "Do you want to call explorer.exe and open the plugin directory\n " + I.FilePath + "\n?", PreviewDialogSeverity.Information, true))
+            {
+                ExplorerHelper.SelectFile(I.FilePath);
+            }
         }
     }
 }

@@ -374,7 +374,7 @@
                   VerticalGridLinesBrush="#FF2A2A2A"
                   ColumnHeaderHeight="34"
                   RowHeight="35"
-                  FontFamily="Consolas" FontSize="12"
+                  FontSize="12"
                   EnableRowVirtualization="True"
                   RowHeaderWidth="0"
                   SelectionChanged="MainGrid_SelectionChanged"
@@ -385,7 +385,6 @@
                     <Setter Property="Background"      Value="#FF282828"/>
                     <Setter Property="Foreground"      Value="#FFFAE306"/>
                     <Setter Property="FontWeight"      Value="SemiBold"/>
-                    <Setter Property="FontFamily"      Value="Consolas"/>
                     <Setter Property="FontSize"        Value="12"/>
                     <Setter Property="Padding"         Value="10,0"/>
                     <Setter Property="BorderBrush"     Value="#FF3A3A3A"/>
@@ -480,7 +479,7 @@
         <!-- Status Bar -->
         <Border Grid.Row="2" Background="#FF181818" BorderBrush="#FF2A2A2A" BorderThickness="0,1,0,0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0">
-                <TextBlock FontFamily="Consolas" FontSize="11" Foreground="#FF555555">
+                <TextBlock FontSize="11" Foreground="#FF555555">
                     <Run Text="Rows: "/>
                     <Run x:Name="RowCountRun" Text="0" Foreground="#FFFAE306"/>
                     <Run Text="   Cols: "/>
