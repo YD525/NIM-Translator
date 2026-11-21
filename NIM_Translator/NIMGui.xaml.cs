@@ -91,8 +91,16 @@ namespace NIM
                  );
 
                 PluginViewCtrl.PluginProvider = NIM_Engine.GetAllPlugins;
-                PluginViewCtrl.EnableHandler = NIM_Engine.EnablePlugin;
-                PluginViewCtrl.DisableHandler = NIM_Engine.DisablePlugin;
+
+                PluginViewCtrl.EnableHandler = new Func<string, bool>((Key) =>
+                {
+                    return NIM_Engine.EnablePlugin(Key);
+                });
+
+                PluginViewCtrl.DisableHandler = new Func<string, bool>((Key) =>
+                {
+                    return NIM_Engine.DisablePlugin(Key);
+                });
 
                 EngineEvents.SetBookTranslateCallback += BookTransCallBack;
 
