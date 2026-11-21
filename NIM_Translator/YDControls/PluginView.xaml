@@ -244,9 +244,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="FILE" Style="{StaticResource SectionLabel}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding FileName}" ToolTip="{Binding FilePath}"
-                                       FontFamily="Consolas" FontSize="11" Foreground="#FF9A9A9A"
-                                       TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Grid.Column="1" Text="{Binding FileName}" ToolTip="{Binding FilePath}" FontSize="11" TextTrimming="CharacterEllipsis" MouseLeftButtonUp="File_MouseLeftButtonUp" Foreground="#FF4FC3F7" Cursor="Hand"/>
                         </Grid>
 
                         <Grid>
@@ -255,10 +253,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="SHA256" Style="{StaticResource SectionLabel}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding ShortHash}" ToolTip="Click to copy full hash"
-                                       FontFamily="Consolas" FontSize="11" Foreground="#FF4FC3F7"
-                                       Cursor="Hand" HorizontalAlignment="Left"
-                                       MouseLeftButtonUp="Hash_MouseLeftButtonUp"/>
+                            <TextBlock Grid.Column="1" Text="{Binding ShortHash}" FontSize="11" Foreground="#FF9A9A9A" HorizontalAlignment="Left"/>
                         </Grid>
                     </StackPanel>
                 </StackPanel>

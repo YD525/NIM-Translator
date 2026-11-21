@@ -622,7 +622,6 @@ namespace NIM.YDControls
 
             row.Body.Children.Add(new TextBlock
             {
-                FontFamily = new FontFamily("Consolas"),
                 FontSize = 12,
                 Foreground = color,
                 Text = string.Format("Jaccard = {0} / {1} = {2:F2}   {3}   threshold {4:F2}   →   {5}",

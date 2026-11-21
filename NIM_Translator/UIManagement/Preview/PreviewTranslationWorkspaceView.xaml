@@ -287,7 +287,7 @@
                                                      AutomationProperties.Name="{localization:PreviewMessage Workspace_Inspector_Code_Results_Name}">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Margin="5,3" FontFamily="Consolas" FontSize="11"
+                                                        <TextBlock Margin="5,3" FontSize="11"
                                                                    Foreground="{StaticResource PreviewBrushTextSecondary}"
                                                                    Text="{Binding DisplayText}" TextTrimming="CharacterEllipsis" />
                                                     </DataTemplate>
@@ -296,7 +296,7 @@
                                             <TextBox x:Name="CodeTextBox" Grid.Row="3" Margin="0,8,0,0" Padding="8"
                                                      IsReadOnly="True" AcceptsReturn="True" AcceptsTab="True" TextWrapping="NoWrap"
                                                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-                                                     FontFamily="Consolas" FontSize="11" Style="{StaticResource PreviewTextBox}"
+                                                     FontSize="11" Style="{StaticResource PreviewTextBox}"
                                                      Text="{Binding Context.Code, Mode=OneWay}"
                                                      AutomationProperties.Name="{localization:PreviewMessage Workspace_Inspector_Code_Editor_Name}" />
                                             <TextBlock Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center"

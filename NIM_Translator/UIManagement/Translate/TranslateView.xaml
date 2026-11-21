@@ -353,7 +353,7 @@
 
                                         </TextBox>
                                     </StackPanel>
-                                    <avalonEdit:TextEditor Panel.ZIndex="1" Style="{DynamicResource IDEStyle}" Margin="5" Name="FromStr" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsReadOnly="True"  FontFamily="Consolas" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display">
+                                    <avalonEdit:TextEditor Panel.ZIndex="1" Style="{DynamicResource IDEStyle}" Margin="5" Name="FromStr" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsReadOnly="True" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display">
 
                                     </avalonEdit:TextEditor>
                                 </Grid>
@@ -416,7 +416,7 @@ Fill="White"/>
                             </StackPanel>
 
                             <Border Style="{DynamicResource IDEBorder}" Grid.Row="1">
-                                <avalonEdit:TextEditor Style="{DynamicResource IDEStyle}" Margin="5" Name="ToStr" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" FontFamily="Consolas" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display" TextChanged="ToStr_TextChanged">
+                                <avalonEdit:TextEditor Style="{DynamicResource IDEStyle}" Margin="5" Name="ToStr" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display" TextChanged="ToStr_TextChanged">
 
                                 </avalonEdit:TextEditor>
                             </Border>

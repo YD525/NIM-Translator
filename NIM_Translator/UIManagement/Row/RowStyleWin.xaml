@@ -59,7 +59,7 @@
                             </Grid.ColumnDefinitions>
                       
                             <Border Style="{DynamicResource LineTranslatedBorder}" Grid.Column="0">
-                                <avalonEdit:TextEditor Style="{DynamicResource LineTranslatedFont}" Margin="5" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsReadOnly="True"  FontFamily="Consolas" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display">
+                                <avalonEdit:TextEditor Style="{DynamicResource LineTranslatedFont}" Margin="5" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsReadOnly="True" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display">
 
                                 </avalonEdit:TextEditor>
                             </Border>
