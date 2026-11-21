@@ -70,10 +70,21 @@ namespace NIM.YDControls
             Masked = Mask(Key);
         }
 
-        private static string Mask(string key)
+        private static string Mask(string Key)
         {
-            if (key.Length <= 8) return new string('•', key.Length);
-            return key.Substring(0, 4) + "••••••••" + key.Substring(key.Length - 4);
+            if (string.IsNullOrEmpty(Key)) return Key;
+
+            int Length = Key.Length;
+            int Show = Math.Max(1, Length / 3);
+
+            int Hide = Length - (Show * 2);
+
+            if (Hide < 0) Hide = 0;
+
+            if (Length <= 2)
+                return Key;
+
+            return Key.Substring(0, Show) + new string('•', Hide) + Key.Substring(Length - Show);
         }
     }
 
