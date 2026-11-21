@@ -69,7 +69,6 @@ namespace NIM
         }
 
         public static RowStyleWin RowStyleWin = new RowStyleWin();
-        public static NodeStyleWin NodeStyleWin = new NodeStyleWin();
 
         public static DataBaseView DataBaseView = null;
 

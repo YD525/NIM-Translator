@@ -11,7 +11,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using System.Xml.Linq;
 using NIMEngine;
 using NIMEngine.Platform;
 using NIMEngine.Platform.Nodes;
@@ -628,6 +627,25 @@ namespace NIM.YDControls
                 if (deep != null) return deep;
             }
             return null;
+        }
+
+        private void BackendBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var cb = (ComboBox)sender;
+            var vm = cb.DataContext as NodeConfigItemVM;
+            bool show = vm != null && vm.IsLocal
+                        && string.Equals(vm.Config.Name, "LocalAI", StringComparison.OrdinalIgnoreCase);
+            cb.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void BackendBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var cb = (ComboBox)sender;
+            var item = cb.SelectedItem as ComboBoxItem;
+            if (item == null) return;
+
+            var portBox = FindChild<TextBox>(cb.Parent as DependencyObject);
+            if (portBox != null) portBox.Text = item.Tag as string;
         }
     }
 }
