@@ -1285,6 +1285,14 @@ namespace NIM
 
                 // So, now you understand, right? It's not that I don't want to implement this feature. It's that I haven't found a reasonable way to handle the authorization and language barrier.
 
+                //A scene that emerged within the mind of YD525.↓
+                // User A: What's going on? Why did my API key consume tokens as soon as I opened the software?
+                // YD525: I used your configured API key to translate the interface.
+                // User A: Without my knowledge?!
+                // YD525: I already showed you a prompt asking for your consent. You clicked "Agree".
+                // User A: But I couldn't understand what the prompt said!
+                // YD525: Well, all you had to do was tell me you couldn't understand it. 😂
+
                 // That's why I insist on keeping the tutorial and soft UI in English. Users will have to translate it themselves if necessary.
 
                 // The primary purpose of this software is to translate mods. API keys are intended to be used exclusively for mod translation. Even if translating the tutorial would ultimately benefit the user, doing so without their explicit authorization would still be unauthorized use.
