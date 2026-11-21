@@ -204,10 +204,11 @@ namespace NIM.YDControls
 
             if (Want)
             {
-                if (!NIM_Engine.IsTrustedPlugin(Mod.Hash + "A"))
+                if (!NIM_Engine.IsTrustedPlugin(Mod.Hash))
                 {
                     if (!MessageBoxExtend.Show(NIMApp.WorkWin, "Prompt", "Do you want to enable this third-party plugin? Before enabling, please check whether the plugin's open-source code is safe. NIM is not responsible for this plugin. According to the plugin rules, all plugins designed for NIM must be open source. If you cannot obtain the source code, enabling it is not recommended.", PreviewDialogSeverity.Information, true))
                     {
+                        T.IsChecked = false;
                         return;
                     }
                 }
