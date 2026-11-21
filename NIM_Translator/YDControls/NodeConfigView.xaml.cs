@@ -245,13 +245,14 @@ namespace NIM.YDControls
             get { return Config.Model ?? ""; }
             set
             {
-                string t = (value ?? "").Trim();
-                if (t.Length == 0 || t == Config.Model) return;
+                string model = (value ?? "").Trim();
+                if (model.Length == 0 || model == Config.Model) return;
 
-                Config.Model = t;
+                Config.Model = model;
+
                 Raise("Model");
                 Raise("ModelDisplay");
-                if (_changed != null) _changed(this, NodeConfigChangeKind.Model, t);
+                if (_changed != null) _changed(this, NodeConfigChangeKind.Model, model);
             }
         }
 
@@ -266,6 +267,7 @@ namespace NIM.YDControls
                 if (!int.TryParse(value, out port) || port <= 0 || port > 65535 || port == Config.LocalPort) return;
 
                 Config.LocalPort = port;
+
                 Raise("PortText");
                 if (_changed != null) _changed(this, NodeConfigChangeKind.Port, port.ToString());
             }
@@ -293,6 +295,40 @@ namespace NIM.YDControls
             if (Config.ApiKeys != null) Config.ApiKeys.Remove(item.Key);
             Keys.Remove(item);
             if (_changed != null) _changed(this, NodeConfigChangeKind.ApiKeyRemoved, item.Key);
+        }
+
+        public class BackendOption
+        {
+            public string Name { get; private set; }
+            public int Port { get; private set; }
+            public BackendOption(string name, int port) { Name = name; Port = port; }
+            public override string ToString() { return Name; }
+        }
+
+        public static readonly BackendOption[] BackendOptions = new[]
+        {
+            new BackendOption("LM Studio", 1234),
+            new BackendOption("Ollama",    11434),
+            new BackendOption("vLLM",      8000),
+            new BackendOption("llama.cpp", 8080),
+            new BackendOption("Jan",       1337),
+        };
+
+        public IEnumerable<BackendOption> Backends { get { return BackendOptions; } }
+
+        public BackendOption SelectedBackend
+        {
+            get { return null; }
+            set
+            {
+                if (value == null) return;
+
+                Config.LocalPort = value.Port;
+
+                Raise("SelectedBackend");
+                Raise("PortText");
+                if (_changed != null) _changed(this, NodeConfigChangeKind.Port, value.Port.ToString());
+            }
         }
     }
 

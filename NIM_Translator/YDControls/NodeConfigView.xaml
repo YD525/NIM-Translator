@@ -513,13 +513,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBox Width="120" MaxLength="5" Style="{StaticResource InputBox}" Tag="{Binding AccentBrush}" Text="{Binding PortText, Mode=TwoWay, UpdateSourceTrigger=Explicit}" PreviewTextInput="PortBox_PreviewTextInput"  KeyDown="CommitBox_KeyDown" LostKeyboardFocus="CommitBox_LostKeyboardFocus"/>
-                                <ComboBox Style="{StaticResource InputCombo}" x:Name="BackendBox" Width="120" Height="28" Margin="8,0,0,0" Loaded="BackendBox_Loaded" SelectionChanged="BackendBox_SelectionChanged">
-                                    <ComboBoxItem Content="LM Studio" Tag="1234"/>
-                                    <ComboBoxItem Content="Ollama"    Tag="11434"/>
-                                    <ComboBoxItem Content="vLLM"      Tag="8000"/>
-                                    <ComboBoxItem Content="llama.cpp" Tag="8080"/>
-                                    <ComboBoxItem Content="Jan"       Tag="1337"/>
-                                </ComboBox>
+                                <ComboBox Style="{StaticResource InputCombo}" Width="120" Height="28" Margin="8,0,0,0" ItemsSource="{Binding Backends}" SelectedItem="{Binding SelectedBackend, Mode=TwoWay}" DisplayMemberPath="Name" TextSearch.TextPath="Name" Visibility="{Binding BackendVisibility}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,16,0,6">
