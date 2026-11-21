@@ -86,7 +86,7 @@ namespace NIM
             try
             {
                 MessageBox.Show("Test");
-                //var Get = SHA256_Validator.ComputeFileSHA256(@"C:\Users\52508\source\repos\NIM-Plugin\NIM-NodePack\bin\x64\Release\NIM-NodePack.dll");
+                var Get = SHA256_Validator.ComputeFileSHA256(@"C:\Users\52508\source\repos\NIM-Plugin\NIM-NodePack\bin\x64\Release\NIM-NodePack.dll");
                 string applicationPath = NIMApp.GetFullPath(@"\");
                 await Task.Run(() =>
                 {

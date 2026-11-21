@@ -647,7 +647,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                             <!-- ========== Nav ========== -->
                             <Grid Grid.Row="1">
                                 <StackPanel Orientation="Horizontal" Margin="20,0,0,0" Name="SettingNavs">
-                                    <Border Tag="Request And ApiKey Configs" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
+                                    <Border Tag="Request And ApiKey" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
@@ -658,46 +658,46 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                         </Grid>
                                     </Border>
 
-                                    <Border Tag="AI Configs" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
+                                    <Border Tag="AI" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="3"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Text="AI Configs" Style="{StaticResource SettingNavText}"/>
+                                            <TextBlock Grid.Row="0" Text="AI" Style="{StaticResource SettingNavText}"/>
                                             <Border Grid.Row="1" Background="{StaticResource SettingAccentBrush}" Visibility="Collapsed"/>
                                         </Grid>
                                     </Border>
 
-                                    <Border Tag="Game Configs" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
+                                    <Border Tag="Game" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="3"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Text="Game Configs" Style="{StaticResource SettingNavText}"/>
+                                            <TextBlock Grid.Row="0" Text="Game" Style="{StaticResource SettingNavText}"/>
                                             <Border Grid.Row="1" Background="{StaticResource SettingAccentBrush}" Visibility="Collapsed"/>
                                         </Grid>
                                     </Border>
 
-                                    <Border Tag="UI Configs" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
+                                    <Border Tag="UI" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="3"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Text="UI Configs" Style="{StaticResource SettingNavText}"/>
+                                            <TextBlock Grid.Row="0" Text="UI" Style="{StaticResource SettingNavText}"/>
                                             <Border Grid.Row="1" Background="{StaticResource SettingAccentBrush}" Visibility="Collapsed"/>
                                         </Grid>
                                     </Border>
 
-                                    <Border Tag="Engine Configs" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
+                                    <Border Tag="Engine" Style="{StaticResource SettingNavItem}" Padding="14,0" PreviewMouseDown="SelectSettingNav">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="3"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Text="Engine Configs" Style="{StaticResource SettingNavText}"/>
+                                            <TextBlock Grid.Row="0" Text="Engine" Style="{StaticResource SettingNavText}"/>
                                             <Border Grid.Row="1" Background="{StaticResource SettingAccentBrush}" Visibility="Collapsed"/>
                                         </Grid>
                                     </Border>
@@ -731,7 +731,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                             <Grid Grid.Row="2" Name="SettingFrames">
 
                                 <!-- Page: Request & ApiKey -->
-                                <Border Tag="Request And ApiKey Configs" Visibility="Collapsed" Background="Transparent">
+                                <Border Tag="Request And ApiKey" Visibility="Collapsed" Background="Transparent">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="120"/>
@@ -772,7 +772,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                 </Border>
 
                                 <!-- Page: AI Configs -->
-                                <Border Tag="AI Configs" Visibility="Collapsed" Background="Transparent">
+                                <Border Tag="AI" Visibility="Collapsed" Background="Transparent">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{DynamicResource for_scrollviewer}">
                                         <StackPanel Margin="20,13,20,20" MaxWidth="700" HorizontalAlignment="Stretch">
 
@@ -795,7 +795,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                 </Border>
 
                                 <!-- Page: Game Configs -->
-                                <Border Tag="Game Configs" Visibility="Collapsed" Background="Transparent">
+                                <Border Tag="Game" Visibility="Collapsed" Background="Transparent">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{DynamicResource for_scrollviewer}">
                                         <StackPanel Margin="20,13,20,20" MaxWidth="700" HorizontalAlignment="Stretch">
 
@@ -865,7 +865,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                 </Border>
 
                                 <!-- Page: UI Configs -->
-                                <Border Tag="UI Configs" Visibility="Collapsed" Background="Transparent">
+                                <Border Tag="UI" Visibility="Collapsed" Background="Transparent">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{DynamicResource for_scrollviewer}">
                                         <StackPanel Margin="20,14,20,20" MaxWidth="700" HorizontalAlignment="Stretch">
 
@@ -921,7 +921,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                 </Border>
 
                                 <!-- Page: Engine Configs -->
-                                <Border Tag="Engine Configs" Visibility="Visible"  Background="Transparent">
+                                <Border Tag="Engine" Visibility="Visible"  Background="Transparent">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" Style="{DynamicResource for_scrollviewer}">
                                         <StackPanel Margin="20,14,20,20" MaxWidth="700" HorizontalAlignment="Stretch">
 

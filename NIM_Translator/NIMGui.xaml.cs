@@ -1120,7 +1120,7 @@ namespace NIM
         #region Setting
         public void SyncSettingUI(string Name)
         {
-            if (Name.Equals("Request And ApiKey Configs"))
+            if (Name.Equals("Request And ApiKey"))
             {
                 var NIMConfig = NIMApp.EngineSetting;
 
@@ -1131,12 +1131,12 @@ namespace NIM
                 SyncPlatformConfig();
             }
             else
-            if (Name.Equals("AI Configs"))
+            if (Name.Equals("AI"))
             {
                 SAIKeyword.Text = NIMApp.EngineSetting.UserCustomAIPrompt;
             }
             else
-            if (Name.Equals("Game Configs"))
+            if (Name.Equals("Game"))
             {
                 SGame.Items.Clear();
                 SGame.Items.Add(GameNames.Skyrim.ToString());
@@ -1174,7 +1174,7 @@ namespace NIM
                 TempEspReader.Clear();
             }
             else
-            if (Name.Equals("UI Configs"))
+            if (Name.Equals("UI"))
             {
                 if (NIMApp.SelfSetting.TextDisplay == TextLayout.RTL)
                 {
@@ -1186,7 +1186,7 @@ namespace NIM
                 }
             }
             else
-            if (Name.Equals("Engine Configs"))
+            if (Name.Equals("Engine"))
             {
                 LoadTranslationPresetControls();
 

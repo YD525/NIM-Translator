@@ -12,6 +12,95 @@
 
         <local:InverseBoolConverter x:Key="InvBool"/>
 
+        <Style x:Key="InputCombo" TargetType="ComboBox">
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#FFEAEAEA"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="TextSearch.TextPath" Value="Content"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="Toggle" Focusable="False" ClickMode="Press"
+                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="Bd" Background="#FF0C0C0C" BorderBrush="#FF3A3A3A"
+                                        BorderThickness="1" CornerRadius="4">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Margin="8,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="#FFEAEAEA"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Text="{Binding Text, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                                <Path Grid.Column="1" Data="M0,0 L4,4 L8,0" Stroke="#FF8A8A8A"
+                                              StrokeThickness="1.2" Margin="8,0,10,0"
+                                              VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bd" Property="BorderBrush" Value="#FF6A6A6A"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="Bd" Property="BorderBrush" Value="#FFEAEAEA"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <Popup x:Name="PART_Popup" Placement="Bottom" VerticalOffset="4"
+                           AllowsTransparency="True" StaysOpen="False" Focusable="False"
+                           IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border Background="#FF161616" BorderBrush="#FF4A4A4A" BorderThickness="1"
+                                CornerRadius="4" MaxHeight="240"
+                                MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Foreground" Value="#FFE6E6E6"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border x:Name="Bd" Padding="10,6" Background="Transparent"
+                                    BorderBrush="Transparent" BorderThickness="2,0,0,0">
+                                        <ContentPresenter VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#18FFFFFF"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#26FFFFFF"/>
+                                            <Setter TargetName="Bd" Property="BorderBrush" Value="#FFFFFFFF"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!-- ===== Scrollbar (thin, dark) ===== -->
         <Style x:Key="NullRepeat" TargetType="RepeatButton">
             <Setter Property="Focusable" Value="False"/>
@@ -422,12 +511,16 @@
                                         Background="{Binding AccentBrush}"/>
                                 <TextBlock Text="PORT" Style="{StaticResource SectionLabel}"/>
                             </StackPanel>
-                            <TextBox Width="120" HorizontalAlignment="Left" MaxLength="5"
-                                     Style="{StaticResource InputBox}" Tag="{Binding AccentBrush}"
-                                     Text="{Binding PortText, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
-                                     PreviewTextInput="PortBox_PreviewTextInput"
-                                     KeyDown="CommitBox_KeyDown"
-                                     LostKeyboardFocus="CommitBox_LostKeyboardFocus"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="120" MaxLength="5" Style="{StaticResource InputBox}" Tag="{Binding AccentBrush}" Text="{Binding PortText, Mode=TwoWay, UpdateSourceTrigger=Explicit}" PreviewTextInput="PortBox_PreviewTextInput"  KeyDown="CommitBox_KeyDown" LostKeyboardFocus="CommitBox_LostKeyboardFocus"/>
+                                <ComboBox Style="{StaticResource InputCombo}" x:Name="BackendBox" Width="120" Height="28" Margin="8,0,0,0" Loaded="BackendBox_Loaded" SelectionChanged="BackendBox_SelectionChanged">
+                                    <ComboBoxItem Content="LM Studio" Tag="1234"/>
+                                    <ComboBoxItem Content="Ollama"    Tag="11434"/>
+                                    <ComboBoxItem Content="vLLM"      Tag="8000"/>
+                                    <ComboBoxItem Content="llama.cpp" Tag="8080"/>
+                                    <ComboBoxItem Content="Jan"       Tag="1337"/>
+                                </ComboBox>
+                            </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,16,0,6">
                                 <Border Width="3" Height="10" CornerRadius="1.5" Margin="0,0,6,0"
