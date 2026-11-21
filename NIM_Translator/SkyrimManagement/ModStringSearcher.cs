@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using NIM.ModParser;
+using NIMEngine;
+using NIMEngine.Game;
 using NIMEngine.Language;
 using NIMEngine.Translate;
 
@@ -234,7 +236,16 @@ namespace NIM.SkyrimManagement
 
             foreach (var GetFile in Directory.GetFiles(ModPath))
             {
-                if (GetFile.EndsWith(".esp") || GetFile.EndsWith(".esm") || GetFile.EndsWith(".esl"))
+                var InFo = new FileInfo(GetFile);
+                string Name = InFo.Name;
+                string Extension = InFo.Extension;
+
+                if (Name.ToLower().Equals("meta.ini"))
+                {
+                    IsMod = true;
+                }
+                else
+                if (Extension.Equals(".esp") || Extension.Equals(".esm") || Extension.Equals(".esl") || P_ModReader.SupportedFileExtensions.Contains(Extension))
                 {
                     //Esp
                     AvailableFiles.Add(GetFile);
@@ -248,7 +259,10 @@ namespace NIM.SkyrimManagement
             {
                 foreach (var GetFile in Directory.GetFiles(ScriptPath))
                 {
-                    if (GetFile.EndsWith(".pex"))
+                    var InFo = new FileInfo(GetFile);
+                    string Extension = InFo.Extension;
+
+                    if (Extension.Equals(".pex") || P_ModReader.SupportedFileExtensions.Contains(Extension))
                     {
                         //Script
                         AvailableFiles.Add(GetFile);
@@ -263,7 +277,10 @@ namespace NIM.SkyrimManagement
             {
                 foreach (var GetFile in Directory.GetFiles(SKSEPluginPath))
                 {
-                    if (GetFile.EndsWith(".dll"))
+                    var InFo = new FileInfo(GetFile);
+                    string Extension = InFo.Extension;
+
+                    if (Extension.Equals(".dll") || P_ModReader.SupportedFileExtensions.Contains(Extension))
                     {
                         //DLL 
                         IsMod = true;
@@ -277,7 +294,10 @@ namespace NIM.SkyrimManagement
             {
                 foreach (var GetFile in Directory.GetFiles(InterfacePath))
                 {
-                    if (GetFile.EndsWith(".txt"))
+                    var InFo = new FileInfo(GetFile);
+                    string Extension = InFo.Extension;
+
+                    if (Extension.Equals(".txt") || P_ModReader.SupportedFileExtensions.Contains(Extension))
                     {
                         //Script MCM
                         AvailableFiles.Add(GetFile);
