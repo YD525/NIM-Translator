@@ -1287,7 +1287,7 @@ namespace NIM
 
                 //A scene that emerged within the mind of YD525.↓
                 // User A: What's going on? Why did my API key consume tokens as soon as I opened the software?
-                // YD525: I used your configured API key to translate the interface.
+                // YD525: I used your configured API key to translate the UI interface.
                 // User A: Without my knowledge?!
                 // YD525: I already showed you a prompt asking for your consent. You clicked "Agree".
                 // User A: But I couldn't understand what the prompt said!
@@ -1295,7 +1295,7 @@ namespace NIM
 
                 // That's why I insist on keeping the tutorial and soft UI in English. Users will have to translate it themselves if necessary.
 
-                // The primary purpose of this software is to translate mods. API keys are intended to be used exclusively for mod translation. Even if translating the tutorial would ultimately benefit the user, doing so without their explicit authorization would still be unauthorized use.
+                // The primary purpose of this software is to translate mods. API keys are intended to be used exclusively for mod translation. Even if translating the tutorial and Soft UI would ultimately benefit the user, doing so without their explicit authorization would still be unauthorized use.
             }
         }
         public void ShowFrame(string Name)
