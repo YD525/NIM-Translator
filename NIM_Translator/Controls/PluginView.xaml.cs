@@ -13,7 +13,7 @@ using NIM.ApplicationLayer;
 using NIM.FileManagement;
 using NIMEngine;
 
-namespace NIM.YDControls
+namespace NIM.Controls
 {
     public class PluginItem : INotifyPropertyChanged
     {

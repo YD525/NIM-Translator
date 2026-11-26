@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:NIM"
         mc:Ignorable="d"
         xmlns:UI="clr-namespace:NIM.UIManagement"
-        xmlns:YD="clr-namespace:NIM.YDControls"
+        xmlns:YD="clr-namespace:NIM.Controls"
         Title="NIM" Height="850" Width="1000" Loaded="Window_Loaded" Style="{DynamicResource DefWin}" PreviewKeyDown="Window_PreviewKeyDown" WindowStartupLocation="CenterScreen" AllowDrop="True"    
         Closing="Window_Closing" SizeChanged="Window_SizeChanged" LocationChanged="Window_LocationChanged" Activated="Window_Activated">
 

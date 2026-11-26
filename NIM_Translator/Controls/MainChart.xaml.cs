@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using NIM.UIManagement;
 
-namespace NIM.YDControls
+namespace NIM.Controls
 {
     /// <summary>
     /// Interaction logic for MainChart.xaml

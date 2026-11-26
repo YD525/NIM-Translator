@@ -256,22 +256,28 @@
     <Compile Include="UIManagement\Setting\LexTranslatorRadarChart.xaml.cs">
       <DependentUpon>LexTranslatorRadarChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="YDControls\ContextView.xaml.cs">
+    <Compile Include="Controls\ContextView.xaml.cs">
       <DependentUpon>ContextView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="YDControls\MainChart.xaml.cs">
+    <Compile Include="Controls\MainChart.xaml.cs">
       <DependentUpon>MainChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="YDControls\NodeConfigView.xaml.cs">
+    <Compile Include="Controls\ModWizard.xaml.cs">
+      <DependentUpon>ModWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NodeConfigView.xaml.cs">
       <DependentUpon>NodeConfigView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="YDControls\NodeView.xaml.cs">
+    <Compile Include="Controls\NodeView.xaml.cs">
       <DependentUpon>NodeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="YDControls\PluginView.xaml.cs">
+    <Compile Include="Controls\PluginView.xaml.cs">
       <DependentUpon>PluginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="YDControls\RealtimeLineChart.cs" />
+    <Compile Include="Controls\RealtimeLineChart.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Page Include="ChooseLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -407,23 +413,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="YDControls\ContextView.xaml">
+    <Page Include="Controls\ContextView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="YDControls\MainChart.xaml">
+    <Page Include="Controls\MainChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="YDControls\NodeConfigView.xaml">
+    <Page Include="Controls\ModWizard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="YDControls\NodeView.xaml">
+    <Page Include="Controls\NodeConfigView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="YDControls\PluginView.xaml">
+    <Page Include="Controls\NodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PluginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
