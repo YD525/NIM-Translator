@@ -16,7 +16,7 @@ using NIM.SkyrimManagement;
 using NIM.TranslateManage;
 using NIM.UIManage;
 using NIM.UIManagement;
-using NIM.YDControls;
+using NIM.Controls;
 using PexInterface;
 using NIMEngine;
 using NIMEngine.Common;
@@ -54,6 +54,8 @@ namespace NIM
         {
             try
             {
+                new Window1().Show();
+
                 NIMApp.Init(this);
 
                 TranslatorInterface.Init();

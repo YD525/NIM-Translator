@@ -13,7 +13,7 @@ using NIMEngine;
 using NIMEngine.Engine;
 using NIMEngine.Language;
 
-namespace NIM.YDControls
+namespace NIM.Controls
 {
     public partial class ContextView : UserControl
     {

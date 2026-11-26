@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace NIM.YDControls
+namespace NIM.Controls
 {
     public class RealtimeLineChart : FrameworkElement
     {

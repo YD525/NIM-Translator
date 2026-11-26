@@ -1,0 +1,681 @@
+﻿<UserControl x:Class="NIM.YDControls.ModWizard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:NIM.YDControls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             d:DesignHeight="520" d:DesignWidth="860"
+             FontFamily="Segoe UI, Microsoft YaHei UI"
+             TextOptions.TextFormattingMode="Display"
+             UseLayoutRounding="True"
+             Foreground="#FFF2F2F2"
+             Background="#FF111111">
+
+    <UserControl.Resources>
+
+        <!-- ===== Strings (override with Wizard.Resources["S.xxx"] to localize) ===== -->
+        <sys:String x:Key="S.Step1">Mod location</sys:String>
+        <sys:String x:Key="S.Step2">Detection</sys:String>
+        <sys:String x:Key="S.Step3">Select content</sys:String>
+        <sys:String x:Key="S.SetPathTitle">Choose your mod folder</sys:String>
+        <sys:String x:Key="S.SetPathHint">Select a single mod, or a parent folder that contains several mods.</sys:String>
+        <sys:String x:Key="S.DropHint">Drag and drop a folder here</sys:String>
+        <sys:String x:Key="S.Browse">Browse…</sys:String>
+        <sys:String x:Key="S.PathAccess">Path access</sys:String>
+        <sys:String x:Key="S.ModDetection">Mod detection</sys:String>
+        <sys:String x:Key="S.Open">Open</sys:String>
+        <sys:String x:Key="S.KindMod">Mod</sys:String>
+        <sys:String x:Key="S.KindFolder">Folder</sys:String>
+        <sys:String x:Key="S.KindNoReader">No reader</sys:String>
+        <sys:String x:Key="S.Files">Files</sys:String>
+        <sys:String x:Key="S.FolderSupported">Whole folder supported</sys:String>
+        <sys:String x:Key="S.Matches">Matches</sys:String>
+        <sys:String x:Key="S.Match">Match</sys:String>
+        <sys:String x:Key="S.SearchName">Mod name</sys:String>
+        <sys:String x:Key="S.SearchRecord">Record content</sys:String>
+        <sys:String x:Key="S.Search">Search</sys:String>
+        <sys:String x:Key="S.ClearSearch">Clear search results</sys:String>
+        <sys:String x:Key="S.WholeFolder">Whole folder</sys:String>
+        <sys:String x:Key="S.SelectedFiles">Selected files</sys:String>
+        <sys:String x:Key="S.SelectAll">Select all</sys:String>
+        <sys:String x:Key="S.ClearChecks">Clear</sys:String>
+        <sys:String x:Key="S.MatchesOnly">Matches only</sys:String>
+        <sys:String x:Key="S.NoFolders">Nothing to show</sys:String>
+        <sys:String x:Key="S.NoMods">No mods to show</sys:String>
+        <sys:String x:Key="S.NoFiles">No files to show</sys:String>
+        <sys:String x:Key="S.Cancel">Cancel</sys:String>
+        <sys:String x:Key="S.Back">Back</sys:String>
+        <sys:String x:Key="S.Stop">Stop</sys:String>
+        <sys:String x:Key="S.Detect">Detect</sys:String>
+        <sys:String x:Key="S.Next">Next</sys:String>
+        <sys:String x:Key="S.Load">Load</sys:String>
+        <sys:String x:Key="S.SelectMod">Select a mod</sys:String>
+        <sys:String x:Key="S.CheckFiles">Check the files to read</sys:String>
+        <sys:String x:Key="S.FolderWillBeRead">The whole folder will be read</sys:String>
+        <sys:String x:Key="S.FilesSelected">Files selected: {0}</sys:String>
+        <sys:String x:Key="S.CheckingPath">Checking path…</sys:String>
+        <sys:String x:Key="S.WaitingDetection">Waiting for detection</sys:String>
+        <sys:String x:Key="S.DetectingMods">Detecting mods…</sys:String>
+        <sys:String x:Key="S.DetectionStopped">Detection stopped</sys:String>
+        <sys:String x:Key="S.CannotRead">Cannot read this path</sys:String>
+        <sys:String x:Key="S.PathReadable">Path is readable</sys:String>
+        <sys:String x:Key="S.ModsFound">Mods found: {0}, readable: {1}</sys:String>
+        <sys:String x:Key="S.NoAvailableReader">Mods found, but no reader is available</sys:String>
+        <sys:String x:Key="S.NoModRecognized">No mod recognized. Open a subfolder to continue.</sys:String>
+        <sys:String x:Key="S.Searching">Searching…</sys:String>
+        <sys:String x:Key="S.SearchStopped">Search stopped</sys:String>
+        <sys:String x:Key="S.SearchFailed">Search failed</sys:String>
+        <sys:String x:Key="S.ModsMatched">Mods matched: {0}</sys:String>
+        <sys:String x:Key="S.NoMatches">No matches</sys:String>
+        <sys:String x:Key="S.NoModSelected">No mod selected</sys:String>
+        <sys:String x:Key="S.NoReaderForMod">No reader can handle this mod</sys:String>
+        <sys:String x:Key="S.PassToPlugin">The folder is passed directly to the plugin</sys:String>
+        <sys:String x:Key="S.OnlyChecked">Only checked files will be read</sys:String>
+        <sys:String x:Key="S.FolderNotSupported">Whole folder is not supported. Check the files to read.</sys:String>
+        <sys:String x:Key="S.Loading">Loading…</sys:String>
+        <sys:String x:Key="S.LoadFailed">Load failed</sys:String>
+
+        <!-- ===== Theme ===== -->
+        <!-- Only two background colors -->
+        <SolidColorBrush x:Key="BackBrush" Color="#FF111111"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#FF262626"/>
+
+        <!-- Accent, lines and text -->
+        <SolidColorBrush x:Key="AccentBrush" Color="#FF4FC3F7"/>
+        <SolidColorBrush x:Key="OnAccentBrush" Color="#FF111111"/>
+        <SolidColorBrush x:Key="LineBrush" Color="#FF2A2A2A"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#FF4A4A4A"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#FFF2F2F2"/>
+        <SolidColorBrush x:Key="SubTextBrush" Color="#FF9A9A9A"/>
+        <SolidColorBrush x:Key="StepTextBrush" Color="#FFC8C8C8"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="#FF6FE08A"/>
+        <SolidColorBrush x:Key="FailedBrush" Color="#FFFF6B6B"/>
+        <SolidColorBrush x:Key="IdleBrush" Color="#FF6A6A6A"/>
+
+        <!-- ===== Scrollbar (thin, dark) ===== -->
+        <Style x:Key="NullRepeat" TargetType="RepeatButton">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="Transparent"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ThinThumb" TargetType="Thumb">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border x:Name="T" Margin="1,0" CornerRadius="3" Background="#55FFFFFF"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="T" Property="Background" Value="#99FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsDragging" Value="True">
+                                <Setter TargetName="T" Property="Background" Value="#FF4FC3F7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="MinWidth" Value="8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Width="8" Background="Transparent">
+                            <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource NullRepeat}"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource NullRepeat}"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource ThinThumb}"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== Buttons ===== -->
+        <Style x:Key="FlatButton" TargetType="Button">
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="Padding" Value="16,4"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Body" CornerRadius="6" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Body" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Body" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Body" Property="Opacity" Value="0.35"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource FlatButton}">
+            <Setter Property="MinWidth" Value="104"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource OnAccentBrush}"/>
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.88"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SmallButton" TargetType="Button" BasedOn="{StaticResource FlatButton}">
+            <Setter Property="MinHeight" Value="24"/>
+            <Setter Property="Padding" Value="10,2"/>
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+
+        <!-- ===== TextBox ===== -->
+        <Style x:Key="DarkTextBox" TargetType="TextBox">
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Body" CornerRadius="6" Background="{StaticResource BackBrush}"
+                                BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="8,0" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Body" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== Segment (mode selector) ===== -->
+        <Style x:Key="SegmentStyle" TargetType="RadioButton">
+            <Setter Property="MinHeight" Value="28"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Foreground" Value="{StaticResource SubTextBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Body" CornerRadius="6" Background="{StaticResource BackBrush}"
+                                BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                            <ContentPresenter Margin="12,4" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Body" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Body" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Body" Property="Opacity" Value="0.35"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== Step indicator: Header = number, Content = title, Tag = Pending / Active / Done ===== -->
+        <Style x:Key="StepStyle" TargetType="HeaderedContentControl">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="HeaderedContentControl">
+                        <Grid x:Name="Root" Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="3"/>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="14,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="Circle" Width="30" Height="30" CornerRadius="15" BorderThickness="2"
+                                        BorderBrush="{StaticResource IdleBrush}">
+                                    <Grid>
+                                        <TextBlock x:Name="Number" Text="{TemplateBinding Header}" FontSize="13" FontWeight="Bold"
+                                                   Foreground="{StaticResource StepTextBrush}"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Path x:Name="Done" Data="M0,5 L4,9 L12,1" Stroke="{StaticResource AccentBrush}"
+                                              StrokeThickness="2.5" Visibility="Collapsed"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                                <TextBlock x:Name="Title" Grid.Column="1" Text="{TemplateBinding Content}" Margin="10,0,0,0"
+                                           FontSize="13" Foreground="{StaticResource StepTextBrush}"
+                                           VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            </Grid>
+                            <Border x:Name="Line" Grid.Row="1" Margin="2,0" Background="{StaticResource LineBrush}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Active">
+                                <Setter TargetName="Circle" Property="Background" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="Circle" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="Number" Property="Foreground" Value="{StaticResource OnAccentBrush}"/>
+                                <Setter TargetName="Title" Property="Foreground" Value="{StaticResource TextBrush}"/>
+                                <Setter TargetName="Title" Property="FontWeight" Value="Bold"/>
+                                <Setter TargetName="Line" Property="Background" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                            <Trigger Property="Tag" Value="Done">
+                                <Setter TargetName="Circle" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="Number" Property="Visibility" Value="Collapsed"/>
+                                <Setter TargetName="Done" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Title" Property="Foreground" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="Line" Property="Background" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== List ===== -->
+        <Style x:Key="RowContainer" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Margin="8,3" Background="Transparent">
+                            <Border x:Name="Body" CornerRadius="6" Background="{StaticResource BackBrush}"
+                                    BorderBrush="{StaticResource LineBrush}" BorderThickness="1"/>
+                            <ContentPresenter/>
+                            <Border x:Name="Bar" Width="3" Margin="1,7" CornerRadius="1.5" HorizontalAlignment="Left"
+                                    Background="{StaticResource AccentBrush}" Visibility="Collapsed"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Body" Property="BorderBrush" Value="{StaticResource IdleBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Body" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="Bar" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Tag = text shown when the list is empty -->
+        <Style x:Key="DarkList" TargetType="ListBox">
+            <Setter Property="ItemContainerStyle" Value="{StaticResource RowContainer}"/>
+            <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
+            <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Grid>
+                            <ScrollViewer Focusable="False" CanContentScroll="True" Padding="0,4"
+                                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                            <TextBlock x:Name="Empty" Text="{TemplateBinding Tag}" Visibility="Collapsed" Margin="16"
+                                       FontSize="12" Foreground="{StaticResource SubTextBrush}" TextWrapping="Wrap"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="Empty" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== Entry row ===== -->
+        <DataTemplate x:Key="EntryTemplate">
+            <Grid MinHeight="46" Margin="12,4,10,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center" Margin="0,0,8,0">
+                    <TextBlock Text="{Binding Name}" ToolTip="{Binding FullPath}" FontSize="13" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextBrush}" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="PathLine" Text="{Binding FullPath}" Visibility="Collapsed" Margin="0,2,0,0"
+                               FontSize="11" Foreground="{StaticResource SubTextBrush}" TextTrimming="CharacterEllipsis"/>
+                    <StackPanel x:Name="InfoLine" Orientation="Horizontal" Margin="0,2,0,0">
+                        <TextBlock FontSize="11" Foreground="{StaticResource SubTextBrush}">
+                            <Run Text="{DynamicResource S.Files}"/><Run Text=": "/><Run Text="{Binding Files.Count, Mode=OneWay}"/>
+                        </TextBlock>
+                        <TextBlock x:Name="FolderTag" Text="{DynamicResource S.FolderSupported}" Visibility="Collapsed"
+                                   Margin="10,0,0,0" FontSize="11" Foreground="{StaticResource SubTextBrush}"/>
+                        <TextBlock Margin="10,0,0,0" FontSize="11" Foreground="{StaticResource AccentBrush}"
+                                   Visibility="{Binding HitVisibility}">
+                            <Run Text="{DynamicResource S.Matches}"/><Run Text=": "/><Run Text="{Binding HitCount, Mode=OneWay}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <Border x:Name="Pill" Grid.Column="1" CornerRadius="9" Padding="9,2" BorderThickness="1"
+                        BorderBrush="{StaticResource AccentBrush}" VerticalAlignment="Center">
+                    <TextBlock x:Name="Kind" Text="{DynamicResource S.KindMod}" FontSize="10"
+                               Foreground="{StaticResource AccentBrush}"/>
+                </Border>
+                <Button x:Name="OpenButton" Grid.Column="2" Content="{DynamicResource S.Open}" Tag="{Binding}"
+                        Margin="8,0,0,0" VerticalAlignment="Center" Visibility="Collapsed"
+                        Style="{StaticResource SmallButton}" Click="OpenFolder_Click"/>
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding CanReadDirectory}" Value="True">
+                    <Setter TargetName="FolderTag" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding KindState}" Value="Folder">
+                    <Setter TargetName="PathLine" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="InfoLine" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="OpenButton" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="Pill" Property="BorderBrush" Value="{StaticResource IdleBrush}"/>
+                    <Setter TargetName="Kind" Property="Foreground" Value="{StaticResource SubTextBrush}"/>
+                    <Setter TargetName="Kind" Property="Text" Value="{DynamicResource S.KindFolder}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding KindState}" Value="NoReader">
+                    <Setter TargetName="Pill" Property="BorderBrush" Value="{StaticResource FailedBrush}"/>
+                    <Setter TargetName="Kind" Property="Foreground" Value="{StaticResource FailedBrush}"/>
+                    <Setter TargetName="Kind" Property="Text" Value="{DynamicResource S.KindNoReader}"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <!-- ===== File row (the whole row is the checkbox) ===== -->
+        <DataTemplate x:Key="FileTemplate">
+            <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" IsEnabled="{Binding CanRead}"
+                      Cursor="Hand" Click="FileCheck_Click">
+                <CheckBox.Template>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid x:Name="Root" MinHeight="36" Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="36"/>
+                                <ColumnDefinition Width="42"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="Box" Width="14" Height="14" CornerRadius="3" Background="{StaticResource BackBrush}"
+                                    BorderBrush="{StaticResource IdleBrush}" BorderThickness="1">
+                                <Path x:Name="Mark" Data="M2,6 L5,9 L10,3" Stroke="{StaticResource OnAccentBrush}" StrokeThickness="2"
+                                      Visibility="Collapsed"/>
+                            </Border>
+                            <TextBlock Grid.Column="1" Text="{Binding TypeTag}" FontSize="10" FontWeight="Bold"
+                                       Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="{Binding DisplayName}" ToolTip="{Binding FullPath}"
+                                       FontSize="12" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Grid.Column="3" Text="{DynamicResource S.Match}" Visibility="{Binding HitVisibility}" FontSize="10"
+                                       Foreground="{StaticResource AccentBrush}" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="4" Text="{Binding ReaderName}" FontSize="10" MaxWidth="100"
+                                       Foreground="{StaticResource SubTextBrush}" Margin="8,0,10,0" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Box" Property="Background" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="Mark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.35"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </CheckBox.Template>
+            </CheckBox>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid x:Name="MainBody">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="56"/>
+            </Grid.RowDefinitions>
+
+            <!-- ===== Step header ===== -->
+            <Border Background="{StaticResource SurfaceBrush}">
+                <UniformGrid Rows="1">
+                    <HeaderedContentControl x:Name="Step1Item" Header="1" Content="{DynamicResource S.Step1}"
+                                            Style="{StaticResource StepStyle}"/>
+                    <HeaderedContentControl x:Name="Step2Item" Header="2" Content="{DynamicResource S.Step2}"
+                                            Style="{StaticResource StepStyle}"/>
+                    <HeaderedContentControl x:Name="Step3Item" Header="3" Content="{DynamicResource S.Step3}"
+                                            Style="{StaticResource StepStyle}"/>
+                </UniformGrid>
+            </Border>
+
+            <!-- ===== Step 1: path ===== -->
+            <Grid x:Name="Page1" Grid.Row="1" AllowDrop="True" Background="Transparent"
+                  PreviewDragOver="Page1_DragOver" PreviewDrop="Page1_Drop">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel MaxWidth="600" Margin="32,20" VerticalAlignment="Center">
+                        <TextBlock Text="{DynamicResource S.SetPathTitle}" FontSize="20" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextBrush}" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBlock Text="{DynamicResource S.SetPathHint}" FontSize="12" Margin="0,6,0,18"
+                                   Foreground="{StaticResource SubTextBrush}" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <Grid MinHeight="116">
+                            <Rectangle RadiusX="10" RadiusY="10" Fill="{StaticResource BackBrush}"
+                                       Stroke="{StaticResource IdleBrush}" StrokeThickness="1" StrokeDashArray="5,4"/>
+                            <StackPanel VerticalAlignment="Center" Margin="16">
+                                <Path Data="M1,4 L1,28 L39,28 L39,8 L19,8 L15,2 L3,2 Z" Width="40" Height="30"
+                                      Stroke="{StaticResource AccentBrush}" StrokeThickness="2" StrokeLineJoin="Round"
+                                      Fill="Transparent" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource S.DropHint}" FontSize="12" Margin="0,10,0,0"
+                                           Foreground="{StaticResource SubTextBrush}" TextAlignment="Center" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Margin="0,14,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PathBox" Style="{StaticResource DarkTextBox}"
+                                     TextChanged="PathBox_TextChanged" KeyDown="PathBox_KeyDown"/>
+                            <Button Grid.Column="1" Content="{DynamicResource S.Browse}" Margin="8,0,0,0"
+                                    Style="{StaticResource FlatButton}" Click="Browse_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- ===== Step 2: check ===== -->
+            <Grid x:Name="Page2" Grid.Row="1" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="8,12,8,4">
+                    <TextBlock x:Name="CurrentPathText" FontSize="12" Foreground="{StaticResource SubTextBrush}"
+                               TextTrimming="CharacterEllipsis" Margin="4,0,4,8"/>
+                    <UniformGrid Rows="1">
+                        <Border Margin="0,0,4,0" Padding="14,10" CornerRadius="8" Background="{StaticResource SurfaceBrush}">
+                            <DockPanel>
+                                <Ellipse x:Name="ReadLed" Width="10" Height="10" Margin="0,4,12,0" VerticalAlignment="Top"/>
+                                <StackPanel>
+                                    <TextBlock Text="{DynamicResource S.PathAccess}" FontSize="12" FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextBrush}"/>
+                                    <TextBlock x:Name="ReadText" FontSize="11" Margin="0,3,0,0" TextWrapping="Wrap"
+                                               Foreground="{StaticResource SubTextBrush}"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <Border Margin="4,0,0,0" Padding="14,10" CornerRadius="8" Background="{StaticResource SurfaceBrush}">
+                            <DockPanel>
+                                <Ellipse x:Name="ModLed" Width="10" Height="10" Margin="0,4,12,0" VerticalAlignment="Top"/>
+                                <StackPanel>
+                                    <TextBlock Text="{DynamicResource S.ModDetection}" FontSize="12" FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextBrush}"/>
+                                    <TextBlock x:Name="ModText" FontSize="11" Margin="0,3,0,0" TextWrapping="Wrap"
+                                               Foreground="{StaticResource SubTextBrush}"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                    </UniformGrid>
+                </StackPanel>
+                <ListBox x:Name="ScanList" Grid.Row="1" Style="{StaticResource DarkList}"
+                         Tag="{DynamicResource S.NoFolders}" ItemTemplate="{StaticResource EntryTemplate}"/>
+            </Grid>
+
+            <!-- ===== Step 3: select ===== -->
+            <Grid x:Name="Page3" Grid.Row="1" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" MinWidth="290"/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- search + mod list -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="8,12,8,4">
+                        <WrapPanel>
+                            <RadioButton x:Name="SearchByName" GroupName="SearchMode" Margin="0,0,6,4" IsChecked="True"
+                                         Content="{DynamicResource S.SearchName}" Style="{StaticResource SegmentStyle}"/>
+                            <RadioButton x:Name="SearchByRecord" GroupName="SearchMode" Margin="0,0,0,4"
+                                         Content="{DynamicResource S.SearchRecord}" Style="{StaticResource SegmentStyle}"/>
+                        </WrapPanel>
+                        <Grid Margin="0,2,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="SearchBox" Style="{StaticResource DarkTextBox}" KeyDown="SearchBox_KeyDown"/>
+                            <Button Grid.Column="1" Content="{DynamicResource S.Search}" Margin="6,0,0,0" Padding="12,4"
+                                    Style="{StaticResource FlatButton}" Click="Search_Click"/>
+                            <Button x:Name="ClearSearchButton" Grid.Column="2" Content="✕" Margin="6,0,0,0" Padding="10,4"
+                                    ToolTip="{DynamicResource S.ClearSearch}" Visibility="Collapsed"
+                                    Style="{StaticResource FlatButton}" Click="ClearSearch_Click"/>
+                        </Grid>
+                        <TextBlock x:Name="SearchStatus" FontSize="11" Foreground="{StaticResource SubTextBrush}"
+                                   Margin="0,5,0,0" TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                    <ListBox x:Name="ModList" Grid.Row="1" Style="{StaticResource DarkList}"
+                             Tag="{DynamicResource S.NoMods}" ItemTemplate="{StaticResource EntryTemplate}"
+                             SelectionChanged="ModList_SelectionChanged"/>
+                </Grid>
+
+                <Border Grid.Column="1" Background="{StaticResource LineBrush}"/>
+
+                <!-- read mode + files -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Margin="8,12,8,4" Padding="12,10" CornerRadius="8" Background="{StaticResource SurfaceBrush}">
+                        <StackPanel>
+                            <TextBlock x:Name="ModTitle" FontSize="14" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextBrush}" TextTrimming="CharacterEllipsis"/>
+                            <WrapPanel Margin="0,8,0,0">
+                                <RadioButton x:Name="ModeDirectory" GroupName="ReadMode" Margin="0,0,6,0"
+                                             Content="{DynamicResource S.WholeFolder}"
+                                             Style="{StaticResource SegmentStyle}" Click="ReadMode_Click"/>
+                                <RadioButton x:Name="ModeFiles" GroupName="ReadMode"
+                                             Content="{DynamicResource S.SelectedFiles}"
+                                             Style="{StaticResource SegmentStyle}" Click="ReadMode_Click"/>
+                            </WrapPanel>
+                            <TextBlock x:Name="ModeHint" FontSize="11" Foreground="{StaticResource SubTextBrush}"
+                                       Margin="0,8,0,0" TextWrapping="Wrap"/>
+                            <WrapPanel x:Name="FileTools" Margin="0,4,0,0">
+                                <Button Content="{DynamicResource S.SelectAll}" Margin="0,4,6,0"
+                                        Style="{StaticResource SmallButton}" Click="CheckAll_Click"/>
+                                <Button Content="{DynamicResource S.ClearChecks}" Margin="0,4,6,0"
+                                        Style="{StaticResource SmallButton}" Click="CheckNone_Click"/>
+                                <Button x:Name="CheckHitsButton" Content="{DynamicResource S.MatchesOnly}" Margin="0,4,0,0"
+                                        Style="{StaticResource SmallButton}" Click="CheckHits_Click"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>
+                    <ListBox x:Name="FileList" Grid.Row="1" Style="{StaticResource DarkList}"
+                             Tag="{DynamicResource S.NoFiles}" ItemTemplate="{StaticResource FileTemplate}"/>
+                </Grid>
+            </Grid>
+
+            <!-- ===== Footer ===== -->
+            <Border Grid.Row="2" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}"
+                    BorderThickness="0,1,0,0">
+                <Grid Margin="14,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="{DynamicResource S.Cancel}" VerticalAlignment="Center"
+                            Style="{StaticResource FlatButton}" Click="Cancel_Click"/>
+                    <TextBlock x:Name="StatusText" Grid.Column="1" FontSize="12" Foreground="{StaticResource SubTextBrush}"
+                               Margin="14,0" VerticalAlignment="Center" TextAlignment="Right" TextTrimming="CharacterEllipsis"/>
+                    <Button x:Name="BackButton" Grid.Column="2" Content="{DynamicResource S.Back}" Margin="0,0,8,0"
+                            VerticalAlignment="Center" Style="{StaticResource FlatButton}" Click="Back_Click"/>
+                    <Button x:Name="NextButton" Grid.Column="3" VerticalAlignment="Center"
+                            Style="{StaticResource PrimaryButton}" Click="Next_Click"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- ===== Busy overlay ===== -->
+        <Border x:Name="BusyLayer" Background="#E6111111" Visibility="Collapsed">
+            <Border Width="320" Padding="24,20" CornerRadius="10" VerticalAlignment="Center"
+                    Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock x:Name="BusyText" FontSize="13" Foreground="{StaticResource TextBrush}"
+                               TextAlignment="Center" TextWrapping="Wrap"/>
+                    <ProgressBar x:Name="BusyBar" Height="4" Margin="0,14" BorderThickness="0"
+                                 Background="{StaticResource BackBrush}" Foreground="{StaticResource AccentBrush}"/>
+                    <Button x:Name="BusyCancelButton" Content="{DynamicResource S.Stop}" HorizontalAlignment="Center"
+                            Style="{StaticResource FlatButton}" Click="BusyCancel_Click"/>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

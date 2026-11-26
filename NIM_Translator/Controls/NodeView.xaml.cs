@@ -13,7 +13,7 @@ using NIMEngine;
 using NIMEngine.Platform;
 using NIMEngine.Platform.Nodes;
 
-namespace NIM.YDControls
+namespace NIM.Controls
 {
     // =====================================================================
     //  Events
