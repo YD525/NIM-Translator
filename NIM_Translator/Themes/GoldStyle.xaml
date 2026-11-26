@@ -1194,7 +1194,7 @@
     </Style>
 
     <Style x:Key="PageBtnSelected" TargetType="Ellipse">
-        <Setter Property="Fill" Value="#FFFAE306"/>
+        <Setter Property="Fill" Value="#FF4FC3F7"/>
         <Setter Property="Cursor" Value="Arrow"/>
     </Style>
 

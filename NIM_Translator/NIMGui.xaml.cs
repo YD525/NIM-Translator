@@ -423,8 +423,6 @@ namespace NIM
                             ESPReaderVer.Content = EspReader.Version;
                             DSDConvertVer.Content = DSDConverter.Version;
 
-                            NodeManage.Visibility = Visibility.Hidden;
-
                             MultiWindowController.HideAll();
                         }
                         break;
@@ -453,8 +451,6 @@ namespace NIM
                             {
                                 YDChart.Clear();
                             }
-
-                            NodeManage.Visibility = Visibility.Hidden;
 
                             MultiWindowController.HideAll();
                         }
@@ -494,8 +490,6 @@ namespace NIM
                             YDChart.Stop();
                             PageIndex = 3;
                             StopLexGlowLoop();
-
-                            NodeManage.Visibility = Visibility.Hidden;
 
                             MultiWindowController.HideAll();
                         }

@@ -226,7 +226,6 @@ namespace NIM.SkyrimManagement
 
             return Entries;
         }
-
         public bool IsMod(string ModPath, out string ModName, out List<string> AvailableFiles,out long ModID)
         {
             AvailableFiles = new List<string>();
@@ -304,6 +303,17 @@ namespace NIM.SkyrimManagement
 
                         IsMod = true;
                     }
+                }
+            }
+
+            foreach (var GetDir in P_ModReader.SupportedDirectoryStructs)
+            {
+                string Dir = Path.Combine(ModPath, GetDir);
+
+                if (Directory.Exists(Dir))
+                {
+                    IsMod = true;
+                    break;
                 }
             }
 
