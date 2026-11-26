@@ -288,19 +288,19 @@
                                                         <TranslateTransform x:Name="LinearGradientBrushAnim" />
                                                     </LinearGradientBrush.Transform>
                                                     <LinearGradientBrush.GradientStops>
-                                                        <GradientStop Offset="0.00" Color="#FFD5A204" />
-                                                        <GradientStop Offset="0.20" Color="#FFF2CA06" />
-                                                        <GradientStop Offset="0.40" Color="#FFC0B438" />
-                                                        <GradientStop Offset="0.60" Color="#FFF2EAC2" />
-                                                        <GradientStop Offset="0.80" Color="#FFEDE220" />
-                                                        <GradientStop Offset="1.00" Color="#FFFFF4D1" />
+                                                        <GradientStop Offset="0.00" Color="#FF0288D1" />
+                                                        <GradientStop Offset="0.20" Color="#FF4FC3F7" />
+                                                        <GradientStop Offset="0.40" Color="#FF81D4FA" />
+                                                        <GradientStop Offset="0.60" Color="#FFE1F5FE" />
+                                                        <GradientStop Offset="0.80" Color="#FF29B6F6" />
+                                                        <GradientStop Offset="1.00" Color="#FFB3E5FC" />
 
-                                                        <GradientStop Offset="2.00" Color="#FFD5A204" />
-                                                        <GradientStop Offset="2.20" Color="#FFF2CA06" />
-                                                        <GradientStop Offset="2.40" Color="#FFC0B438" />
-                                                        <GradientStop Offset="2.60" Color="#FFF2EAC2" />
-                                                        <GradientStop Offset="2.80" Color="#FFEDE220" />
-                                                        <GradientStop Offset="3.00" Color="#FFFFF4D1" />
+                                                        <GradientStop Offset="2.00" Color="#FF0288D1" />
+                                                        <GradientStop Offset="2.20" Color="#FF4FC3F7" />
+                                                        <GradientStop Offset="2.40" Color="#FF81D4FA" />
+                                                        <GradientStop Offset="2.60" Color="#FFE1F5FE" />
+                                                        <GradientStop Offset="2.80" Color="#FF29B6F6" />
+                                                        <GradientStop Offset="3.00" Color="#FFB3E5FC" />
                                                     </LinearGradientBrush.GradientStops>
                                                 </LinearGradientBrush>
                                             </Label.Foreground>
@@ -311,7 +311,7 @@
                                             Translator
                                         </Label>
                                         <Border CornerRadius="5" Background="#FF4D4D4D" VerticalAlignment="Center" Margin="5">
-                                            <Label Foreground="White" Padding="10 2 10 2" FontWeight="DemiBold" FontSize="15">Next-Gen
+                                            <Label Foreground="White" Padding="10 2 10 2" FontWeight="DemiBold" FontSize="15">Nebula
                                             </Label>
                                         </Border>
                                     </StackPanel>
@@ -330,7 +330,7 @@
        M267,386 L371,386 L371,1000 L267,1000 Z
        M421,223 L545,223 L545,1000 L421,1000 Z
        M574,445 L598,445 L598,1000 L574,1000 Z"
-Fill="#FFFAE306"
+Fill="#FF4FC3F7"
 IsHitTestVisible="False"/>
                                                     <Path Data="M133,642 L523,642 L816,366 L816,458 L523,734 L133,734 Z"
 Fill="White"
@@ -339,13 +339,13 @@ IsHitTestVisible="False"/>
 Fill="White"
 IsHitTestVisible="False"/>
 
-                                                    <Ellipse x:Name="LightDot1" Width="30" Height="30" IsHitTestVisible="False" Fill="#FFFAE306" Opacity="0">
+                                                    <Ellipse x:Name="LightDot1" Width="30" Height="30" IsHitTestVisible="False" Fill="#FF4FC3F7" Opacity="0">
                                                         <Ellipse.RenderTransform>
                                                             <MatrixTransform x:Name="LightDot1Transform"/>
                                                         </Ellipse.RenderTransform>
                                                     </Ellipse>
 
-                                                    <Ellipse x:Name="LightDot2" Width="30" Height="30" IsHitTestVisible="False" Fill="#FFFAE306" Opacity="0">
+                                                    <Ellipse x:Name="LightDot2" Width="30" Height="30" IsHitTestVisible="False" Fill="#FF4FC3F7" Opacity="0">
                                                         <Ellipse.RenderTransform>
                                                             <MatrixTransform x:Name="LightDot2Transform"/>
                                                         </Ellipse.RenderTransform>
@@ -355,7 +355,7 @@ IsHitTestVisible="False"/>
                                             </Viewbox>
                                             <StackPanel Orientation="Vertical" Margin="20" VerticalAlignment="Bottom">
                                                 <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
-                                                    <Ellipse Width="15" Height="15" Fill="#FFFAE306" VerticalAlignment="Center">
+                                                    <Ellipse Width="15" Height="15" Fill="#FF4FC3F7" VerticalAlignment="Center">
                                                     </Ellipse>
                                                     <Label Foreground="White" VerticalAlignment="Center" FontWeight="DemiBold">
                                                         Main Program
@@ -366,7 +366,7 @@ IsHitTestVisible="False"/>
                                                 </StackPanel>
 
                                                 <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
-                                                    <Ellipse Width="15" Height="15" Fill="#FFFFB024" VerticalAlignment="Center">
+                                                    <Ellipse Width="15" Height="15" Fill="#FF187FAD" VerticalAlignment="Center">
                                                     </Ellipse>
                                                     <Label Foreground="White" VerticalAlignment="Center" FontWeight="DemiBold">
                                                         Translation Engine
@@ -377,7 +377,7 @@ IsHitTestVisible="False"/>
                                                 </StackPanel>
 
                                                 <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
-                                                    <Ellipse Width="15" Height="15" Fill="#FFFFB024" VerticalAlignment="Center">
+                                                    <Ellipse Width="15" Height="15" Fill="White" VerticalAlignment="Center">
                                                     </Ellipse>
                                                     <Label Foreground="White" VerticalAlignment="Center" FontWeight="DemiBold">
                                                         PEX Analysis
@@ -388,7 +388,7 @@ IsHitTestVisible="False"/>
                                                 </StackPanel>
 
                                                 <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
-                                                    <Ellipse Width="15" Height="15" Fill="#FFFFB024" VerticalAlignment="Center">
+                                                    <Ellipse Width="15" Height="15" Fill="White" VerticalAlignment="Center">
                                                     </Ellipse>
                                                     <Label Foreground="White" VerticalAlignment="Center" FontWeight="DemiBold">
                                                         PEX Reader
@@ -399,7 +399,7 @@ IsHitTestVisible="False"/>
                                                 </StackPanel>
 
                                                 <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
-                                                    <Ellipse Width="15" Height="15" Fill="#FFFFB024" VerticalAlignment="Center">
+                                                    <Ellipse Width="15" Height="15" Fill="White" VerticalAlignment="Center">
                                                     </Ellipse>
                                                     <Label Foreground="White" VerticalAlignment="Center" FontWeight="DemiBold">
                                                         ESP Reader
@@ -410,7 +410,7 @@ IsHitTestVisible="False"/>
                                                 </StackPanel>
 
                                                 <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
-                                                    <Ellipse Width="15" Height="15" Fill="#FFFFB024" VerticalAlignment="Center">
+                                                    <Ellipse Width="15" Height="15" Fill="White" VerticalAlignment="Center">
                                                     </Ellipse>
                                                     <Label Foreground="White" VerticalAlignment="Center" FontWeight="DemiBold">
                                                         DSD Convert
@@ -438,20 +438,20 @@ IsHitTestVisible="False"/>
 
                                                 <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Foreground="White" FontSize="14" Margin="0 5 0 0">
             Interface improvements — 
-            <Run Cursor="Hand" Tag="https://github.com/YD525" FontWeight="Bold" Foreground="#FFFAE306" Text="YD525" MouseDown="OpenUrl_MouseDown"/>, 
-            <Run Cursor="Hand" Tag="https://github.com/Wuerfelhusten" FontWeight="Bold" Foreground="#FFFAE306" Text="Wuerfelhusten" MouseDown="OpenUrl_MouseDown"/>,
-            <Run Cursor="Hand" Tag="https://github.com/cutleast" FontWeight="Bold" Foreground="#FFFAE306" Text="Cutleast" MouseDown="OpenUrl_MouseDown"/>
+            <Run Cursor="Hand" Tag="https://github.com/YD525" FontWeight="Bold" Foreground="#FF4FC3F7" Text="YD525" MouseDown="OpenUrl_MouseDown"/>, 
+            <Run Cursor="Hand" Tag="https://github.com/Wuerfelhusten" FontWeight="Bold" Foreground="#FF4FC3F7" Text="Wuerfelhusten" MouseDown="OpenUrl_MouseDown"/>,
+            <Run Cursor="Hand" Tag="https://github.com/cutleast" FontWeight="Bold" Foreground="#FF4FC3F7" Text="Cutleast" MouseDown="OpenUrl_MouseDown"/>
            
                                                 </TextBlock>
 
                                                 <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Foreground="White" FontSize="14" Margin="0 5 0 0">
             ESP,PEX file parsing — Wuerfelhusten,YD525,Cutleast, 
-            <Run Cursor="Hand" Tag="https://www.nexusmods.com/skyrimspecialedition/mods/111491" FontWeight="Bold" Foreground="#FFFAE306" Text="SSEAT" MouseDown="OpenUrl_MouseDown"/>
+            <Run Cursor="Hand" Tag="https://www.nexusmods.com/skyrimspecialedition/mods/111491" FontWeight="Bold" Foreground="#FF4FC3F7" Text="SSEAT" MouseDown="OpenUrl_MouseDown"/>
                                                 </TextBlock>
 
                                                 <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Foreground="White" FontSize="14" Margin="0 5 0 0">
 Chinese character processed by — 
-<Run Cursor="Hand" Tag="https://zhconvert.org" FontWeight="Bold" Foreground="#FFFAE306" Text="https://zhconvert.org (繁化姬)" MouseDown="OpenUrl_MouseDown"/>
+<Run Cursor="Hand" Tag="https://zhconvert.org" FontWeight="Bold" Foreground="#FF4FC3F7" Text="https://zhconvert.org (繁化姬)" MouseDown="OpenUrl_MouseDown"/>
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="20" FontWeight="DemiBold" Margin="0 25 0 10" HorizontalAlignment="Center" TextAlignment="Center">
@@ -459,59 +459,59 @@ Chinese character processed by —
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://github.com/Noggog" Text="Noggog" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/>, 
-            <Run Tag="https://github.com/Mutagen-Modding/Mutagen" Text="Mutagen" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://github.com/Noggog" Text="Noggog" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/>, 
+            <Run Tag="https://github.com/Mutagen-Modding/Mutagen" Text="Mutagen" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Helped identify and fix issues when reading ESP files, suggested exporting Strings files, and assisted with resolving framework conflicts.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://github.com/cutleast" Text="Cutleast" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/>, 
-            <Run Tag="https://github.com/SkyHorizon3" Text="SkyHorizon3" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://github.com/cutleast" Text="Cutleast" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/>, 
+            <Run Tag="https://github.com/SkyHorizon3" Text="SkyHorizon3" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Helped resolve issues regarding the generation of specific JSON fields within DSD files.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://www.nexusmods.com/profile/csavasvdb" Text="csavasvdb" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://www.nexusmods.com/profile/csavasvdb" Text="csavasvdb" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Recommended "Sequential Text Mode" to improve translation accuracy in conversational mods, and proposed ideas for manual bucketing.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://next.nexusmods.com/profile/walkswithwolf" Text="walkswithwolf" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://next.nexusmods.com/profile/walkswithwolf" Text="walkswithwolf" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Provided valuable insights to help me understand the core structure of Skyrim files.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://next.nexusmods.com/profile/Kanie17" Text="Kanie17" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://next.nexusmods.com/profile/Kanie17" Text="Kanie17" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Suggested multi-color highlighting, improved the keyword search, and actively assisted in testing the program.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://www.nexusmods.com/profile/Neko41" Text="Neko41" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://www.nexusmods.com/profile/Neko41" Text="Neko41" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Helped create the German dictionaries for NIM Translator.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://home.gamer.com.tw/profile/index.php?owner=jacky66666" Text="Jacky66evil" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://home.gamer.com.tw/profile/index.php?owner=jacky66666" Text="Jacky66evil" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Suggested separating the translation cache by model name and helped build the Traditional Chinese dictionaries.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://www.nexusmods.com/profile/50809501" Text="50809501" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://www.nexusmods.com/profile/50809501" Text="50809501" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Helped create the Simplified Chinese dictionaries for NIM Translator.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://www.nexusmods.com/profile/is365s" Text="is365s" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://www.nexusmods.com/profile/is365s" Text="is365s" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Reported primary key duplication bugs within XML files and continuously helped test the application.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://home.gamer.com.tw/profile/index.php?owner=salunt" Text="撒倫" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://home.gamer.com.tw/profile/index.php?owner=salunt" Text="撒倫" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
             Offered numerous meaningful suggestions regarding Traditional Chinese recognition and translation.
                                                 </TextBlock>
 
                                                 <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" Margin="20 6 20 0">
-            <Run Tag="https://www.nexusmods.com/profile/zhuabaobao123" Text="zhuabaobao123" FontWeight="Bold" Cursor="Hand" Foreground="#FFFAE306" MouseDown="OpenUrl_MouseDown"/> — 
+            <Run Tag="https://www.nexusmods.com/profile/zhuabaobao123" Text="zhuabaobao123" FontWeight="Bold" Cursor="Hand" Foreground="#FF4FC3F7" MouseDown="OpenUrl_MouseDown"/> — 
              created the localized Chinese interface for NIM.
                                                 </TextBlock>
 
