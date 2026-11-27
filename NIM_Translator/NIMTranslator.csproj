@@ -160,6 +160,9 @@
     <Compile Include="UIManagement\Main\CGView.xaml.cs">
       <DependentUpon>CGView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIManagement\Main\DemoContextView.xaml.cs">
+      <DependentUpon>DemoContextView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIManagement\Main\ModFileDialog.xaml.cs">
       <DependentUpon>ModFileDialog.xaml</DependentUpon>
     </Compile>
@@ -283,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIManagement\Main\CGView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIManagement\Main\DemoContextView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

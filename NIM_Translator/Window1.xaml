@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:NIM"
         mc:Ignorable="d"
         xmlns:YD="clr-namespace:NIM.Controls"
-        xmlns:YDControls="clr-namespace:NIM.YDControls"
         Title="Load Mod" Height="560" Width="880" MinHeight="480" MinWidth="760"
         WindowStartupLocation="CenterScreen"
         Background="#FF111111">
     <Grid>
-        <YDControls:ModWizard x:Name="Wizard"/>
+        <YD:ModWizard x:Name="Wizard"/>
     </Grid>
 </Window>

@@ -26,6 +26,7 @@ using System.Windows.Threading;
 using NIM.UIManagement.Preview;
 using NIM.ModParser;
 using NIMEngine.Platform.Nodes;
+using NIM.UIManagement.Main;
 
 namespace NIM
 {
@@ -1881,6 +1882,14 @@ namespace NIM
                     this.Close();
                 }
             }
+        }
+
+        private void ShowContextView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            DemoContextView Demo = new DemoContextView();
+            Demo.Owner = this;
+            Demo.Main.SetDemo("右舷のスラスターがまた不調です。", new[] { "右舷のスラスターが故障しました。", "左舷のエンジンが過熱しています。", "クエストが更新されました。" },Languages.Japanese);
+            Demo.Show();
         }
     }
 }
