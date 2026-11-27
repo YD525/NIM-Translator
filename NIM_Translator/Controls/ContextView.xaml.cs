@@ -26,8 +26,7 @@ namespace NIM.Controls
             var outer = Stage.Parent as ScrollViewer;
             if (outer == null || !outer.IsMouseOver) return;
 
-            // 48px per wheel notch (Delta = 120), same as the default ScrollViewer step
-            outer.ScrollToVerticalOffset(outer.VerticalOffset - e.Delta * 0.4);
+            outer.ScrollToVerticalOffset(outer.VerticalOffset - e.Delta * 0.3);
             e.Handled = true;
         }
         private class DemoCase
