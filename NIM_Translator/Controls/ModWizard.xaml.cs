@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace NIM.YDControls
+namespace NIM.Controls
 {
     public partial class ModWizard : UserControl
     {
