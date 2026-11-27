@@ -10,7 +10,6 @@ using System.Windows.Media;
 using NIM.SkyrimManagement;
 using NIM.SkyrimModManager;
 using NIM.TranslateManage;
-using NIM.UIManage;
 using NIMEngine.ADO;
 using NIMEngine.Unit;
 using NIMEngine.Language;
@@ -19,8 +18,6 @@ using NIMEngine.P_Delegate;
 using NIMEngine.Common;
 using NIM.ApplicationLayer;
 using NIM.ModParser;
-using System.Security.Policy;
-using System.Windows.Documents;
 
 namespace NIM
 {
