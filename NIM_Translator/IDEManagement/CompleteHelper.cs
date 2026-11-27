@@ -250,11 +250,11 @@ namespace NIM.IDEManagement
         { 
            this.View = View;
         }
-        public void CheckLang(Languages Lang)
+        public void CheckLang(P_Language Lang)
         {
-            if (WordAutoComplete.WordCompleters.ContainsKey(Lang))
+            if (WordAutoComplete.WordCompleters.ContainsKey(Lang.Code))
             {
-                NIMApp.WordCompleter = WordAutoComplete.WordCompleters[Lang];
+                NIMApp.WordCompleter = WordAutoComplete.WordCompleters[Lang.Code];
                 View.ShowWordCompletion();
             }
             else

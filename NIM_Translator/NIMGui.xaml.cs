@@ -149,12 +149,12 @@ namespace NIM
                 }
                 else
                 {
-                    TranslateConfigView.SFrom.SelectedValue = Languages.English.ToString();
+                    TranslateConfigView.SFrom.SelectedValue = P_Language.English.ToString();
                 }
             }
             else
             {
-                TranslateConfigView.SFrom.SelectedValue = Languages.English.ToString();
+                TranslateConfigView.SFrom.SelectedValue = P_Language.English.ToString();
             }
 
             TranslateConfigView.STo.SelectedValue = NIMApp.SelfSetting.TargetLanguage.ToString();
@@ -1408,8 +1408,11 @@ namespace NIM
             string GetValue = P_Convert.ObjToStr(UILanguages.SelectedValue);
             if (GetValue.Length > 0)
             {
-                NIMApp.SelfSetting.CurrentUILanguage = (Languages)Enum.Parse(typeof(Languages), GetValue);
-                UILanguageHelper.ChangeLanguage(NIMApp.SelfSetting.CurrentUILanguage);
+                if (LanguageHub.GetLang(GetValue, out P_Language UI))
+                {
+                    NIMApp.SelfSetting.CurrentUILanguage = UI;
+                    UILanguageHelper.ChangeLanguage(NIMApp.SelfSetting.CurrentUILanguage);
+                }
             }
         }
         private void AutoUpdateStringsFileToDatabase_Click(object sender, RoutedEventArgs e)
@@ -1888,7 +1891,7 @@ namespace NIM
         {
             DemoContextView Demo = new DemoContextView();
             Demo.Owner = this;
-            Demo.Main.SetDemo("右舷のスラスターがまた不調です。", new[] { "右舷のスラスターが故障しました。", "左舷のエンジンが過熱しています。", "クエストが更新されました。" },Languages.Japanese);
+            Demo.Main.SetDemo("右舷のスラスターがまた不調です。", new[] { "右舷のスラスターが故障しました。", "左舷のエンジンが過熱しています。", "クエストが更新されました。" },LanguageHub.GetLang("Japanese"));
             Demo.Show();
         }
     }

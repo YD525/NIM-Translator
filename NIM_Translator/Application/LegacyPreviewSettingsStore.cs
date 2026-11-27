@@ -8,11 +8,9 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using NIMEngine;
-using NIMEngine.Language;
-using NIMEngine.Platform;
-using NIMEngine.Translate;
 using NIM.UIManage;
 using NIMEngine.Platform.Nodes;
+using NIMEngine.Language;
 
 namespace NIM.ApplicationLayer
 {
@@ -45,9 +43,7 @@ namespace NIM.ApplicationLayer
         /// <inheritdoc />
         public IReadOnlyList<string> GetLanguages()
         {
-            return Enum.GetNames(typeof(Languages))
-                .Where(name => !string.Equals(name, Languages.Null.ToString(), StringComparison.Ordinal))
-                .ToList();
+            return LanguageHub.SupportedNames.ToList();
         }
 
         /// <inheritdoc />
@@ -122,20 +118,19 @@ namespace NIM.ApplicationLayer
                 }
             }
 
-            Languages language;
-            if (Enum.TryParse(settings.SourceLanguage, out language))
+            if (LanguageHub.GetLang(settings.SourceLanguage,out P_Language Source))
             {
-                NIMApp.SelfSetting.SourceLanguage = language;
+                NIMApp.SelfSetting.SourceLanguage = Source;
             }
 
-            if (Enum.TryParse(settings.TargetLanguage, out language))
+            if (LanguageHub.GetLang(settings.TargetLanguage, out P_Language Target))
             {
-                NIMApp.SelfSetting.TargetLanguage = language;
+                NIMApp.SelfSetting.TargetLanguage = Target;
             }
 
-            if (Enum.TryParse(settings.UiLanguage, out language))
+            if (LanguageHub.GetLang(settings.UiLanguage, out P_Language Ui))
             {
-                NIMApp.SelfSetting.CurrentUILanguage = language;
+                NIMApp.SelfSetting.CurrentUILanguage = Ui;
             }
 
             NIMApp.SelfSetting.EnableLanguageDetect = settings.EnableLanguageDetection;

@@ -88,7 +88,7 @@ namespace NIM.SkyrimManagement
         public void Init()
         {
             Close();
-            _Instance = new Translator("ModSearch", Languages.English, Languages.English, true);
+            _Instance = new Translator("ModSearch", P_Language.English, P_Language.English, true);
 
             Esp = new EspReader();
             Esp.Create(0,new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());

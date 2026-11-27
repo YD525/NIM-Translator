@@ -26,7 +26,7 @@ namespace NIM.SkyrimManagement
     {
         public Dictionary<uint, StringItem> Strings { get; set; }
 
-        public Languages CurrentLanguage { get; private set; }
+        public P_Language CurrentLanguage { get; private set; }
 
         private static readonly string[] StringFileTypes = { "STRINGS", "DLSTRINGS", "ILSTRINGS" };
 
@@ -38,17 +38,22 @@ namespace NIM.SkyrimManagement
         public void Close()
         {
             Strings.Clear();
-            CurrentLanguage = Languages.English;
+            CurrentLanguage = P_Language.English;
         }
 
         public StringsFileReader()
         {
             Strings = new Dictionary<uint, StringItem>();
-            CurrentLanguage = Languages.English;
+            CurrentLanguage = P_Language.English;
         }
 
-        public bool LoadStringsFiles(string EspPath, Languages Language = Languages.English)
+        public bool LoadStringsFiles(string EspPath, P_Language Language = null)
         {
+            if (Language == null)
+            {
+                Language = P_Language.English;
+            }
+
             if (EspPath.Length == 0)
             {
                 return false;
@@ -342,9 +347,9 @@ namespace NIM.SkyrimManagement
             }
         }
 
-        private string BuildStringsFilePath(string EspPath, Languages Language, string FileType)
+        private string BuildStringsFilePath(string EspPath, P_Language Language, string FileType)
         {
-            string LangName = Enum.GetName(typeof(Languages), Language);
+            string LangName = Language.Name;
             string Directory = Path.GetDirectoryName(EspPath);
             string BaseName = Path.GetFileNameWithoutExtension(EspPath);
             string CapitalizedLanguage = CapitalizeFirstLetter(LangName);

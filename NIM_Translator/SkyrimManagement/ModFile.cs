@@ -112,6 +112,13 @@ namespace NIM.SkyrimManagement
             {
                 if (Current.Type == 1)
                 {
+                    string ToCode = "";
+
+                    if (this.P_Translator.To != "")
+                    {
+                        ToCode = this.P_Translator.To.Code;
+                    }
+
                     int ID = 0;
                     if (Previous == null)
                     {
@@ -123,8 +130,10 @@ namespace NIM.SkyrimManagement
                             {
                                 GetRow.SyncData(this, ref IsCloud);
 
+
+
                                 ID = HistoryDBCache.AddHistory(
-                                new HistoryItem(this.P_Translator.GetFileUniqueKey(), Key, (int)this.P_Translator.To,
+                                new HistoryItem(this.P_Translator.GetFileUniqueKey(), Key, ToCode,
                                 GetRow.Translated,
                                 0,
                                 DateTime.Now,
@@ -132,7 +141,7 @@ namespace NIM.SkyrimManagement
                                 ));
 
                                 HistoryDBCache.CheckPreviousHistoryItem(ID, this.P_Translator.GetFileUniqueKey(),
-                                    (int)this.P_Translator.To, Key, GetRow.Translated, out int TargetID);
+                                    this.P_Translator.To, Key, GetRow.Translated, out int TargetID);
                                 if (TargetID > 0)
                                 {
                                     HistoryDBCache.DeleteHistory(this.P_Translator.GetFileUniqueKey(), TargetID);
@@ -144,27 +153,27 @@ namespace NIM.SkyrimManagement
                     {
                         //We need to prevent system-translated data from polluting the history. However, we need a way to save the previous record translated by the system.
                         ID = HistoryDBCache.AddHistory(
-                          new HistoryItem(this.P_Translator.GetFileUniqueKey(), Key, (int)this.P_Translator.To,
+                          new HistoryItem(this.P_Translator.GetFileUniqueKey(), Key, ToCode,
                           Previous.String,
                           0,
                           DateTime.Now,
                           ""
                           ));
 
-                        HistoryDBCache.CheckPreviousHistoryItem(ID, this.P_Translator.GetFileUniqueKey(), (int)this.P_Translator.To, Key, Previous.String, out int TargetID);
+                        HistoryDBCache.CheckPreviousHistoryItem(ID, this.P_Translator.GetFileUniqueKey(), this.P_Translator.To, Key, Previous.String, out int TargetID);
                         if (TargetID > 0)
                         {
                             HistoryDBCache.DeleteHistory(this.P_Translator.GetFileUniqueKey(), TargetID);
-                        }          
+                        }
                     }
 
-                        ID = HistoryDBCache.AddHistory(
-                        new HistoryItem(this.P_Translator.GetFileUniqueKey(), Key, (int)this.P_Translator.To,
-                        Current.String,
-                        0,
-                        DateTime.Now,
-                        Current.RangeID
-                        ));
+                    ID = HistoryDBCache.AddHistory(
+                    new HistoryItem(this.P_Translator.GetFileUniqueKey(), Key, ToCode,
+                    Current.String,
+                    0,
+                    DateTime.Now,
+                    Current.RangeID
+                    ));
                 }
             });
         }
@@ -215,7 +224,7 @@ namespace NIM.SkyrimManagement
         }
 
         private object _DataRef = null;
-        public Dictionary<string,T> GetRecords<T>()
+        public Dictionary<string, T> GetRecords<T>()
         {
             return (Dictionary<string, T>)_DataRef;
         }
@@ -253,7 +262,7 @@ namespace NIM.SkyrimManagement
                         break;
                     case GameFileType.PEX:
                         {
-                            _DataRef = PexReader.Load(NIMApp.SelfSetting.GenCSharp?CodeGenStyle.CSharp:CodeGenStyle.Papyrus,NIMApp.SelfSetting.ShowAssembly,this.Path);
+                            _DataRef = PexReader.Load(NIMApp.SelfSetting.GenCSharp ? CodeGenStyle.CSharp : CodeGenStyle.Papyrus, NIMApp.SelfSetting.ShowAssembly, this.Path);
                             State = GameFileState.Load;
                         }
                         break;
@@ -376,7 +385,7 @@ namespace NIM.SkyrimManagement
                             {
                                 RestoreBackup();
                                 MessageBox.Show("Build Pex Error!");
-                            }                        
+                            }
                             State = GameFileState.Save;
                         }
                         break;

@@ -34,17 +34,7 @@ namespace NIM.UIManage
             }
         }
 
-        public static List<Languages> GetSupportedLanguages()
-        {
-            List<Languages> LanguageList = new List<Languages>();
-
-            foreach (var Language in Enum.GetValues(typeof(Languages)))
-            {
-                LanguageList.Add((Languages)Language); 
-            }
-
-            return LanguageList.OrderBy(lang => lang == Languages.Auto ? 0 : 1).ToList();
-        }
+       
 
         public static void UPDateUI(string Key, string Value)
         {
@@ -155,7 +145,7 @@ namespace NIM.UIManage
             //}
         }
         //public static Dictionary<string, string> UICache = new Dictionary<string, string>();
-        public static void ChangeLanguage(Languages SetLanguage)
+        public static void ChangeLanguage(P_Language SetLanguage)
         {
             //UICache.Clear();
             //string SetPath = DeFine.GetFullPath(@"\Interface\Translations\Lex_" + SetLanguage.ToString().ToUpper() + ".txt");
