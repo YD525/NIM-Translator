@@ -19,6 +19,8 @@ using NIMEngine.P_Delegate;
 using NIMEngine.Common;
 using NIM.ApplicationLayer;
 using NIM.ModParser;
+using System.Security.Policy;
+using System.Windows.Documents;
 
 namespace NIM
 {
@@ -364,8 +366,8 @@ namespace NIM
 
         public int CurrentPage = 1;
         public int MaxPage = 0;
-        public P_Language FilterFrom = null;
-        public P_Language FilterTo = null;
+        public P_Language FilterFrom = new P_Language();
+        public P_Language FilterTo = new P_Language();
 
         private void SFrom_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

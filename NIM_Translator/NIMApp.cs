@@ -213,6 +213,9 @@ namespace NIM
         public P_Language SourceLanguage { get; set; } = P_Language.English;
         public P_Language TargetLanguage { get; set; } = P_Language.English;
 
+        //What I'm worried about is the existing code in other places that calls this. Previously, it was an enum backed by int, so it always had a default value of 0 and could never be null. Now that it's a class, those existing call sites might pass or receive null, which wasn't possible before.
+        //I was originally thinking about using a macro to hardcode NULL, but that would introduce a difference between the macro and the original null behavior.
+
         public bool CanClearCloudTranslationCache { get; set; } = false;
         public bool CanClearUserInputTranslationCache { get; set; } = false;
 
