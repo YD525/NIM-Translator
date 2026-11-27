@@ -1011,7 +1011,7 @@ SelectionChanged="NIMTabs_SelectionChanged" VerticalAlignment="Stretch" Margin="
                                                         <TextBlock Text="Aggregated Translation" Style="{StaticResource SettingSectionTitle}"/>
                                                     </StackPanel>
 
-                                                    <TextBlock Text="Understand how the engine analyzes text similarity and determines language-based relationships through an interactive visualization." Foreground="#FF888888"  FontSize="11" TextWrapping="Wrap"  LineHeight="17"  Margin="0,0,0,14" Cursor="Hand" TextDecorations="Underline" MouseLeftButtonUp="ShowContextView_MouseLeftButtonUp"/>
+                                                    <TextBlock Text="Open a demo window to understand how the engine analyzes text similarity and identifies language-based relationships." Foreground="#FF888888"  FontSize="11" TextWrapping="Wrap"  LineHeight="17"  Margin="0,0,0,14" Cursor="Hand" TextDecorations="Underline" MouseLeftButtonUp="ShowContextView_MouseLeftButtonUp"/>
 
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="Bucket Length Limit:" Style="{StaticResource SettingFieldLabel}" Margin="0,0,8,0"/>
