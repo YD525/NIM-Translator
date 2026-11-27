@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
@@ -17,6 +18,18 @@ namespace NIM.Controls
 {
     public partial class ContextView : UserControl
     {
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+        {
+            base.OnPreviewMouseWheel(e);
+            if (e.Handled) return;
+
+            var outer = Stage.Parent as ScrollViewer;
+            if (outer == null || !outer.IsMouseOver) return;
+
+            // 48px per wheel notch (Delta = 120), same as the default ScrollViewer step
+            outer.ScrollToVerticalOffset(outer.VerticalOffset - e.Delta * 0.4);
+            e.Handled = true;
+        }
         private class DemoCase
         {
             public string Name;
