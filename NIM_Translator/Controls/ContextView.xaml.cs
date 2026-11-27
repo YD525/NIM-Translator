@@ -32,7 +32,7 @@ namespace NIM.Controls
         private class DemoCase
         {
             public string Name;
-            public Languages Lang;
+            public P_Language Lang;
             public string Head;
             public string[] Candidates;
             public override string ToString() { return Name; }
@@ -73,31 +73,31 @@ namespace NIM.Controls
         {
             new DemoCase
             {
-                Name = "English (word boundary)", Lang = Languages.English,
+                Name = "English (word boundary)", Lang = LanguageHub.GetLang("English"),
                 Head = "The starboard thruster is misfiring again.",
                 Candidates = new[] { "Starboard thruster failure detected.", "The port engine is overheating.", "Quest log updated." }
             },
             new DemoCase
             {
-                Name = "German (word boundary)", Lang = Languages.German,
+                Name = "German (word boundary)", Lang =  LanguageHub.GetLang("German"),
                 Head = "Das rechte Triebwerk setzt schon wieder aus.",
                 Candidates = new[] { "Das rechte Triebwerk fällt wieder aus.", "Das linke Triebwerk überhitzt.", "Questlog aktualisiert." }
             },
             new DemoCase
             {
-                Name = "Japanese (per-character)", Lang = Languages.Japanese,
+                Name = "Japanese (per-character)", Lang = LanguageHub.GetLang("Japanese"),
                 Head = "右舷のスラスターがまた不調です。",
                 Candidates = new[] { "右舷のスラスターが故障しました。", "左舷のエンジンが過熱しています。", "クエストが更新されました。" }
             },
             new DemoCase
             {
-                Name = "Korean (per-character)", Lang = Languages.Korean,
+                Name = "Korean (per-character)", Lang = LanguageHub.GetLang("Korean"),
                 Head = "우현 추진기에서 반복적으로 이상 진동이 감지되고 있습니다.",
                 Candidates = new[] { "우현 추진기의 출력이 불안정해지고 있습니다.", "우현 추진기의 출력 저하가 확인되었습니다.", "좌현 엔진의 냉각 계통에 문제가 발생했습니다." }
             },            
             new DemoCase
             {
-                Name = "Persian (word boundary, RTL)", Lang = Languages.Persian,
+                Name = "Persian (word boundary, RTL)", Lang = LanguageHub.GetLang("Persian"),
                 Head = "موتور سمت راست دوباره خراب شد.",
                 Candidates = new[] { "موتور سمت راست خراب است.", "موتور سمت چپ داغ کرده است.", "گزارش ماموریت به روز شد." }
             }
@@ -109,8 +109,17 @@ namespace NIM.Controls
 
             ThresholdSlider.Value = NIM_Engine.Config.BucketAssignmentSimilarityThreshold_WordBoundary;
 
-            LangBox.ItemsSource = Enum.GetValues(typeof(Languages)).Cast<Languages>().ToList();
-            LangBox.SelectedItem = Languages.Auto;
+            var Array = new List<P_Language>();
+
+            Array.Add(P_Language.P_Auto);
+
+            foreach (var GetName in LanguageHub.SupportedNames)
+            {
+                Array.Add(LanguageHub.GetLang(GetName));
+            }
+
+            LangBox.ItemsSource = Array;
+            LangBox.SelectedItem = P_Language.P_Auto;
 
             CaseBox.ItemsSource = _cases;
             CaseBox.SelectedIndex = 0;
@@ -138,8 +147,13 @@ namespace NIM.Controls
         }
 
         /// <summary>Set the demo texts. Does not start playback.</summary>
-        public void SetDemo(string head, IEnumerable<string> candidates, Languages lang = Languages.Auto)
+        public void SetDemo(string head, IEnumerable<string> candidates, P_Language lang = null)
         {
+            if (lang == null)
+            {
+                lang = P_Language.P_Auto;
+            }
+
             if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(new Action(() => SetDemo(head, candidates, lang)));
@@ -164,7 +178,7 @@ namespace NIM.Controls
         }
 
         /// <summary>Set the texts and start playing.</summary>
-        public void Play(string head, IEnumerable<string> candidates, Languages lang = Languages.Auto)
+        public void Play(string head, IEnumerable<string> candidates, P_Language lang = null)
         {
             SetDemo(head, candidates, lang);
             Play();
@@ -254,11 +268,11 @@ namespace NIM.Controls
         }
 
         // Auto -> same detector the engine uses
-        private Languages ResolveLang(string text)
+        private P_Language ResolveLang(string text)
         {
-            Languages sel = LangBox.SelectedItem is Languages ? (Languages)LangBox.SelectedItem : Languages.Auto;
-            if (sel == Languages.Auto)
-                sel = P_Language.DetectLanguageByLine(text);
+            P_Language sel = LangBox.SelectedItem is P_Language ? (P_Language)LangBox.SelectedItem : P_Language.P_Auto;
+            if (sel == P_Language.Auto)
+                sel = P_Language.Detect(text,LanguageDetectMode.Line);
             return sel;
         }
 
@@ -266,7 +280,7 @@ namespace NIM.Controls
 
         private async Task<RowVisual> BuildRow(string label, string text, CancellationToken ct)
         {
-            Languages lang = ResolveLang(text);
+            P_Language lang = ResolveLang(text);
             var row = new RowVisual();
             row.Sig = TextTokenizer.BuildTokenSignature(lang, text);
 
@@ -503,7 +517,7 @@ namespace NIM.Controls
 
         // ---------- Space-delimited languages: word boundary ----------
 
-        private async Task AnimateWords(string text, Languages lang, RowVisual row, CancellationToken ct)
+        private async Task AnimateWords(string text, P_Language lang, RowVisual row, CancellationToken ct)
         {
             // Splitting mirrors TextTokenizer.Tokenize (it is private); keep/drop comes from the engine signature
             string s = text.Replace('_', ' ').Replace('-', ' ');
@@ -723,13 +737,13 @@ namespace NIM.Controls
             string Head = (HeadBox.Text ?? "").Trim();
             if (Head.Length == 0) return;
 
-            Languages Lang = LangBox.SelectedItem is Languages
-                ? (Languages)LangBox.SelectedItem
-                : Languages.Auto;
+            P_Language Lang = LangBox.SelectedItem is P_Language
+                ? (P_Language)LangBox.SelectedItem
+                : P_Language.P_Auto;
 
-            if (Lang == Languages.Auto)
+            if (Lang == P_Language.Auto)
             {
-                Lang = P_Language.DetectLanguageByLine(Head);
+                Lang = P_Language.Detect(Head,LanguageDetectMode.Line);
             }
 
             ThresholdSlider.Value = Lang.IsSpaceDelimitedLanguage()

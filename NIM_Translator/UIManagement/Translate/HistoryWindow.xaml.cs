@@ -134,7 +134,7 @@ namespace NIM
 
                 var RawItems = HistoryDBCache.GetHistoryItems(
                     FileUniqueKey,
-                    (int)NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To
+                    NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To
                 );
 
                 var List = RawItems
@@ -427,7 +427,7 @@ namespace NIM
         public string Key { get; set; }
 
         public string Original { get; set; }
-        public int To { get; set; }
+        public string To { get; set; }
         public string PreviousText { get; set; }
         public string CurrentText { get; set; }
         public int IsCurrent { get; set; }

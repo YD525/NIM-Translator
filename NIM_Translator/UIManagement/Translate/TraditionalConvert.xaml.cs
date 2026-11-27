@@ -102,7 +102,7 @@ namespace NIM
                             _Owner.TransListView.RealLines[i].SyncData(_Owner.Mod, ref IsCloud);
                         }));
 
-                        CloudDBCache.AddCache(_Owner.Mod.P_Translator.GetFileUniqueKey(), Key, (int)_Owner.Mod.P_Translator.To, Source, Result, "繁化姬");
+                        CloudDBCache.AddCache(_Owner.Mod.P_Translator.GetFileUniqueKey(), Key, _Owner.Mod.P_Translator.To, Source, Result, "繁化姬");
 
                         ConvertAllBtn.Dispatcher.Invoke(new Action(() => {
                             _Owner.TransListView.RealLines[i].SyncUI(_Owner.TransListView);

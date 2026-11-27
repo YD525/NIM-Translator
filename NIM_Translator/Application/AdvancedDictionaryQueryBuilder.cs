@@ -4,17 +4,17 @@ namespace NIM.ApplicationLayer
     {
         private const int MaximumRowCount = 100000;
 
-        internal static string Build(int? sourceLanguage, int? targetLanguage)
+        internal static string Build(string sourceLangCode, string targetLangCode)
         {
-            if (!sourceLanguage.HasValue || !targetLanguage.HasValue)
+            if (!string.IsNullOrEmpty(sourceLangCode) || !string.IsNullOrEmpty(targetLangCode))
             {
                 return "Select * From AdvancedDictionary Limit " + MaximumRowCount;
             }
 
             return string.Format(
-                "Select * From AdvancedDictionary Where [From] = {0} And [To] = {1} Limit {2}",
-                sourceLanguage.Value,
-                targetLanguage.Value,
+                "Select * From AdvancedDictionary Where [From] = '{0}' And [To] = '{1}' Limit {2}",
+                sourceLangCode,
+                targetLangCode,
                 MaximumRowCount);
         }
     }

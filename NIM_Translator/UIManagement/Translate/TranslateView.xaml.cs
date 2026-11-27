@@ -528,9 +528,9 @@ namespace NIM.UIManagement
         public void AutoShowTraditional()
         {
             bool IsVisible = false;
-            if (NIMApp.SelfSetting.SourceLanguage == Languages.SimplifiedChinese || NIMApp.SelfSetting.SourceLanguage == Languages.TraditionalChinese)
+            if (NIMApp.SelfSetting.SourceLanguage == "SimplifiedChinese" || NIMApp.SelfSetting.SourceLanguage == "TraditionalChinese")
             {
-                if (NIMApp.SelfSetting.SourceLanguage == Languages.TraditionalChinese || NIMApp.SelfSetting.SourceLanguage == Languages.SimplifiedChinese)
+                if (NIMApp.SelfSetting.SourceLanguage == "TraditionalChinese" || NIMApp.SelfSetting.SourceLanguage == "SimplifiedChinese")
                 {
                     Traditional.Visibility = Visibility.Visible;
                     IsVisible = true;
@@ -1799,7 +1799,7 @@ namespace NIM.UIManagement
 
                 if ((GetLine.Source + GetLine.RealSource).Trim().Length > 0)
                 {
-                    if (P_Language.DetectLanguageByLine(GetLine.Source) != Mod.P_Translator.To)
+                    if (P_Language.Detect(GetLine.Source,LanguageDetectMode.Line) != Mod.P_Translator.To.Name)
                     {
                         if (GetLine.Translated.Length == 0 && (new TranslationPreprocessor().IsOnlySymbolsAndSpaces(GetLine.Source + GetLine.RealSource)) == false)
                         {
@@ -1929,14 +1929,14 @@ namespace NIM.UIManagement
             {
                 var CloudTrans = new DataBaseView();
                 CloudTrans.Show();
-                CloudTrans.QueryFirst($"Select * From CloudTranslation Where [FileUniqueKey] = {Key} And [To] = {(int)Mod.P_Translator.To} Limit 100000");
+                CloudTrans.QueryFirst($"Select * From CloudTranslation Where [FileUniqueKey] = {Key} And [To] = '{Mod.P_Translator.To.Code}' Limit 100000");
             }
 
             if (GetUserTranslationCache == true)
             {
                 var UserTranslation = new DataBaseView();
                 UserTranslation.Show();
-                UserTranslation.QueryFirst($"Select * From LocalTranslation Where [FileUniqueKey] = {Key} And [To] = {(int)Mod.P_Translator.To} Limit 100000");
+                UserTranslation.QueryFirst($"Select * From LocalTranslation Where [FileUniqueKey] = {Key} And [To] = '{Mod.P_Translator.To.Code}' Limit 100000");
             }
         }
 

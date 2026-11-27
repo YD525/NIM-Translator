@@ -198,7 +198,7 @@ namespace NIM
         public int Style { get; set; } = 1;
         public double FormHeight { get; set; } = 850;
         public double FormWidth { get; set; } = 1200;
-        public Languages CurrentUILanguage { get; set; } = Languages.English;
+        public P_Language CurrentUILanguage { get; set; } = P_Language.English;
         public string SkyrimPath { get; set; } = "";
 
         public string LastSetModFolder { get; set; } = "";
@@ -210,8 +210,8 @@ namespace NIM
         /// <summary>Gets or sets the preview control density preference.</summary>
         public string UiDensity { get; set; } = "Compact";
 
-        public Languages SourceLanguage { get; set; } = Languages.English;
-        public Languages TargetLanguage { get; set; } = Languages.English;
+        public P_Language SourceLanguage { get; set; } = P_Language.English;
+        public P_Language TargetLanguage { get; set; } = P_Language.English;
 
         public bool CanClearCloudTranslationCache { get; set; } = false;
         public bool CanClearUserInputTranslationCache { get; set; } = false;

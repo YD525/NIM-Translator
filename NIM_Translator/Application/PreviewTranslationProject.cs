@@ -335,7 +335,7 @@ namespace NIM.ApplicationLayer
                 .GroupBy(entry => entry.Key, StringComparer.Ordinal)
                 .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);
             var result = new List<PreviewTranslationHistoryItem>();
-            foreach (var item in HistoryDBCache.GetHistoryItems(fileKey, (int)_modFile.P_Translator.To)
+            foreach (var item in HistoryDBCache.GetHistoryItems(fileKey, _modFile.P_Translator.To)
                 .OrderBy(item => item.Rowid))
             {
                 cancellationToken.ThrowIfCancellationRequested();

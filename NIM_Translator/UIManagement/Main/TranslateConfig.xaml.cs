@@ -24,8 +24,8 @@ namespace NIM
 {
     public class DictExportItem
     {
-        public int From { get; set; }
-        public int To { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
         public int ExactMatch { get; set; }
         public int IgnoreCase { get; set; }
         public string ModName { get; set; }
@@ -224,21 +224,16 @@ namespace NIM
 
             SetTypes();
 
-            foreach (var Get in UILanguageHelper.GetSupportedLanguages())
+            foreach (var Get in LanguageHub.SupportedNames)
             {
-                if (Get != Languages.Null)
+                if (Get != null)
                 {
-                    From.Items.Add(Get.ToString());
-                    SFrom.Items.Add(Get.ToString());
-                    To.Items.Add(Get.ToString());
-                    STo.Items.Add(Get.ToString());
+                    From.Items.Add(Get);
+                    SFrom.Items.Add(Get);
+                    To.Items.Add(Get);
+                    STo.Items.Add(Get);
                 }
             }
-
-            From.Items.Remove(Languages.Auto.ToString());
-            SFrom.Items.Remove(Languages.Auto.ToString());
-            To.Items.Remove(Languages.Auto.ToString());
-            STo.Items.Remove(Languages.Auto.ToString());
 
             AutoDetect.IsChecked = true;
 
@@ -261,23 +256,35 @@ namespace NIM
 
         private void FromStr_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SFrom.SelectedValue = P_Language.DetectLanguageByLine(FromStr.Text).ToString();
+            var Lang = P_Language.Detect(FromStr.Text, LanguageDetectMode.Line);
+
+            if (Lang != null)
+            {
+                SFrom.SelectedValue = Lang.Name;
+            }
         }
 
         private void SourceStr_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (AutoDetect.IsChecked == true)
             {
-                var DetectLang = P_Language.DetectLanguageByLine(SourceStr.Text);
-                if (DetectLang == Languages.SimplifiedChinese || DetectLang == Languages.TraditionalChinese)
-                {
-                    if (NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From == Languages.SimplifiedChinese || NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From == Languages.TraditionalChinese)
-                    {
-                        DetectLang = NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From;
-                    }
-                }
+                var DetectLang = P_Language.Detect(SourceStr.Text,LanguageDetectMode.Line);
 
-                From.SelectedValue = DetectLang.ToString();
+                if (DetectLang != null)
+                {
+                    if (DetectLang == "SimplifiedChinese" || DetectLang == "TraditionalChinese")
+                    {
+                        if (NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From != null)
+                        {
+                            if (NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From == "SimplifiedChinese" || NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From == "TraditionalChinese")
+                            {
+                                DetectLang = NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From;
+                            }
+                        }
+                    }
+
+                    From.SelectedValue = DetectLang.ToString();
+                }
             }
         }
 
@@ -285,12 +292,15 @@ namespace NIM
         {
             if (AutoDetect.IsChecked == true)
             {
-                var DetectLang = P_Language.DetectLanguageByLine(TargetStr.Text);
-                if (DetectLang == Languages.SimplifiedChinese || DetectLang == Languages.TraditionalChinese)
+                var DetectLang = P_Language.Detect(TargetStr.Text,LanguageDetectMode.Line);
+                if (DetectLang == "SimplifiedChinese" || DetectLang == "TraditionalChinese")
                 {
-                    if (NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To == Languages.SimplifiedChinese || NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To == Languages.TraditionalChinese)
+                    if (NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To != null)
                     {
-                        DetectLang = NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To;
+                        if (NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To == "SimplifiedChinese" || NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To == "TraditionalChinese")
+                        {
+                            DetectLang = NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To;
+                        }
                     }
                 }
                 To.SelectedValue = DetectLang.ToString();
@@ -299,11 +309,11 @@ namespace NIM
 
         public void AutoReload()
         {
-            if (FilterFrom != Languages.Null && FilterTo != Languages.Null)
+            if (FilterFrom != null && FilterTo != null)
             {
                 if (FilterFrom != FilterTo)
                 {
-                    Pages = AdvancedDictionary.QueryByPage((int)FilterFrom, (int)FilterTo, CurrentPage);
+                    Pages = AdvancedDictionary.QueryByPage(FilterFrom, FilterTo, CurrentPage);
                     KeywordList.Items.Clear();
                     foreach (var GetItem in Pages.CurrentPage)
                     {
@@ -354,15 +364,16 @@ namespace NIM
 
         public int CurrentPage = 1;
         public int MaxPage = 0;
-        public Languages FilterFrom = Languages.Null;
-        public Languages FilterTo = Languages.Null;
+        public P_Language FilterFrom = null;
+        public P_Language FilterTo = null;
 
         private void SFrom_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string GetLang = P_Convert.ObjToStr(SFrom.SelectedValue);
+
             if (GetLang.Trim().Length > 0)
             {
-                FilterFrom = (Languages)Enum.Parse(typeof(Languages), GetLang.Trim());
+                FilterFrom = LanguageHub.GetLang(GetLang);
             }
 
             if (NIMApp.WorkWin.ActiveTab != null)
@@ -393,7 +404,7 @@ namespace NIM
             string GetLang = P_Convert.ObjToStr(STo.SelectedValue);
             if (GetLang.Trim().Length > 0)
             {
-                FilterTo = (Languages)Enum.Parse(typeof(Languages), GetLang.Trim());
+                FilterTo = LanguageHub.GetLang(GetLang);
             }
 
             if (NIMApp.WorkWin.ActiveTab != null)
@@ -441,16 +452,16 @@ namespace NIM
             string FromStr = P_Convert.ObjToStr(From.SelectedValue);
             string ToStr = P_Convert.ObjToStr(To.SelectedValue);
 
-            int FromID = 0;
+            P_Language FromLang = null;
             if (FromStr.Trim().Length > 0)
             {
-                FromID = (int)(Languages)Enum.Parse(typeof(Languages), FromStr.Trim());
+                FromLang = LanguageHub.GetLang(FromStr);
             }
 
-            int ToID = 0;
+            P_Language ToLang = null;
             if (ToStr.Trim().Length > 0)
             {
-                ToID = (int)(Languages)Enum.Parse(typeof(Languages), ToStr.Trim());
+                ToLang = LanguageHub.GetLang(ToStr);
             }
 
 
@@ -495,7 +506,7 @@ namespace NIM
                 GetType = string.Empty;
             }
 
-            if (AdvancedDictionary.AddItem(new AdvancedDictionaryItem(TargetModName.Text, GetType, SourceStr.Text, TargetStr.Text, FromID, ToID, GetExactMatch, GetIgnoreCase, string.Empty)))
+            if (AdvancedDictionary.AddItem(new AdvancedDictionaryItem(TargetModName.Text, GetType, SourceStr.Text, TargetStr.Text, FromLang, ToLang, GetExactMatch, GetIgnoreCase, string.Empty)))
             {
                 SFrom.SelectedValue = FromStr;
                 STo.SelectedValue = ToStr;
@@ -547,7 +558,7 @@ namespace NIM
                 AutoID++;
                 NIMApp.WorkWin.ActiveTab.Mod.MakeReady();
 
-                if (FilterFrom != Languages.Null && FilterTo != Languages.Null)
+                if (FilterFrom != null && FilterTo != null)
                 {
                     FinalText.Text = string.Empty;
                     MatchedKeywords.Items.Clear();
@@ -666,7 +677,7 @@ namespace NIM
                     {
                         if (ExitAny) goto QuickExit;
 
-                        var GetData = AdvancedDictionary.QueryByPage((int)FilterFrom, (int)FilterTo, CurrentPage);
+                        var GetData = AdvancedDictionary.QueryByPage(FilterFrom, FilterTo, CurrentPage);
                         Count += GetData.CurrentPage.Count;
 
                         foreach (var Get in GetData.CurrentPage)
@@ -913,12 +924,19 @@ namespace NIM
             //Results are capped at 100,000 rows via LIMIT to prevent memory exhaustion, as databases may scale to GB/TB levels. This tool is intended for SQL-proficient users to manually execute conditional queries for specific records or perform bulk modifications across multiple entries using custom SQL logic.
             //Select * From AdvancedDictionary Where Source Like '%[pagebreak]%' or  Source Like '%<font' (I just threw this together to match the content of all the books.) - > Compared to using regular expressions for pattern matching, utilizing the `LIKE` and `GLOB` commands in SQL operates directly at the database engine level, enabling millisecond-level query performance.
             var translator = _Owner?.ActiveTab?.Mod?.P_Translator;
-            int? sourceLanguage = translator == null ? (int?)null : (int)translator.From;
-            int? targetLanguage = translator == null ? (int?)null : (int)translator.To;
+
+            string sourceLangCode = "";
+            string targetLangCode = "";
+
+            if (translator != null)
+            {
+                sourceLangCode = translator.From.Code;
+                targetLangCode = translator.To.Code;
+            }
 
             NIMApp.OpenDataBaseView(
                 this,
-                AdvancedDictionaryQueryBuilder.Build(sourceLanguage, targetLanguage));
+                AdvancedDictionaryQueryBuilder.Build(sourceLangCode, targetLangCode));
         }
 
         private void DetectFrom(object sender, MouseButtonEventArgs e)
@@ -928,16 +946,22 @@ namespace NIM
                 if (_Owner.ActiveTab != null)
                 {
                     LanguageDetector Detector = new LanguageDetector();
+
                     for (int i = 0; i < 700; i++)
                     {
                         if (_Owner.ActiveTab.TransListView.RealLines.Count > i)
                         {
-                            P_Language.DetectLanguage(ref Detector, _Owner.ActiveTab.TransListView.RealLines[i].Source);
+                            Detector.Add(_Owner.ActiveTab.TransListView.RealLines[i].Source);
                         }
                     }
+                    var Lang = Detector.Detect();
 
-                    _Owner.ActiveTab.Mod.P_Translator.From = Detector.GetMaxLang();
-                    SFrom.SelectedValue = _Owner.ActiveTab.Mod.P_Translator.From.ToString();
+                    if (Lang != null)
+                    {
+                        _Owner.ActiveTab.Mod.P_Translator.From = Lang;
+                    }
+
+                    SFrom.SelectedValue = _Owner.ActiveTab.Mod.P_Translator.From?.ToString();
                 }
             }
           
